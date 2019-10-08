@@ -3,8 +3,8 @@
 * L. Ghasabyan
 *
 * PROCEDURE CGN_PIN_CASEA uo2_295_kec3 ;
-PROCEDURE uo2_295_kec3 ;
+PROCEDURE CGN_PIN_A ;
 *
-* CGN_PIN_CASEA ;
-uo2_295_kec3 ;
+* uo2_295_kec3 ;
+CGN_PIN_A ;
 QUIT "LIST" .
