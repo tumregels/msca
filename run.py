@@ -4,7 +4,7 @@ import os.path as op
 import sys
 import os
 import stat
-from subprocess import Popen, PIPE, CalledProcessError
+import subprocess
 import shutil
 import glob
 
@@ -12,10 +12,8 @@ import glob
 class Config(object):
     CWD = os.getcwd()
     OUTPUT_DIR = op.join(CWD, "output")
-    LIB_DIR = op.abspath(
-        op.join(CWD, os.pardir, os.pardir, os.pardir, "libraries/l_endian")
-    )
-    LIB_FILE = op.join(LIB_DIR, "draglibJeff3p1p1SHEM295")
+    LIB_DIR = op.join(CWD, os.pardir, os.pardir, os.pardir, "libraries/l_endian")
+    LIB_FILE = op.abspath(op.join(LIB_DIR, "draglibJeff3p1p1SHEM295"))
     LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
     DRAGON_EXE = op.abspath(op.join(CWD, os.pardir, "bin/Linux_x86_64/Dragon"))
     DRAGON_INPUT_FILE = op.join(CWD, "CGN_PIN_A.x2m")
@@ -41,29 +39,43 @@ except FileExistsError:
 
 # check all paths/files exist
 assert os.path.isdir(Config.LIB_DIR) == True, "library directory missing"
-assert os.path.isfile(Config.LIB_FILE) == True, "draglibJeff3p1p1SHEM295 is missing"
-assert os.path.isfile(Config.LIB_SYMLINK) == True, "DLIB_295 symlink is missing"
-assert os.path.isfile(Config.DRAGON_INPUT_FILE) == True, "Dragon input file is missing"
-assert os.path.isfile(Config.DRAGON_EXE) == True, "Dragon exe is missing"
+assert os.path.isfile(Config.LIB_FILE) == True, "library file is missing"
+assert os.path.isfile(Config.LIB_SYMLINK) == True, "symlink is missing"
+assert os.path.isfile(Config.DRAGON_INPUT_FILE) == True, "dragon input file is missing"
+assert os.path.isfile(Config.DRAGON_EXE) == True, "dragon exe is missing"
 
-# start calculation similar to $ dragon_exe < dragon_input.x2m 2>&1 | tee dragon_output.result
-# https://stackoverflow.com/a/28319191, https://stackoverflow.com/a/163556
-with open(Config.DRAGON_INPUT_FILE) as inp, open(
-    Config.DRAGON_OUTPUT_FILE, "w"
-) as out, Popen(
-    Config.DRAGON_EXE,
-    stdout=PIPE,
-    stdin=PIPE,
-    bufsize=1,
-    universal_newlines=True,
-    cwd=Config.OUTPUT_DIR,
-    encoding="utf8",
-) as p:
-    p.stdin.write(inp.read())
-    for line in p.stdout:
-        out.write(line)
-        print(line, end="")
-        sys.stdout.flush()
 
-if p.returncode != 0:
-    raise CalledProcessError(p.returncode, p.args)
+def execute(background=False):
+    """
+    run $ dragon_exe < file.in > file.out
+    """
+    input_ = open(Config.DRAGON_INPUT_FILE)
+    output_ = open(Config.DRAGON_OUTPUT_FILE, 'w')
+
+    if background:
+        p = subprocess.Popen(
+            Config.DRAGON_EXE, 
+            stdin=input_, 
+            stdout=output_, 
+            cwd=Config.OUTPUT_DIR
+        )
+        print("process id {}".format(p.pid))
+    else:
+        p = subprocess.Popen(
+            Config.DRAGON_EXE,
+            stdout=subprocess.PIPE,
+            stdin=input_,
+            bufsize=1,
+            universal_newlines=True,
+            cwd=Config.OUTPUT_DIR
+        )
+        for line in p.stdout:
+            output_.write(line)
+            print(line, end="")
+            sys.stdout.flush()
+
+        if p.returncode != 0:
+            raise subprocess.CalledProcessError(p.returncode, p.args)
+
+        
+execute(background=True)
