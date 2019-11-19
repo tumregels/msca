@@ -1,4 +1,12 @@
 .ipynb_checkpoints/
 .mypy_cache/*
 output/*
+output_short/
+fact.c2m
+plotly.ipynb
+xfact.c2m
+burnup_rowland_analyses.txt
+burnup_step_text.txt
+run_short.py
+CGN_PIN_A_short.x2m
 *.png
