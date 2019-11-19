@@ -31,8 +31,7 @@ MODULE LIB: GEO: SYBILT: G2S: SALT: MAC: USS:
    TONE: ASM: FLU: DELETE: UTL: EVO: GREP: 
     EDI: END: ;
 
-INTEGER COMB0101 COMB0104 COMB0105 COMB0106 GAP7 GAIN2
-        MODE3 := 
+INTEGER COMB0101 COMB0104 COMB0105 COMB0106 GAP7 GAIN2 MODE3 := 
         1 4 5 6 7 2 3 ; (* DISTRIBUTED SELF-SHIELDING *)
         
 REAL N_Zr90       N_Zr91      N_Zr92       N_Zr94       N_Zr96       :=
@@ -301,24 +300,23 @@ WHILE istep nstep <= DO
   ENDIF ;
 
 
-    GREP: StepList :: GETVAL 'ListAutop' <<iauto>> >>stepauto<< ;
-    EVALUATE valstep := step2 R_TO_I ;
-    EVALUATE valauto := stepauto R_TO_I ;
+  GREP: StepList :: GETVAL 'ListAutop' <<iauto>> >>stepauto<< ;
+  EVALUATE valstep := step2 R_TO_I ;
+  EVALUATE valauto := stepauto R_TO_I ;
 
-    IF valstep valauto = THEN
+  IF valstep valauto = THEN
 
-  ECHO "StepAuto:" stepauto "MWj/t" ;
-  ECHO "Self-shielding calculation" istep "at" evoend "DAY:" ;
+    ECHO "StepAuto:" stepauto "MWj/t" ;
+    ECHO "Self-shielding calculation" istep "at" evoend "DAY:" ;
   
-  LIBRARY2 := USS: LIBRARY LIBRARY2 TRACK_SS :: 
-    EDIT 1 TRAN PASS 3 GRMIN 52 ;
+    LIBRARY2 := USS: LIBRARY LIBRARY2 TRACK_SS :: 
+     EDIT 1 TRAN PASS 3 GRMIN 52 ;
   
-    ENDIF ;
+  ENDIF ;
 
-    IF iauto nauto < THEN
-      EVALUATE iauto := iauto 1 + ;
-    ENDIF ;
-
+  IF iauto nauto < THEN
+    EVALUATE iauto := iauto 1 + ;
+  ENDIF ;
 
   ECHO "step2=" step2 "evoend=" evoend ;
 
@@ -328,29 +326,27 @@ WHILE istep nstep <= DO
   CALC := FLU: CALC CP LIBRARY2 TRACK :: EDIT 1 TYPE K ;
 
 
-EDIOBJ := EDI: EDIOBJ CALC LIBRARY2 TRACK ::
-  EDIT 5
-  MICR 11 U235 U238 Pu238 Pu239
-   Pu240 Pu241 Pu242 Am241 Am243
-   Cm242 Cm244
-  TAKE MIX 1 0 0 1 1 1 1 (*TODO check - added 1*)
-  COND 
-  SAVE ON FUEL
-;
+  EDIOBJ := EDI: EDIOBJ CALC LIBRARY2 TRACK ::
+    EDIT 5
+    MICR 11 U235 U238 Pu238 Pu239
+     Pu240 Pu241 Pu242 Am241 Am243
+     Cm242 Cm244
+    TAKE MIX 1 0 0 1 1 1 1 (*TODO check - added 1*)
+    COND 
+    SAVE ON FUEL
+  ;
 
 
-
-GREP: CALC :: GETVAL 'K-INFINITY  ' 1 1 1 >>Kinf1<< 
+  GREP: CALC :: GETVAL 'K-INFINITY  ' 1 1 1 >>Kinf1<< 
       GETVAL 'K-EFFECTIVE ' 1 1 1 >>Keff1<< ;
 
-!  ECHO "Output of FLU: at burnup:" step2 ;
-ECHO "BURNUP: " step2 "  <-> K-INFINITY : " Kinf1 ;
+  !  ECHO "Output of FLU: at burnup:" step2 ;
+  ECHO "BURNUP: " step2 "  <-> K-INFINITY : " Kinf1 ;
 
   BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 CALC TRACK :: EDIT 2
        SAVE <<evoend>> DAY POWR <<Norm_f2>> ;
 
-
- EVALUATE istep := istep 1 + ;
+  EVALUATE istep := istep 1 + ;
 
 ENDWHILE ;
 
@@ -362,3 +358,4 @@ ECHO "CGN_PIN_A completed" ;
 
 END: ;
 QUIT .
+

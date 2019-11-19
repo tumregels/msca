@@ -47,7 +47,9 @@ assert os.path.isfile(Config.DRAGON_EXE) == True, "dragon exe is missing"
 
 def execute(background=False):
     """
-    run $ dragon_exe < file.in > file.out
+    this will immitate the following behavior
+    
+    $ dragon_exe < file.in > file.out
     """
     input_ = open(Config.DRAGON_INPUT_FILE)
     output_ = open(Config.DRAGON_OUTPUT_FILE, 'w')
@@ -73,7 +75,8 @@ def execute(background=False):
             output_.write(line)
             print(line, end="")
             sys.stdout.flush()
-
+            
+        p.wait()
         if p.returncode != 0:
             raise subprocess.CalledProcessError(p.returncode, p.args)
 
