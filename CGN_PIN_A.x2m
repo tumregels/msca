@@ -99,15 +99,15 @@ LIBRARY := LIB: ::
  MIX <<COMB0105>> COMB <<COMB0101>> 1.0 (*COMB0105*)
  MIX <<COMB0106>> COMB <<COMB0101>> 1.0 (*COMB0106*)
  MIX <<COMB0107>> COMB <<COMB0101>> 1.0 (*COMB0107*)
- MIX <<GAP2>> 600.0 NOEV (*GAP7*)
+ MIX <<GAP2>> 600.0 NOEV (*GAP2*)
     O16     = O16    3.76439E-6
- MIX <<GAIN3>> 600.0 NOEV (*GAIN2*)
+ MIX <<GAIN3>> 600.0 NOEV (*GAIN3*)
     Zr90    = Zr90   <<N_Zr90>> 2 IRSET PT 1
     Zr91    = Zr91   <<N_Zr91>> 2 IRSET PT 1
     Zr92    = Zr92   <<N_Zr92>> 2 IRSET PT 1
     Zr94    = Zr94   <<N_Zr94>>
     Zr96    = Zr96   <<N_Zr96>>
- MIX <<MODE4>> 600.0 NOEV (*MODE3*)
+ MIX <<MODE4>> 600.0 NOEV (*MODE4*)
     H1      = H1_H2O 4.69585E-2
     O16     = O16    2.34793E-2
     B10     = B10    5.53089E-6
