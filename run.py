@@ -12,7 +12,7 @@ from datetime import datetime
 
 class Config(object):
     CWD = os.getcwd()
-    OUTPUT_DIR = op.join(CWD, "output_" + datetime.now().isoformat(timespec='seconds'))
+    OUTPUT_DIR = op.join(CWD, "output_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     LIB_DIR = op.join(CWD, os.pardir, os.pardir, os.pardir, "libraries/l_endian")
     LIB_FILE = op.abspath(op.join(LIB_DIR, "draglibJeff3p1p1SHEM295"))
     LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
@@ -57,6 +57,15 @@ def execute(background=False):
     this will immitate the following behavior
     
     $ dragon_exe < file.in > file.out
+    
+    to run the script
+    
+    $ ./run.py
+    
+    which will return process id if `background=False`
+    To follow up the process use top
+    
+    $ top -p process-id
     """
     input_ = open(Config.DRAGON_INPUT_FILE)
     output_ = open(Config.DRAGON_OUTPUT_FILE, 'w')
@@ -87,5 +96,5 @@ def execute(background=False):
         if p.returncode != 0:
             raise subprocess.CalledProcessError(p.returncode, p.args)
 
-        
+
 execute(background=True)
