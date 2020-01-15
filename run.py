@@ -7,16 +7,19 @@ import stat
 import subprocess
 import shutil
 import glob
+from datetime import datetime
 
 
 class Config(object):
     CWD = os.getcwd()
-    OUTPUT_DIR = op.join(CWD, "output")
+    OUTPUT_DIR = op.join(CWD, "output_" + datetime.now().isoformat(timespec='seconds'))
     LIB_DIR = op.join(CWD, os.pardir, os.pardir, os.pardir, "libraries/l_endian")
     LIB_FILE = op.abspath(op.join(LIB_DIR, "draglibJeff3p1p1SHEM295"))
     LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
     DRAGON_EXE = op.abspath(op.join(CWD, os.pardir, "bin/Linux_x86_64/Dragon"))
-    DRAGON_INPUT_FILE = op.join(CWD, "CGN_PIN_A.x2m")
+    DRAGON_INPUT_FILE_NAME = "CGN_PIN_A_SHORT.x2m"
+    DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
+    DRAGON_INPUT_FILE_COPY = op.join(OUTPUT_DIR, DRAGON_INPUT_FILE_NAME)
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, "CGN_PIN_A.result")
 
 
@@ -37,11 +40,15 @@ try:
 except FileExistsError:
     pass
 
+# copy input file into output directory
+shutil.copyfile(Config.DRAGON_INPUT_FILE, Config.DRAGON_INPUT_FILE_COPY)
+
 # check all paths/files exist
 assert os.path.isdir(Config.LIB_DIR) == True, "library directory missing"
 assert os.path.isfile(Config.LIB_FILE) == True, "library file is missing"
 assert os.path.isfile(Config.LIB_SYMLINK) == True, "symlink is missing"
 assert os.path.isfile(Config.DRAGON_INPUT_FILE) == True, "dragon input file is missing"
+assert os.path.isfile(Config.DRAGON_INPUT_FILE_COPY) == True, "copy of dragon input file is missing"
 assert os.path.isfile(Config.DRAGON_EXE) == True, "dragon exe is missing"
 
 
