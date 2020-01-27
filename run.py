@@ -1,4 +1,5 @@
 #!/home/legha/bin/miniconda3/envs/jupyter/bin/python3
+import json
 import os
 import os.path as op
 import sys
@@ -17,10 +18,11 @@ class Config(object):
     LIB_FILE = op.abspath(op.join(LIB_DIR, "draglibJeff3p1p1SHEM295"))
     LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
     DRAGON_EXE = op.abspath(op.join(CWD, os.pardir, "bin/Linux_x86_64/Dragon"))
-    DRAGON_INPUT_FILE_NAME = "CGN_PIN_A_SHORT.x2m"
+    DRAGON_INPUT_FILE_NAME = "CGN_PIN_A.x2m"
     DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
     DRAGON_INPUT_FILE_COPY = op.join(OUTPUT_DIR, DRAGON_INPUT_FILE_NAME)
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, "CGN_PIN_A.result")
+    CONFIG_FILE = op.join(OUTPUT_DIR, "config.json")
 
 
 # create output directory if missing
@@ -42,6 +44,10 @@ except FileExistsError:
 
 # copy input file into output directory
 shutil.copyfile(Config.DRAGON_INPUT_FILE, Config.DRAGON_INPUT_FILE_COPY)
+                          
+# write config file
+with open(Config.CONFIG_FILE, "w") as f:
+    f.write(json.dumps({k: v for k, v in dict(vars(Config)).items() if not k.startswith('__')}, indent=4))
 
 # check all paths/files exist
 assert os.path.isdir(Config.LIB_DIR) == True, "library directory missing"
