@@ -1,56 +1,23 @@
-#!/usr/bin/env python
-# coding: utf-8
+# ## Compare the following information
+# 
+# * Fission and capture reaction rate comparisons at each burnup step
+# * Number density evolution for typical isotopes with burnup
+# * Keff comparison at each burnup step (DRAGON+)
+# * Fission map comparison at each burnup step 
 
-# In[2]:
 
-
-#%matplotlib inline
 import os
 import sys
 import re
 from pprint import pprint
 from decimal import Decimal
 import os.path as op
-from IPython.display import Image
 import matplotlib.pyplot as plt
 from typing import Iterator, Tuple, List, Dict
 from matplotlib.ticker import FormatStrFormatter, ScalarFormatter
+from IPython.display import Image
 import contextlib
 import doctest
-
-with contextlib.redirect_stdout(None):
-  print("This won't print!")
-
-
-# In[3]:
-
-
-long_calc_path = '/home/legha/bin/Version5_ev1738/Dragon/Linux_x86_64/msca'
-with open(op.join(long_calc_path, 'CGN_PIN_A.result')) as f:
-    long_str = f.read()
-
-short_calc_path = '/home/legha/bin/Version5_ev1738/Dragon/msca/output_short'
-with open(op.join(short_calc_path, 'CGN_PIN_A_short.result')) as f:
-    short_str = f.read()
-
-
-# In[4]:
-
-
-end='.*\n'
-line=[m.end() for m in re.finditer(end, long_str)]
-
-with contextlib.redirect_stdout(None):
-    pattern = '>\|(BURNUP step \d+.*?)(?=>\|BURNUP step|>\|CGN_PIN_A completed)'
-    match=re.compile(pattern, re.MULTILINE|re.DOTALL)
-    for m in re.finditer(match, long_str):
-        lineno = next(i+1 for i in range(len(line)) if line[i]>m.start(1))
-        endno = lineno + len(m.group().splitlines()) - 1
-        text = m.group()[:70]
-        print(f'lineno start:{lineno: <6} end:{endno: <6} text: {text}')
-
-
-# In[5]:
 
 
 def parse_echo(s : str)-> Iterator[str]:
@@ -73,12 +40,6 @@ def parse_echo(s : str)-> Iterator[str]:
         yield f'start:{lineno: <6} end:{endno: <6} text: {text}'
     else:
         yield ''
-        
-for i in parse_echo(short_str): print(i)
-doctest.testmod()
-
-
-# In[6]:
 
 
 def parse_burnup_vs_kinf(s: str, debug: bool = False)-> List[Tuple[Decimal, Decimal]]:
@@ -103,21 +64,10 @@ def parse_burnup_vs_kinf(s: str, debug: bool = False)-> List[Tuple[Decimal, Deci
         text = m.group()
         burnup = Decimal(m.group("burnup").strip())
         kinf = Decimal(m.group("kinf").strip())
-        print(f'''start:{lineno: <6} end:{endno: <6} burnup: {float(burnup)} kinf: {float(kinf)} text: {text}''') if debug else None
+        print(f'start:{lineno: <6} end:{endno: <6} burnup: {float(burnup)} kinf: {float(kinf)} text: {text}') if debug else None
         burn_vs_kinf.append((burnup, kinf))
         
     return burn_vs_kinf
-
-doctest.testmod()
-
-
-# In[8]:
-
-
-burnup_vs_kinf = parse_burnup_vs_kinf(short_str, debug=True)
-
-
-# In[9]:
 
 
 def plot_burnup_vs_kinf(data: List[Tuple[Decimal, Decimal]])-> Image:
@@ -138,13 +88,6 @@ def plot_burnup_vs_kinf(data: List[Tuple[Decimal, Decimal]])-> Image:
     return Image(filename, width=600, height=600)
 
 
-burnup_vs_kinf = parse_burnup_vs_kinf(long_str)
-plot_burnup_vs_kinf(data=burnup_vs_kinf)
-
-
-# In[10]:
-
-
 def get_burnup_step_data(s: str, debug: bool = False) -> Iterator[Tuple[str, str]]:
     end='.*\n'
     line=[m.end() for m in re.finditer(end, s)]
@@ -158,15 +101,6 @@ def get_burnup_step_data(s: str, debug: bool = False) -> Iterator[Tuple[str, str
         step = m.group('step')
         print(f'lineno start:{lineno: <6} end:{endno: <6} step: {step} text: {text[:70]}') if debug else None
         yield step, text
-        
-for step, text in get_burnup_step_data(long_str, debug=True):
-    print(step)
-    print(text)
-    #parse_burnup_vs_kinf(text)
-    break
-
-
-# In[11]:
 
 
 def get_iso_density_per_ring(s: str, debug: bool = False) -> List[Tuple[str, str, Decimal]]:
@@ -187,12 +121,9 @@ def get_iso_density_per_ring(s: str, debug: bool = False) -> List[Tuple[str, str
     return iso_data
 
 
-# In[16]:
-
-
 def get_iso_dens_vs_burnup(s: str, debug: bool = False) -> Dict[Decimal, List[Tuple[str, str, Decimal]]]:
     iso_dens_vs_burnup = {}
-    for burnup_step, burnup_step_text in get_burnup_step_data(long_str, debug=debug):
+    for burnup_step, burnup_step_text in get_burnup_step_data(s, debug=debug):
         print(burnup_step, burnup_step_text[:70] + '...') if debug else None
         iso_data = get_iso_density_per_ring(burnup_step_text, debug=debug)
         burnup_value = parse_burnup_vs_kinf(burnup_step_text, debug=debug)[0][0]
@@ -200,17 +131,12 @@ def get_iso_dens_vs_burnup(s: str, debug: bool = False) -> Dict[Decimal, List[Tu
         iso_dens_vs_burnup[burnup_value] = iso_data
     return iso_dens_vs_burnup
 
-iso_dens_vs_burnup = get_iso_dens_vs_burnup(short_str, debug=False)
-
-
-# In[15]:
-
 
 def plot_atomic_dens_vs_burnup(d: Dict[Decimal, List[Tuple[str, str, Decimal]]]) -> Image:
-    burnup = [ k/1000 for k in iso_dens_vs_burnup.keys()]
-    pu239 = [v[0][2] for _, v in iso_dens_vs_burnup.items() if v[0][0]=='Pu239']
-    u235 = [v[4][2] for _, v in iso_dens_vs_burnup.items() if v[4][0]=='U235']
-    pu241 = [v[8][2] for _, v in iso_dens_vs_burnup.items() if v[8][0]=='Pu241']
+    burnup = [ k/1000 for k in d.keys()]
+    pu239 = [v[0][2] for _, v in d.items() if v[0][0]=='Pu239']
+    u235 = [v[4][2] for _, v in d.items() if v[4][0]=='U235']
+    pu241 = [v[8][2] for _, v in d.items() if v[8][0]=='Pu241']
     
     fig = plt.figure()
     plt.plot(burnup,u235, label='U235', linestyle=':', color='r', linewidth=3) # dotted
@@ -228,30 +154,33 @@ def plot_atomic_dens_vs_burnup(d: Dict[Decimal, List[Tuple[str, str, Decimal]]])
     # plt.show()
     plt.close(fig)
     return Image(filename, width=500, height=500)
-   
-plot_atomic_dens_vs_burnup(d=iso_dens_vs_burnup)
 
 
-# In[ ]:
+def create_plots(result: str)-> None:
+    cwd = os.getcwd()
+    input_abs_path = op.abspath(op.dirname(result))
+    input_file_name = op.basename(result)
+    
+    os.chdir(input_abs_path)
+    
+    with open(input_file_name) as f:
+        long_str = f.read()
+
+    burnup_vs_kinf = parse_burnup_vs_kinf(long_str)
+    plot_burnup_vs_kinf(data=burnup_vs_kinf)
+
+    iso_dens_vs_burnup = get_iso_dens_vs_burnup(long_str, debug=False)
+    plot_atomic_dens_vs_burnup(d=iso_dens_vs_burnup)
+    
+    os.chdir(cwd)
 
 
-def convert_view_execute()-> None:
-    get_ipython().system('jupyter nbconvert parse.ipynb --to python')
-    get_ipython().system('cat parse.py')
-    get_ipython().run_line_magic('run', 'parse.py')
-
-
-# In[21]:
-
-
-def check_mypy()-> None:
-    get_ipython().system('jupyter nbconvert parse.ipynb --to python')
-    get_ipython().system('mypy parse.py')
-check_mypy()
-
-
-# In[ ]:
-
-
-
-
+if __name__ == '__main__':
+    results = [
+        'output_CGN_PIN_A_2020-01-27_16-03-18/CGN_PIN_A.result',
+        'output_CGN_PIN_B_2020-01-27_16-27-30/CGN_PIN_B.result',
+        'output_CGN_PIN_C_2020-01-27_16-51-51/CGN_PIN_C.result'
+    ]
+    
+    for result in results:
+        create_plots(result)
