@@ -11,21 +11,18 @@ import glob
 from datetime import datetime
 
 
-
-
-
 def init(config):
     """initialize calculation"""
     # create output directory if missing
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
 
     # cleanup previous calculation results
-    files = glob.glob(os.path.join(config.OUTPUT_DIR, "*"))
+    files = glob.glob(op.join(config.OUTPUT_DIR, "*"))
     for f in files:
         os.remove(f)
 
     # remove old symlink and create new one
-    if os.path.isfile(config.LIB_SYMLINK):
+    if op.isfile(config.LIB_SYMLINK):
         os.remove(config.LIB_SYMLINK)
 
     try:
@@ -34,19 +31,22 @@ def init(config):
         pass
 
     # copy input file into output directory
-    shutil.copyfile(config.DRAGON_INPUT_FILE, config.DRAGON_INPUT_FILE_COPY)
-
-    # write config file
-    with open(config.CONFIG_FILE, "w") as f:
-        f.write(json.dumps({k: v for k, v in dict(vars(config)).items() if not k.startswith('__')}, indent=4))
+    shutil.copy(config.DRAGON_INPUT_FILE, config.OUTPUT_DIR)
+    
+    if hasattr(config, "DRAGON_INPUT_SUPPORT_FILES"):
+        for file in config.DRAGON_INPUT_SUPPORT_FILES:
+            shutil.copy(file, config.OUTPUT_DIR)
 
     # check all paths/files exist
-    assert os.path.isdir(config.LIB_DIR) == True, "library directory missing"
-    assert os.path.isfile(config.LIB_FILE) == True, "library file is missing"
-    assert os.path.isfile(config.LIB_SYMLINK) == True, "symlink is missing"
-    assert os.path.isfile(config.DRAGON_INPUT_FILE) == True, "dragon input file is missing"
-    assert os.path.isfile(config.DRAGON_INPUT_FILE_COPY) == True, "copy of dragon input file is missing"
-    assert os.path.isfile(config.DRAGON_EXE) == True, "dragon exe is missing"
+    assert op.isdir(config.LIB_DIR) == True, "library directory missing"
+    assert op.isfile(config.LIB_FILE) == True, "library file is missing"
+    assert op.isfile(config.LIB_SYMLINK) == True, "symlink is missing"
+    assert op.isfile(config.DRAGON_INPUT_FILE) == True, "dragon input file is missing"
+    assert op.isfile(config.DRAGON_EXE) == True, "dragon exe is missing"
+
+    # write config file
+    with open(op.join(config.OUTPUT_DIR, "config.json"), "w") as f:
+        f.write(json.dumps({k: v for k, v in dict(vars(config)).items() if not k.startswith('__')}, indent=4))
 
 
 def execute(config, background=False):
@@ -109,12 +109,10 @@ class ConfigShortA(object):
     DRAGON_EXE = op.abspath(op.join(CWD, os.pardir, "bin/Linux_x86_64/Dragon"))
     DRAGON_INPUT_FILE_NAME = INPUT + ".x2m"
     DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
-    DRAGON_INPUT_FILE_COPY = op.join(OUTPUT_DIR, DRAGON_INPUT_FILE_NAME)
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
-    CONFIG_FILE = op.join(OUTPUT_DIR, "config.json")
     
     
-# execute(config=ConfigShortA, background=True).wait()
+execute(config=ConfigShortA, background=True)# .wait()
 
 
 class ConfigPinA(object):
@@ -127,12 +125,10 @@ class ConfigPinA(object):
     DRAGON_EXE = op.abspath(op.join(CWD, os.pardir, "bin/Linux_x86_64/Dragon"))
     DRAGON_INPUT_FILE_NAME = INPUT + ".x2m"
     DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
-    DRAGON_INPUT_FILE_COPY = op.join(OUTPUT_DIR, DRAGON_INPUT_FILE_NAME)
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
-    CONFIG_FILE = op.join(OUTPUT_DIR, "config.json")
 
 
-execute(config=ConfigPinA, background=True).wait()
+#execute(config=ConfigPinA, background=True).wait()
 
 
 class ConfigPinB(object):
@@ -145,12 +141,10 @@ class ConfigPinB(object):
     DRAGON_EXE = op.abspath(op.join(CWD, os.pardir, "bin/Linux_x86_64/Dragon"))
     DRAGON_INPUT_FILE_NAME = INPUT + ".x2m"
     DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
-    DRAGON_INPUT_FILE_COPY = op.join(OUTPUT_DIR, DRAGON_INPUT_FILE_NAME)
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
-    CONFIG_FILE = op.join(OUTPUT_DIR, "config.json")
 
     
-execute(config=ConfigPinB, background=True).wait()
+#execute(config=ConfigPinB, background=True).wait()
 
 
 class ConfigPinC(object):
@@ -163,9 +157,24 @@ class ConfigPinC(object):
     DRAGON_EXE = op.abspath(op.join(CWD, os.pardir, "bin/Linux_x86_64/Dragon"))
     DRAGON_INPUT_FILE_NAME = INPUT + ".x2m"
     DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
-    DRAGON_INPUT_FILE_COPY = op.join(OUTPUT_DIR, DRAGON_INPUT_FILE_NAME)
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
-    CONFIG_FILE = op.join(OUTPUT_DIR, "config.json")
 
 
-execute(config=ConfigPinC, background=True).wait()
+#execute(config=ConfigPinC, background=True).wait()
+
+
+class ConfigAssembly(object):
+    INPUT = "UOX_TBH_eighth_1level"
+    CWD = os.getcwd()
+    OUTPUT_DIR = op.join(CWD, "output" + "_" + INPUT + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    LIB_DIR = op.join(CWD, os.pardir, os.pardir, os.pardir, "libraries/l_endian")
+    LIB_FILE = op.abspath(op.join(LIB_DIR, "draglibJeff3p1p1SHEM295"))
+    LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
+    DRAGON_EXE = op.abspath(op.join(CWD, os.pardir, "bin/Linux_x86_64/Dragon"))
+    DRAGON_INPUT_FILE_NAME = INPUT + ".x2m"
+    DRAGON_INPUT_FILE = op.join(CWD, 'level1', DRAGON_INPUT_FILE_NAME)
+    DRAGON_INPUT_SUPPORT_FILES = ['level1/Geo_SS_32.c2m', 'level1/MultLIBEQ_32.c2m', 
+                                  'level1/Mix_UOX_32.c2m', 'level1/UOX_TBH.dat', 'assertS.c2m']
+    DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
+    
+#execute(config=ConfigAssembly, background=True)# .wait()
