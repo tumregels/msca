@@ -102,7 +102,7 @@ def execute(config, background=False):
 class Config_CGN_ASSEMBLY_A(object):
     INPUT = "UOX+B_TBH_eighth_2level_g2s"
     CWD = os.getcwd()
-    OUTPUT_DIR = op.join(CWD, "output" + "_" + INPUT + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    OUTPUT_DIR = op.join(CWD, "output" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     LIB_DIR = "/home/legha/bin/libraries/l_endian"
     LIB_FILE = op.join(LIB_DIR, "draglibJeff3p1p1SHEM295")
     LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
