@@ -26,18 +26,18 @@ PROCEDURE assertS ;
 ************************************************************************
 *  BEGIN GEOMETRY                                                      *
 ************************************************************************
-EVALUATE Rcomb4 := 0.4083 ;
+EVALUATE Rcomb4 := 0.4096 ;
 EVALUATE Rcomb1 := 0.5 SQRT Rcomb4 * ;
 EVALUATE Rcomb2 := 0.8 SQRT Rcomb4 * ;
 EVALUATE Rcomb3 := 0.95 SQRT Rcomb4 * ;
 EVALUATE Rtub1  := 0.1897 ;
 EVALUATE Rtub2  := 0.3794 ;
-EVALUATE R_int_TG := 0.5691 ;
-EVALUATE R_ext_TG := 0.6095 ;
-EVALUATE R_int_TI := 0.5691 ;
-EVALUATE R_ext_TI := 0.6095 ;
-EVALUATE R_int_G := 0.4165 ;
-EVALUATE R_ext_G := 0.4775 ;
+EVALUATE R_int_TG := 0.5605 ;
+EVALUATE R_ext_TG := 0.6225 ;
+EVALUATE R_int_TI := 0.5725 ;
+EVALUATE R_ext_TI := 0.6225 ;
+EVALUATE R_int_G := 0.4180 ;
+EVALUATE R_ext_G := 0.4750 ;
 EVALUATE Cote := 1.26 ;
 EVALUATE CoteL := 1.302 ;
 EVALUATE Lame := CoteL Cote - ;
