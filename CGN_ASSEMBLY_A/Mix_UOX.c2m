@@ -43,36 +43,29 @@ LIBRARY := LIB: ::
 *----
 *    Moderator
 *----
-  MIX 1 574.0 NOEV
-    H1        = H1_H2O   4.857179E-2
-    O16       = O16      2.432236E-2
-    B10       = B10      4.841415E-6
-    B11       = B11      1.948730E-5
-
+  MIX 1 600.0 NOEV
+    H1        = H1_H2O   4.69585E-2
+    O16       = O16      2.34793E-2
+    B10       = B10      5.53089E-6
+    B11       = B11      2.18498E-5
 *----
 *    Cladding TI
 *----
-  MIX 2 574.0 NOEV
-    Zr90     = Zr90     2.17736E-2 
-    Zr91     = Zr91     4.74830E-3 2 IRSET PT 1
-    Zr92     = Zr92     7.25788E-3
-    Zr94     = Zr94     7.35521E-3
-    Zr96     = Zr96     1.18496E-3
+  MIX 2 600.0 NOEV
+    Zr90      = Zr90     2.165762E-2
+    Zr91      = Zr91     4.723000E-3 2 IRSET PT 1
+    Zr92      = Zr92     7.219212E-3 
+    Zr94      = Zr94     7.316029E-3
+    Zr96      = Zr96     1.178642E-3
 
 *----
 *    Fuel -> 8 * 4 evolving mixes
 *----
 * C1 Cell
-  MIX 3 874.0
-    U234  = U234  6.9950E-6
-    U235  = U235  9.2868E-4 1 IRSET PT 1
-    U238  = U238  2.2000E-2 1 IRSET PT 1
-    Pu238 = Pu238 1.E-20    1 IRSET PT 1
-    Pu239 = Pu239 1.E-20    1 IRSET PT 1
-    Pu240 = Pu240 1.E-20    1 IRSET PT 1
-    Pu241 = Pu241 1.E-20    1 IRSET PT 1
-    Pu242 = Pu242 1.E-20    1 IRSET PT 1
-    O16   = O16   4.5871E-2
+  MIX 3 900.0
+    U235      = U235     4.08785E-4 1 IRSET PT 1
+    U238      = U238     2.20157E-2 1 IRSET PT 1
+    O16       = O16      4.48565E-2
   MIX 4 
     COMB 3 1.0
   MIX 5 
@@ -83,18 +76,17 @@ LIBRARY := LIB: ::
 *----
 *    Gap
 *----
-  MIX 7 574.0 NOEV
-    Al27     = Al27    1.00E-08
-
+  MIX 7 600.0 NOEV
+     O16      = O16      3.76439E-6
 *----
 *    Cladding fuel
 *----
-  MIX 8 574.0 NOEV
-    Zr90     = Zr90     2.17736E-2 
-    Zr91     = Zr91     4.74830E-3 3 IRSET PT 1
-    Zr92     = Zr92     7.25788E-3
-    Zr94     = Zr94     7.35521E-3
-    Zr96     = Zr96     1.18496E-3
+  MIX 8 600.0 NOEV
+    Zr90      = Zr90     2.165762E-2
+    Zr91      = Zr91     4.723000E-3 3 IRSET PT 1
+    Zr92      = Zr92     7.219212E-3 
+    Zr94      = Zr94     7.316029E-3
+    Zr96      = Zr96     1.178642E-3
 
 * C2 Cell
   MIX 9
