@@ -1,6 +1,5 @@
 # Makefile for rsync
 SHELL := /bin/bash
-VERSION = 0.0.2
 
 help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -61,19 +60,19 @@ pull-assembly-c-dry:
 
 # CGN_PIN_A
 .PHONY: push-pin-a
-push-pin-a:
+push-pin-a: ## push CGN_PIN_A
 	rsync -avzP ./CGN_PIN_A boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
 
 .PHONY: push-pin-a-dry
-push-pin-a-dry:
+push-pin-a-dry: ## push dry CGN_PIN_A
 	rsync -anv ./CGN_PIN_A boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
 
 .PHONY: pull-pin-a
-pull-pin-a:
+pull-pin-a: ## pull CGN_PIN_A
 	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_A . 
 
 .PHONY: pull-pin-a-dry
-pull-pin-a-dry:
+pull-pin-a-dry: ## pull dry CGN_PIN_A
 	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_A . --delete --dry-run
 
 
