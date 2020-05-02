@@ -110,3 +110,21 @@ pull-pin-c:
 .PHONY: pull-pin-c-dry
 pull-pin-c-dry:
 	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_C . --delete --dry-run
+
+
+# CGN_PIN_A_SHORT
+.PHONY: push-pin-short
+push-pin-short: ## push CGN_PIN_A_SHORT
+	rsync -avzP ./CGN_PIN_A_SHORT boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+
+.PHONY: push-pin-short-dry
+push-pin-short-dry: ## push CGN_PIN_A_SHORT dry
+	rsync -anv ./CGN_PIN_A_SHORT boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+
+.PHONY: pull-pin-short
+pull-pin-short: ## pull CGN_PIN_A_SHORT
+	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_A_SHORT . 
+
+.PHONY: pull-pin-short-dry
+pull-pin-short-dry: ## pull CGN_PIN_A_SHORT dry
+	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_A_SHORT . --delete --dry-run

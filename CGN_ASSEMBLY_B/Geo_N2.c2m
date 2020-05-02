@@ -20,8 +20,8 @@
 *    Rcomb4     : 100/100 of outer radius of fuel (cm)
 *    R_int_TG   : Inner radius of cladding of guide tube (cm)
 *    R_ext_TG   : Outer radius of cladding of guide tube (cm)
-*    R_int_TI   : Inner radius of cladding of guide tube (cm)
-*    R_ext_TI   : Outer radius of cladding of guide tube (cm)
+*    R_int_TI   : Inner radius of cladding of instrumentation tube (cm)
+*    R_ext_TI   : Outer radius of cladding of instrumentation tube (cm)
 *    R_int_G    : Inner radius of cladding of fuel tube (cm)
 *    R_ext_G    : Outer radius of cladding of fuel tube (cm)
 *    Cote       : Lattice pitch (cm)
@@ -79,12 +79,12 @@ GEON2 := GEO: :: CAR2D 10 10
   X- DIAG X+ REFL
   Y- SYME Y+ DIAG
   CELL
-  TI C0201 C0301    TG   C0501  G0601   TG    C0801 C0901 Lame_V  
+  TI C0201 C0301     TG  C0501  C0601     TG  C0801 C0901 Lame_V  
      C0202 C0302  C0402  C0502  C0602  C0702  C0802 C0902 Lame_V  
-           G0303  C0403  C0503  C0603  C0703  C0803 C0903 Lame_V  
-                    TG   C0504  C0604   TG    C0804 C0904 Lame_V  
-                         G0505  C0605  C0705  C0805 C0905 Lame_V  
-                                  TG   C0706  C0806 C0906 Lame_V  
+           C0303  C0403  C0503  G0603  C0703  C0803 C0903 Lame_V  
+                     TG  C0504  C0604     TG  C0804 C0904 Lame_V  
+                         C0505  C0605  C0705  C0805 C0905 Lame_V  
+                                   TG  C0706  C0806 C0906 Lame_V  
                                        C0707  C0807 C0907 Lame_V  
                                               C0808 C0908 Lame_V  
                                                     C0909 Lame_V  
@@ -118,7 +118,7 @@ GEON2 := GEO: :: CAR2D 10 10
   ::: C0302 := GEO: C0201
          MIX  17 18 19 20   7 8 1 1 1 1 1 1 1 1 1 1 1 1 ;
 
-  ::: G0303 := GEO: CARCEL 8
+  ::: G0603 := GEO: CARCEL 8
          MESHX 0.0 <<Cote>>
          MESHY 0.0 <<Cote>>
          SECT 4 8
@@ -144,11 +144,14 @@ GEON2 := GEO: :: CAR2D 10 10
   ::: C0504 := GEO: C0201
          MIX  48 49 50 51   7 8 1 1 1 1 1 1 1 1 1 1 1 1 ;
 
-  ::: G0505 := GEO: G0303
-         MIX  52 53 54 55 56 57  7 8 1 1 1 1 1 1 1 1 1 1 1 1 ;
+  ::: C0303 := GEO: C0201
+         MIX  52 53 54 55   7 8 1 1 1 1 1 1 1 1 1 1 1 1 ;
 
-  ::: G0601 := GEO: G0303
-         MIX  58 59 60 61 62 63  7 8 1 1 1 1 1 1 1 1 1 1 1 1 ;
+  ::: C0505 := GEO: C0201
+         MIX  56 57 58 59   7 8 1 1 1 1 1 1 1 1 1 1 1 1 ;
+
+  ::: C0601 := GEO: C0201
+         MIX  60 60 61 63  7 8 1 1 1 1 1 1 1 1 1 1 1 1 ;
 
   ::: C0602 := GEO: C0201
          MIX  64 65 66 67   7 8 1 1 1 1 1 1 1 1 1 1 1 1 ;
@@ -232,7 +235,7 @@ GEON2 := GEO: :: CAR2D 10 10
          MESHX 0.0 <<Cote>>
          MESHY 0.0 <<Cote>>
          SECT 3 1
-         RADIUS 0.0 <<Rtub1>> <<Rtub2>> <<R_int_TI>> <<R_ext_TI>>
+         RADIUS 0.0 <<Rtub1>> <<Rtub2>> <<R_int_TG>> <<R_ext_TG>>
          MIX 1
              1  1  1  1  1  1  1  1
              1  1  1  1  1  1  1  1

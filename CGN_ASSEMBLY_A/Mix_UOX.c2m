@@ -12,6 +12,14 @@
 *    <<dens_mod>> <<pbore>> <<N_U5_UOX>> <<densU_UOX>>
 *    <<temp_comb>> <<temp_mode>> <<temp_clad>> ;
 *
+*  Input data   :
+*    dens_mod   : Theoretical moderator density
+*    pbore      : Natural boron concentration (ppm)
+*    N_U5_UOX   : U235 enrichment in UOX-Fuel
+*    densU_UOX  : Theoretical density of Uranium in UOX-Fuel
+*    temp_comb  : Theoretical Fuel temperature (K)
+*    temp_mode  : Theoretical moderator temperature (K)
+*    temp_clad  : Theoretical clad temperature (K)
 *
 *  Output data  :
 *    LIBRARY    : Microlib with table of probabilities
