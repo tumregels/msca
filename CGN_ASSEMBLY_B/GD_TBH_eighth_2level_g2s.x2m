@@ -16,7 +16,7 @@ SEQ_ASCII FIG_GD :: FILE './FIG_GD.ps' ;
 SEQ_BINARY TF_EXC ;
 INTEGER an2d := 8 ;
 REAL densur := 20.0 ;
-INTEGER istep maxstep iNext maxautop iAutop := 0 108 0 6 1 ;
+INTEGER istep maxstep iNext maxautop iAutop := 0 108 0 8 1 ;
 INTEGER i istepNext := 0 0 ;
 REAL BU BUautop  := 0.0 0.0 ;
 REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
@@ -105,7 +105,8 @@ DONNEES := UTL: ::
 DONNEES := UTL: DONNEES ::
     CREA
           AUTOP <<maxautop>> =
-         4000.0    8000.0   12000.0   24500.0   36500.0   48500.0
+          4000.0    8000.0   12000.0   24500.0   36500.0   48500.0
+         60500.0   70000.0
     ;
 ************************************************************************
 *  END DECLARATION                                                     *
