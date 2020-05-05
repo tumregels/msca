@@ -11,3 +11,5 @@
 - [ ] remove Rtub1 Rtub2 (ask Hebert)
 - [ ] `RADIUS 0.0 <<Rtub1>> <<Rtub2>> <<R_int_TI>> <<R_ext_TI>>` in CGN_ASSEMBLY_B/Geo_N2.c2m and
       `RADIUS 0.0 <<Rtub1>> <<Rtub2>> <<R_int_TG>> <<R_ext_TG>>` in CGN_ASSEMBLY_A/Geo_N2.c2m
+
+- [ ] ask logic behind `DONNEES := UTL: DONNEES :: CREA AUTOP <<maxautop>> = `...
