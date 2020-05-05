@@ -49,6 +49,15 @@ def init(config):
         f.write(json.dumps({k: v for k, v in dict(vars(config)).items() if not k.startswith('__')}, indent=4))
 
 
+def save_pid(file_dir, process_id):
+    """save process id to file"""
+
+    print("process id {}".format(process_id))
+    file_name = op.join(file_dir, "{}.pid".format(process_id))
+    with open(file_name, "w") as f:
+        f.write("process id: {}".format(process_id))
+
+
 def execute(config, background=False):
     """
     this will immitate the following behavior
@@ -77,7 +86,7 @@ def execute(config, background=False):
             stdout=output_, 
             cwd=config.OUTPUT_DIR
         )
-        print("process id {}".format(p.pid))
+        save_pid(config.OUTPUT_DIR, p.pid)
     else:
         p = subprocess.Popen(
             config.DRAGON_EXE,
