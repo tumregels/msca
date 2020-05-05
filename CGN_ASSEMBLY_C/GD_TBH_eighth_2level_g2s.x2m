@@ -1,0 +1,368 @@
+*----
+* 295-group/26group eighth assembly in DRAGON
+* Author: A. Canbakan
+*----
+LINKED_LIST GEOSS GEON1 GEON2 TRACKSS TRACKN1 TRACKN2 LIBRARY LIBRARY2
+            SYS FLUX FLUX2 EDITION LIBEQ DONNEES LIBHOM BURNUP 
+            EDIHOM RES ;
+MODULE SYBILT: G2S: SALT: MCCGT: USS: ASM: FLU: EDI: SPH: UTL: DELETE:
+       END: EVO: GREP: LIB: ;
+REAL Rcomb1 Rcomb2 Rcomb3 Rcomb4 Rcomb5 Rcomb6 R_int_TG R_ext_TG 
+R_int_TI R_ext_TI R_int_G R_ext_G Cote CoteL RmodeN1 Lame Rtub1 Rtub2 ;
+REAL Rcomb1Gad Rcomb2Gad Rcomb3Gad Rcomb4Gad Rcomb5Gad Rcomb6Gad ;
+SEQ_ASCII GD_TBH :: FILE './GD_TBH_g2s.txt' ;
+SEQ_ASCII BCOND2 :: FILE './GD_R_BCOND2.txt' ;
+SEQ_ASCII FIG_GD :: FILE './FIG_GD.ps' ;
+SEQ_BINARY TF_EXC ;
+INTEGER an2d := 8 ;
+REAL densur := 20.0 ;
+INTEGER istep maxstep iNext maxautop iAutop := 0 108 0 8 1 ;
+INTEGER i istepNext := 0 0 ;
+REAL BU BUautop  := 0.0 0.0 ;
+REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
+REAL Fuelpwr Keff := 36.8 0.0 ;
+STRING Library := "DLIB_295" ;
+PROCEDURE Geo_SS Geo_N1 Geo_N2 Mix_Gad MultLIBEQ ;
+PROCEDURE assertS ;
+
+************************************************************************
+*  BEGIN GEOMETRY                                                      *
+************************************************************************
+EVALUATE Rcomb4 := 0.4096 ;
+EVALUATE Rcomb1 := 0.5 SQRT Rcomb4 * ;
+EVALUATE Rcomb2 := 0.8 SQRT Rcomb4 * ;
+EVALUATE Rcomb3 := 0.95 SQRT Rcomb4 * ;
+EVALUATE Rtub1  := 0.1897 ;
+EVALUATE Rtub2  := 0.3794 ;
+EVALUATE Rcomb6Gad := 0.4096 ;
+EVALUATE Rcomb1Gad := 0.2 SQRT Rcomb6Gad * ;
+EVALUATE Rcomb2Gad := 0.4 SQRT Rcomb6Gad * ;
+EVALUATE Rcomb3Gad := 0.6 SQRT Rcomb6Gad * ;
+EVALUATE Rcomb4Gad := 0.8 SQRT Rcomb6Gad * ;
+EVALUATE Rcomb5Gad := 0.95 SQRT Rcomb6Gad * ;
+EVALUATE R_int_TG := 0.5605 ;
+EVALUATE R_ext_TG := 0.6225 ;
+EVALUATE R_int_TI := 0.5725 ;
+EVALUATE R_ext_TI := 0.6225 ;
+EVALUATE R_int_G := 0.4180 ;
+EVALUATE R_ext_G := 0.4750 ;
+EVALUATE Cote := 1.26 ;
+EVALUATE CoteL := 1.302 ;
+EVALUATE Lame := CoteL Cote - ;
+EVALUATE RmodeN1 := 0.670 ;
+
+GEOSS := Geo_SS :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
+                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>> 
+                      <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
+                      <<CoteL>> <<Rcomb1Gad>> <<Rcomb2Gad>> 
+                      <<Rcomb3Gad>> <<Rcomb4Gad>> <<Rcomb5Gad>>
+                      <<Rcomb6Gad>> ;
+
+GEON1 := Geo_N1 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
+                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>> 
+                      <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
+                      <<CoteL>> <<RmodeN1>> <<Rcomb1Gad>> <<Rcomb2Gad>> 
+                      <<Rcomb3Gad>> <<Rcomb4Gad>> <<Rcomb5Gad>>
+                      <<Rcomb6Gad>> ;
+
+GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
+                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>> 
+                      <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
+                      <<Lame>> <<Rtub1>> <<Rtub2>> <<Rcomb1Gad>>
+                      <<Rcomb2Gad>> <<Rcomb3Gad>> <<Rcomb4Gad>>
+                      <<Rcomb5Gad>> <<Rcomb6Gad>> ;
+GD_TBH FIG_GD := G2S: GEON2 ;
+************************************************************************
+*  END GEOMETRY                                                        *
+************************************************************************
+ 
+************************************************************************
+*  BEGIN DECLARATION                                                   *
+************************************************************************
+DONNEES := UTL: ::
+ CREA
+   BURN <<maxstep>> =
+        0.0       15.0       30.0       50.0       75.0      112.5
+      150.0      200.0      250.0      375.0      500.0      625.0
+      750.0      875.0     1000.0     1250.0     1500.0     1750.0
+     2000.0     2250.0     2500.0     2750.0     3000.0     3250.0
+     3500.0     3750.0     4000.0     4250.0     4500.0     4750.0
+     5000.0     5250.0     5500.0     5750.0     6000.0     6250.0
+     6500.0     6750.0     7000.0     7250.0     7500.0     7750.0
+     8000.0     8250.0     8500.0     8750.0     9000.0     9250.0
+     9500.0     9750.0    10000.0    10250.0    10500.0    10750.0
+    11000.0    11250.0    11500.0    11750.0    12000.0    12250.0
+    12500.0    12750.0    13000.0    13250.0    13500.0    13750.0
+    14000.0    14250.0    14500.0    14750.0    15000.0    15250.0
+    15500.0    16000.0    16500.0    17000.0    17500.0    18000.0
+    18500.0    19000.0    19500.0    20000.0    20500.0    22000.0
+    24000.0    26000.0    28000.0    30000.0    32000.0    34000.0
+    36000.0    38000.0    40000.0    42000.0    44000.0    46000.0
+    48000.0    50000.0    52000.0    54000.0    56000.0    58000.0
+    60000.0    62000.0    64000.0    66000.0    68000.0    70000.0                     
+    ;
+    
+DONNEES := UTL: DONNEES ::
+    CREA
+          AUTOP <<maxautop>> =
+          4000.0    8000.0   12000.0   24500.0   36500.0   48500.0
+         60500.0   70000.0
+    ;
+************************************************************************
+*  END DECLARATION                                                     *
+************************************************************************
+************************************************************************
+*  BEGIN TRACKING                                                      *
+************************************************************************
+! Level One
+TRACKSS := SYBILT: GEOSS ::
+  EDIT 0
+  MAXR 500
+  MAXZ  1000000
+  TITLE 'TRACKING FOR ASSEMBLY SS'
+  QUA2 20 3
+  DP01  ;
+TRACKN1 := SYBILT: GEON1 ::
+  EDIT 0
+  MAXR 500
+  MAXZ  1000000
+  TITLE 'TRACKING FOR ASSEMBLY N1'
+  QUA2 20 3
+  DP01  ;
+
+! Level two
+TRACKN2 TF_EXC := SALT: GD_TBH ::
+  EDIT 3
+  ALLG
+  ANIS 2 TSPC EQW2 <<an2d>> <<densur>> REND
+;
+TRACKN2 := MCCGT: TRACKN2 TF_EXC ::
+  CACB 4 AAC 80 TMT EPSI 1E-5 MCU 10000 ;
+
+************************************************************************
+*  END TRACKING                                                        *
+************************************************************************
+************************************************************************
+*  BEGIN LIBRARY READING                                               *
+************************************************************************
+
+LIBRARY := Mix_Gad ::
+   <<Library>> ;
+
+************************************************************************
+*  END LIBRARY READING                                                 *
+************************************************************************
+************************************************************************
+*  BEGIN DEPLETION                                                     *
+************************************************************************
+WHILE istep maxstep < DO
+
+************************************************************************
+*  BEGIN FIRST LEVEL FLUX CALCULATION                                  *
+************************************************************************
+
+ EVALUATE istep := istep 1 + ;
+ ECHO "istep: " istep "/" maxstep ;
+ 
+ EVALUATE BUbeg Tbeg := BUend Tend ;
+ GREP: DONNEES :: GETVAL 'BURN' <<istep>> >>BUend<< ;
+ EVALUATE Tend := BUend Fuelpwr / ;
+ ECHO Tbeg ;
+ ECHO Tend ;
+ 
+*----
+* USS
+*----
+ IF istep 1 = THEN
+      LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 
+      	  CALC  REGI W1 U235  ALL
+                REGI W1 U236  ALL    
+                REGI W1 Pu239 ALL    
+                REGI W1 Pu240 ALL    
+                REGI W1 Pu241 ALL
+	        REGI W1 Pu242 ALL
+
+	        REGI W1 U235Gd  ALL
+	        REGI W1 U236Gd  ALL
+	        
+	        REGI W1 Gd154  ALL
+	        REGI W1 Gd155  ALL
+	        REGI W1 Gd156  ALL
+	        REGI W1 Gd157  ALL
+	        REGI W1 Gd158  ALL
+	        REGI W1 Gd160  ALL
+	        
+	        REGI W1 Zr90g  ALL
+	        REGI W1 Zr91g  ALL
+	       ENDC ;
+  ELSE
+    GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
+    GREP: DONNEES :: GETVAL "BURN" <<istep>> >>BU<< ;
+        IF BUautop BU = THEN
+          LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 3 
+	  CALC REGI W1 U235  ALL
+                REGI W1 U236  ALL    
+                REGI W1 Pu239 ALL    
+                REGI W1 Pu240 ALL    
+                REGI W1 Pu241 ALL
+	        REGI W1 Pu242 ALL
+
+	        REGI W1 U235Gd  ALL
+	        REGI W1 U236Gd  ALL
+	        
+	        REGI W1 Gd154  ALL
+	        REGI W1 Gd155  ALL
+	        REGI W1 Gd156  ALL
+	        REGI W1 Gd157  ALL
+	        REGI W1 Gd158  ALL
+	        REGI W1 Gd160  ALL
+	        
+	        REGI W1 Zr90g  ALL
+	        REGI W1 Zr91g  ALL    
+	       ENDC  ;
+	  EVALUATE iAutop := iAutop 1 + ;
+	ENDIF ;
+  ENDIF ;
+
+************************************************************************
+*  BEGIN FIRST LEVEL FLUX CALCULATION                                  *
+************************************************************************
+IF istep 1 > THEN
+  EDIHOM := EDI: FLUX2 LIBEQ TRACKN2 ::
+    EDIT 0
+    MICR ALL
+    COND
+    MERG MIX
+      1   2   3   4   5   6   7   8   9  10  11  12   3   4   5
+      6   9  10  11  12  38  39  40  41  42  43  27   3   4   5
+      6   3   4   5   6   3   4   5   6   9  10  11  12   9  10
+     11  12   3   4   5   6  44  45  46  47  48  49  50  51  52
+     53  54  55   9  10  11  12   9  10  11  12   3   4   5   6
+      3   4   5   6   3   4   5   6   3   4   5   6   3   4   5
+      6   3   4   5   6   9  10  11  12  17  18  19  20   9  10
+     11  12   9  10  11  12  17  18  19  20   9  10  11  12  13
+     14  15  16  13  14  15  16  21  22  23  24  26  27  28  29
+     26  27  28  29  26  27  28  29  26  27  28  29  26  27  28
+     29  26  27  28  29  26  27  28  29  30  31  32  33  34  35
+     36  37
+    SAVE ON HOMOGENE
+  ;
+
+LIBHOM := EDIHOM ::
+  STEP UP HOMOGENE
+;
+
+EDIHOM := DELETE: EDIHOM ;
+
+ LIBRARY2 := LIB: LIBRARY2 LIBHOM ::
+   EDIT 0
+   MAXS
+
+  MIX   1 MIX   2 MIX   3 MIX   4 MIX   5 MIX   6  
+  MIX   7 MIX   8 MIX   9 MIX  10 MIX  11 MIX  12 
+  MIX  13 MIX  14 MIX  15 MIX  16 MIX  17 MIX  18
+  MIX  19 MIX  20 MIX  21 MIX  22 MIX  23 MIX  24
+  MIX  25 MIX  26 MIX  27 MIX  28 MIX  29 MIX  30
+  MIX  31 MIX  32 MIX  33 MIX  34 MIX  35 MIX  36
+  MIX  37 MIX  38 MIX  39 MIX  40 MIX  41 MIX  42
+  MIX  43 MIX  44 MIX  45 MIX  46 MIX  47 MIX  48
+  MIX  49 MIX  50 MIX  51 MIX  52 MIX  53 MIX  54
+  MIX  55 
+  ;
+    
+ LIBEQ LIBHOM := DELETE: LIBEQ LIBHOM ;
+ENDIF ;
+
+SYS := ASM: LIBRARY2 TRACKN1 :: ARM EDIT 0 ; 
+
+FLUX := FLU: LIBRARY2 SYS TRACKN1 :: 
+     EDIT 1 TYPE K ;
+      GREP: FLUX :: GETVAL 'K-EFFECTIVE  ' 1 1 1 >>Keff<< ;
+  ECHO "Resultat1 Keff= " Keff " at burnup= " BUend ;
+
+*----
+*  26 groups energy condensation
+*----
+  EDITION := EDI: FLUX LIBRARY2 TRACKN1 ::
+    EDIT 0
+    MICR ALL
+    MERG MIX
+    COND  10  14  18  26  33  40  49  56  66 84 150 210 241 244 247
+    252 255 258 261 268 273 277 281 286 291
+    SAVE ON COND26
+  ;
+
+LIBEQ := EDITION :: STEP UP COND26 ;
+
+LIBEQ := SPH: LIBEQ TRACKN1 :: EDIT 2 GRMAX 22 ;
+
+FLUX SYS EDITION := DELETE: FLUX SYS EDITION ;
+
+************************************************************************
+*  END FIRST LEVEL FLUX CALCULATION                                    *
+************************************************************************
+************************************************************************
+*  BEGIN SECOND LEVEL FLUX CALCULATION                                 *
+************************************************************************
+LIBEQ := MultLIBEQ LIBEQ ;
+SYS := ASM: LIBEQ TRACKN2 TF_EXC :: ARM EDIT 0 ;    
+
+IF istep 1 = THEN     
+   FLUX2 := FLU: LIBEQ SYS TRACKN2 TF_EXC :: 
+     EDIT 1 TYPE K ;
+ELSE
+   FLUX2 := FLU: FLUX2 LIBEQ SYS TRACKN2 TF_EXC :: 
+     EDIT 1 TYPE K ;
+ENDIF ; 
+
+IF istep 1 = THEN
+  RES := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5                              
+  MICR 14 U234 U235 U238 O16 U234Gd U235Gd U238Gd O16Gd2 Gd154 Gd155
+          Gd156 Gd157 Gd158 Gd160
+  MERG MIX                                                               
+  COND 19                               
+  SAVE ON COND2                                                        
+  ;       
+  BCOND2 := RES :: STEP UP COND2 ;
+ENDIF ;
+
+GREP: FLUX2 :: GETVAL 'K-EFFECTIVE  ' 1 1 1 >>Keff<< ;
+ECHO "Resultat Keff= " Keff " at burnup= " BUend ;
+
+ IF istep maxstep < THEN
+  EVALUATE istepNext := istep 1 + ;
+  GREP: DONNEES :: GETVAL 'BURN' <<istepNext>> >>BUend<< ;
+  EVALUATE Tend := BUend Fuelpwr / ;
+  
+  IF istep 1 = THEN
+     BURNUP LIBEQ := EVO: LIBEQ FLUX2 TRACKN2 ::
+      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>> 
+      NOEX ;
+  ELSE
+    IF istep 5 < THEN
+     BURNUP LIBEQ := EVO: BURNUP LIBEQ FLUX2 TRACKN2 ::
+      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>> 
+      NOEX ;
+    ELSE
+     BURNUP LIBEQ := EVO: BURNUP LIBEQ FLUX2 TRACKN2 ::
+      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>> 
+       ;
+     ENDIF ;    
+  ENDIF ;
+ 
+  SYS := DELETE: SYS ;
+  
+ ENDIF ;
+
+************************************************************************
+*  END SECOND LEVEL FLUX CALCULATION                                   *
+************************************************************************
+
+ENDWHILE ;
+assertS FLUX2 :: K-EFFECTIVE 1 0.8919430 ;
+************************************************************************
+*  END SECOND LEVEL FLUX CALCULATION                                   *
+************************************************************************
+
+ECHO "test GD_TBH_eighth_2level_g2s completed" ;
+  END: ;
