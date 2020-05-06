@@ -4,7 +4,7 @@
 *----
 LINKED_LIST GEOSS GEON1 GEON2 TRACKSS TRACKN1 TRACKN2 LIBRARY LIBRARY2
             SYS FLUX FLUX2 EDITION LIBEQ DONNEES LIBHOM BURNUP 
-            EDIHOM RES ;
+            EDIHOM  RES ;
 MODULE SYBILT: G2S: SALT: MCCGT: USS: ASM: FLU: EDI: SPH: UTL: DELETE:
        END: EVO: GREP: LIB: ;
 REAL Rcomb1 Rcomb2 Rcomb3 Rcomb4 Rcomb5 Rcomb6 R_int_TG R_ext_TG 
@@ -105,8 +105,8 @@ DONNEES := UTL: ::
 DONNEES := UTL: DONNEES ::
     CREA
           AUTOP <<maxautop>> =
-          4000.0    8000.0   12000.0   24500.0   36500.0   48500.0
-         60500.0   70000.0
+         4000.0    8000.0   12000.0   24500.0   36500.0   48500.0
+        60500.0   70000.0
     ;
 ************************************************************************
 *  END DECLARATION                                                     *
