@@ -1,7 +1,7 @@
 # CGN_ASSEMBLY
 
 - [x] check isotopes
-- [ ] 
+- [ ] prepare input maps for assemblies in excel sheet
 
 
 ## Questions
