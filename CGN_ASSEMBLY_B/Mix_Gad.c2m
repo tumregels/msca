@@ -70,7 +70,7 @@ LIBRARY := LIB: ::
 *----
 *    Fuel -> 8 * 4 evolving mixes
 *----
-* C1 Cell
+* C1 *C0201*
   MIX 3 900.0
     U235      = U235     4.08785E-4 1 IRSET PT 1
     U238      = U238     2.20157E-2 1 IRSET PT 1
@@ -97,7 +97,7 @@ LIBRARY := LIB: ::
     Zr94      = Zr94     7.316029E-3
     Zr96      = Zr96     1.178642E-3
 
-* C2 Cell
+* C2 *C0202*
   MIX 9
     COMB 3 1.0
   MIX 10
@@ -107,7 +107,7 @@ LIBRARY := LIB: ::
   MIX 12
     COMB 3 1.0
     
-* G1 Cell /w Gado
+* G1 *G0603*
   MIX 21 900.0
     O16Gd2    = O16     4.40721E-02
     U235Gd    = U235    1.42679E-04   3 IRSET PT 1     
@@ -134,35 +134,7 @@ LIBRARY := LIB: ::
 *----
   MIX 27 COMB 2 1.0
 
-**G2
-*  MIX 52
-*    COMB 21 1.0
-*  MIX 53
-*    COMB 21 1.0
-*  MIX 54
-*    COMB 21 1.0
-*  MIX 55
-*    COMB 21 1.0
-*  MIX 56
-*    COMB 21 1.0
-*  MIX 57
-*    COMB 21 1.0    
-*    
-**G3
-*  MIX 58
-*    COMB 21 1.0
-*  MIX 59
-*    COMB 21 1.0
-*  MIX 60
-*    COMB 21 1.0
-*  MIX 61
-*    COMB 21 1.0
-*  MIX 62
-*    COMB 21 1.0
-*  MIX 63
-*    COMB 21 1.0
-
-* C4 Cell
+* C4 *C0801*
   MIX 100
     COMB 3 1.0
   MIX 101
@@ -172,7 +144,7 @@ LIBRARY := LIB: ::
   MIX 103
     COMB 3 1.0
 
-* C3 Cell
+* C3 *C0806*
   MIX 120
     COMB 3 1.0
   MIX 121
@@ -182,7 +154,7 @@ LIBRARY := LIB: ::
   MIX 123
     COMB 3 1.0
 
-* C5 Cell
+* C5 *C0808*
   MIX 128
     COMB 3 1.0
   MIX 129
@@ -192,7 +164,7 @@ LIBRARY := LIB: ::
   MIX 131
     COMB 3 1.0
 
-* C6 Cell
+* C6 *C0901*
   MIX 132
     COMB 3 1.0
   MIX 133
@@ -202,7 +174,7 @@ LIBRARY := LIB: ::
   MIX 135
     COMB 3 1.0
 
-* C7 Cell
+* C7 *C0908*
   MIX 160
     COMB 3 1.0
   MIX 161
@@ -212,7 +184,7 @@ LIBRARY := LIB: ::
   MIX 163
     COMB 3 1.0
 
-* C8 Cell
+* C8 *C0909*
   MIX 164
     COMB 3 1.0
   MIX 165
