@@ -112,10 +112,10 @@ class Config(object):
     INPUT = "GD_TBH_eighth_2level_g2s"
     CWD = os.getcwd()
     OUTPUT_DIR = op.join(CWD, "output" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
-    LIB_DIR = "/home/legha/bin/libraries/l_endian"
+    LIB_DIR = os.getenv("DRAGON_LIB_DIR") or "/home/legha/bin/libraries/l_endian"
     LIB_FILE = op.join(LIB_DIR, "draglibJeff3p1p1SHEM295")
     LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
-    DRAGON_EXE = "/home/legha/bin/Version5_ev1738/Dragon/bin/Linux_x86_64/Dragon"
+    DRAGON_EXE = os.getenv("DRAGON_EXE") or "/home/legha/bin/Version5_ev1738/Dragon/bin/Linux_x86_64/Dragon"
     DRAGON_INPUT_FILE_NAME = INPUT + ".x2m"
     DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
     DRAGON_INPUT_SUPPORT_FILES = ['Geo_N1.c2m',
