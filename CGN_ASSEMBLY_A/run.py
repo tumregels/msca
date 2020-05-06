@@ -108,7 +108,7 @@ def execute(config, background=False):
     return p
 
 
-class Config_CGN_ASSEMBLY_A(object):
+class Config(object):
     INPUT = "UOX+B_TBH_eighth_2level_g2s"
     CWD = os.getcwd()
     OUTPUT_DIR = op.join(CWD, "output" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
@@ -127,4 +127,4 @@ class Config_CGN_ASSEMBLY_A(object):
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
     
 
-execute(config=Config_CGN_ASSEMBLY_A, background=True)  # .wait()
+execute(config=Config, background=True)  # .wait()
