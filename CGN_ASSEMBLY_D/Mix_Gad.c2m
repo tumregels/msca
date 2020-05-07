@@ -147,7 +147,7 @@ LIBRARY := LIB: ::
 *----
   MIX 27 COMB 2 1.0
 
-*G2
+*G2 *G0505*
   MIX 52
     COMB 21 1.0
   MIX 53
@@ -161,7 +161,7 @@ LIBRARY := LIB: ::
   MIX 57
     COMB 21 1.0    
     
-*G3
+*G3 *G0601*
   MIX 58
     COMB 21 1.0
   MIX 59
@@ -189,7 +189,7 @@ LIBRARY := LIB: ::
   MIX 173
     COMB 21 1.0
 
-*G5 *G0301*
+*G5 *G0303*
   MIX 174
     COMB 21 1.0
   MIX 175
