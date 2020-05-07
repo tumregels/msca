@@ -60,7 +60,7 @@ GEON1 := GEO: :: CAR2D 9 9
   EDIT 0
   X- DIAG X+ REFL
   Y- SYME Y+ DIAG
-  CELL TI C1 C1 T1 C1 G3 T2 C4 C6
+  CELL TI C1 G5 T1 C1 G3 T2 C4 C6
           C2 C2 C1 C2 C2 C1 C2 C6
              C2 C1 C2 C2 C1 C2 C6
                 T1 C1 C1 T2 G4 C6
@@ -70,7 +70,7 @@ GEON1 := GEO: :: CAR2D 9 9
                             C5 C7
                                C8
 
-  MERGE 11 1   1 10  1  14  9  4  6
+  MERGE 11 1  16 10  1  14  9  4  6
            2   2  1  2   2  1  2  6
                2  1  2   2  1  2  6
                  10  1   1  9 15  6
@@ -113,6 +113,11 @@ GEON1 := GEO: :: CAR2D 9 9
   ::: G4 := GEO: G1
          MIX  168 169 170 171 172 173  7 8 1 1
   ;
+
+  ::: G5 := GEO: G1
+         MIX  174 175 176 177 178 179  7 8 1 1
+  ;
+
   ::: C1 := GEO: CARCEL 7
          MESHX 0.0 <<Cote>>
          MESHY 0.0 <<Cote>>
