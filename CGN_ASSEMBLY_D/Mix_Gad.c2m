@@ -189,7 +189,7 @@ LIBRARY := LIB: ::
   MIX 173
     COMB 21 1.0
 
-*G5 *G0303*
+*G5 *G0707*
   MIX 174
     COMB 21 1.0
   MIX 175
