@@ -108,7 +108,7 @@ LIBRARY := LIB: ::
   MIX 12
     COMB 3 1.0
     
-* G1 Cell /w Gado
+* G1 *G0301*
   MIX 21 900.0
     O16Gd2    = O16     4.40721E-02
     U235Gd    = U235    1.42679E-04   3 IRSET PT 1     
@@ -211,7 +211,7 @@ LIBRARY := LIB: ::
   MIX 123
     COMB 3 1.0
 
-* C5 Cell
+* C5 *C0808*
   MIX 128
     COMB 3 1.0
   MIX 129
@@ -231,7 +231,7 @@ LIBRARY := LIB: ::
   MIX 135
     COMB 3 1.0
 
-* C7 Cell
+* C7 *C0908*
   MIX 160
     COMB 3 1.0
   MIX 161
@@ -241,7 +241,7 @@ LIBRARY := LIB: ::
   MIX 163
     COMB 3 1.0
 
-* C8 Cell
+* C8 *C0909*
   MIX 164
     COMB 3 1.0
   MIX 165
