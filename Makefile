@@ -1,130 +1,132 @@
 # Makefile for rsync
 SHELL := /bin/bash
+SYNC_DIR = /tmp/
+# SYNC_DIR=~/bin/Version5_ev1738/Dragon/msca/
 
 help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-# CGN_ASSEMBLY_A
+# ASSEMBLY_A
 .PHONY: push-assembly-a
-push-assembly-a: ## push CGN_ASSEMBLY_A
-	rsync -avzP ./CGN_ASSEMBLY_A boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+push-assembly-a: ## push ASSEMBLY_A
+	rsync -avzP ./ASSEMBLY_A boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: push-assembly-a-dry
-push-assembly-a-dry: ## push dry CGN_ASSEMBLY_A
-	rsync -anv ./CGN_ASSEMBLY_A boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+push-assembly-a-dry: ## push dry ASSEMBLY_A
+	rsync -anv ./ASSEMBLY_A boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: pull-assembly-a
-pull-assembly-a: ## pull CGN_ASSEMBLY_A
-	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_ASSEMBLY_A .
+pull-assembly-a: ## pull ASSEMBLY_A
+	rsync -avzP boltzmann:$(SYNC_DIR)/ASSEMBLY_A .
 
 .PHONY: pull-assembly-a-dry
-pull-assembly-a-dry:  ## pull dry CGN_ASSEMBLY_A
-	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_ASSEMBLY_A . --delete --dry-run
+pull-assembly-a-dry:  ## pull dry ASSEMBLY_A
+	rsync -av boltzmann:$(SYNC_DIR)/ASSEMBLY_A . --delete --dry-run
 
 
-# CGN_ASSEMBLY_B
+# ASSEMBLY_B
 .PHONY: push-assembly-b
 push-assembly-b:
-	rsync -avzP ./CGN_ASSEMBLY_B boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+	rsync -avzP ./ASSEMBLY_B boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: push-assembly-b-dry
 push-assembly-b-dry:
-	rsync -anv ./CGN_ASSEMBLY_B boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+	rsync -anv ./ASSEMBLY_B boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: pull-assembly-b
 pull-assembly-b:
-	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_ASSEMBLY_B .
+	rsync -avzP boltzmann:$(SYNC_DIR)/ASSEMBLY_B .
 
 .PHONY: pull-assembly-b-dry
 pull-assembly-b-dry:
-	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_ASSEMBLY_B . --delete --dry-run
+	rsync -av boltzmann:$(SYNC_DIR)/ASSEMBLY_B . --delete --dry-run
 
 
-# CGN_ASSEMBLY_C
+# ASSEMBLY_C
 .PHONY: push-assembly-c
 push-assembly-c:
-	rsync -avzP ./CGN_ASSEMBLY_C boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+	rsync -avzP ./ASSEMBLY_C boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: push-assembly-c-dry
 push-assembly-c-dry:
-	rsync -anv ./CGN_ASSEMBLY_C boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+	rsync -anv ./ASSEMBLY_C boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: pull-assembly-c
 pull-assembly-c:
-	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_ASSEMBLY_C .
+	rsync -avzP boltzmann:$(SYNC_DIR)/ASSEMBLY_C .
 
 .PHONY: pull-assembly-c-dry
 pull-assembly-c-dry:
-	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_ASSEMBLY_C . --delete --dry-run
+	rsync -av boltzmann:$(SYNC_DIR)/ASSEMBLY_C . --delete --dry-run
 
 
-# CGN_PIN_A
+# PIN_A
 .PHONY: push-pin-a
-push-pin-a: ## push CGN_PIN_A
-	rsync -avzP ./CGN_PIN_A boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+push-pin-a: ## push PIN_A
+	rsync -avzP ./PIN_A boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: push-pin-a-dry
-push-pin-a-dry: ## push dry CGN_PIN_A
-	rsync -anv ./CGN_PIN_A boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+push-pin-a-dry: ## push dry PIN_A
+	rsync -anv ./PIN_A boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: pull-pin-a
-pull-pin-a: ## pull CGN_PIN_A
-	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_A . 
+pull-pin-a: ## pull PIN_A
+	rsync -avzP boltzmann:$(SYNC_DIR)/PIN_A . 
 
 .PHONY: pull-pin-a-dry
-pull-pin-a-dry: ## pull dry CGN_PIN_A
-	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_A . --delete --dry-run
+pull-pin-a-dry: ## pull dry PIN_A
+	rsync -av boltzmann:$(SYNC_DIR)/PIN_A . --delete --dry-run
 
 
-# CGN_PIN_B
+# PIN_B
 .PHONY: push-pin-b
 push-pin-b:
-	rsync -avzP ./CGN_PIN_B boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+	rsync -avzP ./PIN_B boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: push-pin-b-dry
 push-pin-b-dry:
-	rsync -anv ./CGN_PIN_B boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+	rsync -anv ./PIN_B boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: pull-pin-b
 pull-pin-b:
-	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_B . 
+	rsync -avzP boltzmann:$(SYNC_DIR)/PIN_B . 
 
 .PHONY: pull-pin-b-dry
 pull-pin-b-dry:
-	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_B . --delete --dry-run
+	rsync -av boltzmann:$(SYNC_DIR)/PIN_B . --delete --dry-run
 
 
-# CGN_PIN_C
+# PIN_C
 .PHONY: push-pin-c
 push-pin-c:
-	rsync -avzP ./CGN_PIN_C boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+	rsync -avzP ./PIN_C boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: push-pin-c-dry
 push-pin-c-dry:
-	rsync -anv ./CGN_PIN_C boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+	rsync -anv ./PIN_C boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: pull-pin-c
 pull-pin-c:
-	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_C . 
+	rsync -avzP boltzmann:$(SYNC_DIR)/PIN_C . 
 
 .PHONY: pull-pin-c-dry
 pull-pin-c-dry:
-	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_C . --delete --dry-run
+	rsync -av boltzmann:$(SYNC_DIR)/PIN_C . --delete --dry-run
 
 
-# CGN_PIN_A_SHORT
+# PIN_A_SHORT
 .PHONY: push-pin-short
-push-pin-short: ## push CGN_PIN_A_SHORT
-	rsync -avzP ./CGN_PIN_A_SHORT boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+push-pin-short: ## push PIN_A_SHORT
+	rsync -avzP ./PIN_A_SHORT boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: push-pin-short-dry
-push-pin-short-dry: ## push CGN_PIN_A_SHORT dry
-	rsync -anv ./CGN_PIN_A_SHORT boltzmann:~/bin/Version5_ev1738/Dragon/msca/ --delete
+push-pin-short-dry: ## push PIN_A_SHORT dry
+	rsync -anv ./PIN_A_SHORT boltzmann:$(SYNC_DIR) --delete
 
 .PHONY: pull-pin-short
-pull-pin-short: ## pull CGN_PIN_A_SHORT
-	rsync -avzP boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_A_SHORT . 
+pull-pin-short: ## pull PIN_A_SHORT
+	rsync -avzP boltzmann:$(SYNC_DIR)/PIN_A_SHORT . 
 
 .PHONY: pull-pin-short-dry
-pull-pin-short-dry: ## pull CGN_PIN_A_SHORT dry
-	rsync -av boltzmann:~/bin/Version5_ev1738/Dragon/msca/CGN_PIN_A_SHORT . --delete --dry-run
+pull-pin-short-dry: ## pull PIN_A_SHORT dry
+	rsync -av boltzmann:$(SYNC_DIR)/PIN_A_SHORT . --delete --dry-run
