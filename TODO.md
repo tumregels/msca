@@ -14,3 +14,4 @@
       `RADIUS 0.0 <<Rtub1>> <<Rtub2>> <<R_int_TG>> <<R_ext_TG>>` in CGN_ASSEMBLY_A/Geo_N2.c2m
 
 - [ ] ask logic behind `DONNEES := UTL: DONNEES :: CREA AUTOP <<maxautop>> = `...
+- [x] ask if NMIX value should be adjusted in Mix_Gad.c2m and MultLIBEQ.c2m 
