@@ -1,9 +1,9 @@
-*DECK MultLIBEQ_32
+*DECK MultLIBEQ
 *----
 *  Name          : MultLIBEQ.c2m
 *  Type          : DRAGON procedure
 *  Use           : Increase the number of mixes in the microlib
-*  Author        : A. CANBAKAN
+*  Author        : A. Canbakan
 *
 *  Procedure called as: 
 *
@@ -128,7 +128,6 @@ MIX 50
 	COMB 5 1.0
 MIX 51
 	COMB 6 1.0
-
 *******
 *C0602*  *C2
 *******
@@ -264,7 +263,6 @@ MIX 119
 *******
 *C0806* C3
 *******
-
 *******
 *C0807*  *C3
 *******
