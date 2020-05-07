@@ -79,16 +79,16 @@ GEON2 := GEO: :: CAR2D 10 10
   X- DIAG X+ REFL
   Y- SYME Y+ DIAG
   CELL
-  TI C0201 C0301    TG   C0501  C0601   TG    C0801 C0901 Lame_V  
-     C0202 C0302  C0402  C0502  C0602  C0702  C0802 C0902 Lame_V  
-           C0303  C0403  C0503  G0603  C0703  C0803 C0903 Lame_V  
-                    TG   C0504  C0604   TG    C0804 C0904 Lame_V  
-                         C0505  C0605  C0705  C0805 C0905 Lame_V  
-                                  TG   C0706  C0806 C0906 Lame_V  
-                                       G0707  C0807 C0907 Lame_V  
-                                              C0808 C0908 Lame_V  
-                                                    C0909 Lame_V  
-                                                          Lame_C
+  TI  C0201  C0301     TG  C0501  C0601     TG  C0801  C0901  Lame_V  
+      C0202  C0302  C0402  C0502  C0602  C0702  C0802  C0902  Lame_V  
+             C0303  C0403  C0503  G0603  C0703  C0803  C0903  Lame_V  
+                       TG  C0504  C0604     TG  C0804  C0904  Lame_V  
+                           C0505  C0605  C0705  C0805  C0905  Lame_V  
+                                     TG  C0706  C0806  C0906  Lame_V  
+                                         G0707  C0807  C0907  Lame_V  
+                                                C0808  C0908  Lame_V  
+                                                       C0909  Lame_V  
+                                                              Lame_C
   MESHX 0.0 <<mesh1>> <<mesh2>> <<mesh3>> <<mesh4>> <<mesh5>> <<mesh6>>
         <<mesh7>> <<mesh8>> <<mesh9>> <<mesh10>>
   MESHY 0.0 <<mesh1>> <<mesh2>> <<mesh3>> <<mesh4>> <<mesh5>> <<mesh6>>
