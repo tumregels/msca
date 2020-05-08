@@ -2,7 +2,7 @@
 
 # Script for following up *.result files of assembly calculations
 
-session="assemblies"
+session="long"
 
 # set up tmux
 tmux start-server

@@ -2,7 +2,7 @@
 
 # Script for following up *.result files of short assembly calculations
 
-session="assemblies-short"
+session="short"
 
 # set up tmux
 tmux start-server
@@ -36,7 +36,7 @@ if [ $? != 0 ]; then
   tmux send-keys "tail -f /tmp/ASSEMBLY_B_SHORT/output*/*.result" C-m
   tmux selectp -t 2 -T "ASSEMBLY_C_SHORT"
   tmux send-keys "tail -f /tmp/ASSEMBLY_C_SHORT/output*/*.result" C-m
-  tmux selectp -t 3 -T "ASSEMBLY_D"
+  tmux selectp -t 3 -T "ASSEMBLY_D_SHORT"
   tmux send-keys "tail -f /tmp/ASSEMBLY_D_SHORT/output*/*.result" C-m
   # return to main window
   tmux selectp -t 0
