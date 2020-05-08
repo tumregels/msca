@@ -1,0 +1,227 @@
+*DECK Mix_Assb_DRA
+*----
+*  Name          : Mix_Gad.c2m
+*  Type          : DRAGON procedure
+*  Use           : Microlib generation with Draglibs for
+*                  UOX calculation with 37 fuel regions
+*  Author        : A. Canbakan
+*
+*  Procedure called as: 
+*
+*  LIBRARY := Mix_Assb_DRA ::
+*    <<dens_mod>> <<pbore>> <<N_U5_UOX>> <<densU_UOX>>
+*    <<temp_comb>> <<temp_mode>> <<temp_clad>> ;
+*
+*  Input data   :
+*    dens_mod   : Theoretical moderator density
+*    pbore      : Natural boron concentration (ppm)
+*    N_U5_UOX   : U235 enrichment in UOX-Fuel
+*    densU_UOX  : Theoretical density of Uranium in UOX-Fuel
+*    temp_comb  : Theoretical Fuel temperature (K)
+*    temp_mode  : Theoretical moderator temperature (K)
+*    temp_clad  : Theoretical clad temperature (K)
+*
+*  Output data  :
+*    LIBRARY    : Microlib with table of probabilities
+
+
+PARAMETER  LIBRARY  ::  
+       EDIT 0 
+           ::: LINKED_LIST LIBRARY  ; 
+   ;
+
+*----
+*  Input data recovery
+*----
+STRING Library ;
+:: >>Library<< ;
+
+*----
+*  Modules used in this procedure
+*----
+MODULE  LIB: UTL: DELETE: END: ABORT: ;
+                                   
+LIBRARY := LIB: ::
+  EDIT 0
+  DEPL LIB: DRAGON FIL: <<Library>>
+
+  NMIX 167 CTRA APOL ANIS 2
+  PT
+  MIXS LIB: DRAGON FIL: <<Library>>
+
+*----
+*    Moderator
+*----
+  MIX 1 600.0 NOEV
+    H1        = H1_H2O   4.69585E-2
+    O16       = O16      2.34793E-2
+    B10       = B10      5.53089E-6
+    B11       = B11      2.18498E-5
+*----
+*    Cladding TI
+*----
+  MIX 2 600.0 NOEV
+    Zr90      = Zr90     2.165762E-2
+    Zr91      = Zr91     4.723000E-3 2 IRSET PT 1
+    Zr92      = Zr92     7.219212E-3 
+    Zr94      = Zr94     7.316029E-3
+    Zr96      = Zr96     1.178642E-3
+
+*----
+*    Fuel -> 8 * 4 evolving mixes
+*----
+* C1 *C0201*
+  MIX 3 900.0
+    U235      = U235     4.08785E-4 1 IRSET PT 1
+    U238      = U238     2.20157E-2 1 IRSET PT 1
+    O16       = O16      4.48565E-2
+  MIX 4 
+    COMB 3 1.0
+  MIX 5 
+    COMB 3 1.0
+  MIX 6 
+    COMB 3 1.0
+
+*----
+*    Gap
+*----
+  MIX 7 600.0 NOEV
+     O16      = O16      3.76439E-6
+*----
+*    Cladding fuel
+*----
+  MIX 8 600.0 NOEV
+    Zr90      = Zr90     2.165762E-2
+    Zr91      = Zr91     4.723000E-3 3 IRSET PT 1
+    Zr92      = Zr92     7.219212E-3 
+    Zr94      = Zr94     7.316029E-3
+    Zr96      = Zr96     1.178642E-3
+
+* C2 *C0202*
+  MIX 9
+    COMB 3 1.0
+  MIX 10
+    COMB 3 1.0
+  MIX 11
+    COMB 3 1.0
+  MIX 12
+    COMB 3 1.0
+    
+* G1 *G0603*
+  MIX 21 900.0
+    O16Gd2    = O16     4.40721E-02
+    U235Gd    = U235    1.42679E-04   3 IRSET PT 1     
+    U238Gd    = U238    1.97006E-02   3 IRSET PT 1    
+    Gd154     = Gd154   6.37452E-05   3 IRSET PT NONE
+    Gd155     = Gd155   4.32736E-04   3 IRSET PT NONE
+    Gd156     = Gd156   5.98515E-04   3 IRSET PT NONE
+    Gd157     = Gd157   4.57602E-04   3 IRSET PT NONE
+    Gd158     = Gd158   7.26282E-04   3 IRSET PT NONE
+ 
+  MIX 22
+    COMB 21 1.0
+  MIX 23
+    COMB 21 1.0
+  MIX 24
+    COMB 21 1.0
+  MIX 25
+    COMB 21 1.0
+  MIX 26
+    COMB 21 1.0
+
+*----
+*    Cladding TG
+*----
+  MIX 27 COMB 2 1.0
+
+*G2 *G0707*
+  MIX 52
+    COMB 21 1.0
+  MIX 53
+    COMB 21 1.0
+  MIX 54
+    COMB 21 1.0
+  MIX 55
+    COMB 21 1.0
+  MIX 56
+    COMB 21 1.0
+  MIX 57
+    COMB 21 1.0    
+    
+* C1 *C0601*
+  MIX 58
+    COMB 3 1.0
+  MIX 59
+    COMB 4 1.0
+  MIX 60
+    COMB 5 1.0
+  MIX 61
+    COMB 6 1.0
+*  MIX 62
+*    COMB 21 1.0
+*  MIX 63
+*    COMB 21 1.0
+
+* C4 *C0801*
+  MIX 100
+    COMB 3 1.0
+  MIX 101
+    COMB 3 1.0
+  MIX 102
+    COMB 3 1.0
+  MIX 103
+    COMB 3 1.0
+
+* C3 *C0806*
+  MIX 120
+    COMB 3 1.0
+  MIX 121
+    COMB 3 1.0
+  MIX 122
+    COMB 3 1.0
+  MIX 123
+    COMB 3 1.0
+
+* C5 *C0808*
+  MIX 128
+    COMB 3 1.0
+  MIX 129
+    COMB 3 1.0
+  MIX 130
+    COMB 3 1.0
+  MIX 131
+    COMB 3 1.0
+
+* C6 *C0901*
+  MIX 132
+    COMB 3 1.0
+  MIX 133
+    COMB 3 1.0
+  MIX 134
+    COMB 3 1.0
+  MIX 135
+    COMB 3 1.0
+
+* C7 *C0908*
+  MIX 160
+    COMB 3 1.0
+  MIX 161
+    COMB 3 1.0
+  MIX 162
+    COMB 3 1.0
+  MIX 163
+    COMB 3 1.0
+
+* C8 *C0909*
+  MIX 164
+    COMB 3 1.0
+  MIX 165
+    COMB 3 1.0
+  MIX 166
+    COMB 3 1.0
+  MIX 167
+    COMB 3 1.0
+;
+
+END: ;
+QUIT .
