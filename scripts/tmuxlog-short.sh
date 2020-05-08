@@ -31,13 +31,13 @@ if [ $? != 0 ]; then
   tmux splitw -v -p 50
 
   tmux selectp -t 0 -T "ASSEMBLY_A_SHORT"
-  tmux send-keys "tail -f /tmp/ASSEMBLY_A_SHORT/output*/*.result" C-m
+  tmux send-keys "tail -f -n +1 /tmp/ASSEMBLY_A_SHORT/output*/*.result | nl" C-m
   tmux selectp -t 1 -T "ASSEMBLY_B_SHORT"
-  tmux send-keys "tail -f /tmp/ASSEMBLY_B_SHORT/output*/*.result" C-m
+  tmux send-keys "tail -f -n +1 /tmp/ASSEMBLY_B_SHORT/output*/*.result | nl" C-m
   tmux selectp -t 2 -T "ASSEMBLY_C_SHORT"
-  tmux send-keys "tail -f /tmp/ASSEMBLY_C_SHORT/output*/*.result" C-m
+  tmux send-keys "tail -f -n +1 /tmp/ASSEMBLY_C_SHORT/output*/*.result | nl" C-m
   tmux selectp -t 3 -T "ASSEMBLY_D_SHORT"
-  tmux send-keys "tail -f /tmp/ASSEMBLY_D_SHORT/output*/*.result" C-m
+  tmux send-keys "tail -f -n +1 /tmp/ASSEMBLY_D_SHORT/output*/*.result | nl" C-m
   # return to main window
   tmux selectp -t 0
   tmux select-window -t $session:0
