@@ -2,7 +2,8 @@
 
 - [x] check isotopes
 - [ ] prepare input maps for assemblies in excel sheet
-- [ ] create short calculation inputs with 2 burnup steps for assemblies
+- [x] create short calculation inputs with 2 burnup steps for assemblies
+- [ ] check pin materials
 
 
 ## Questions
