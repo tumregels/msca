@@ -72,9 +72,9 @@ LIBRARY := LIB: ::
 *----
 * C1 *C0201*
   MIX 3 900.0
-    U235      = U235     4.08785E-4 1 IRSET PT 1
-    U238      = U238     2.20157E-2 1 IRSET PT 1
-    O16       = O16      4.48565E-2
+    U235      = U235     7.04005E-4 1 IRSET PT 1
+    U238      = U238     2.17205E-2 1 IRSET PT 1
+    O16       = O16      4.48632E-2
   MIX 4 
     COMB 3 1.0
   MIX 5 
