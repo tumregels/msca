@@ -49,6 +49,15 @@ def init(config):
         f.write(json.dumps({k: v for k, v in dict(vars(config)).items() if not k.startswith('__')}, indent=4))
 
 
+def save_pid(file_dir, process_id):
+    """save process id to file"""
+
+    print("process id {}".format(process_id))
+    file_name = op.join(file_dir, "{}.pid".format(process_id))
+    with open(file_name, "w") as f:
+        f.write("process id: {}".format(process_id))
+
+
 def execute(config, background=False):
     """
     this will immitate the following behavior
@@ -77,7 +86,7 @@ def execute(config, background=False):
             stdout=output_, 
             cwd=config.OUTPUT_DIR
         )
-        print("process id {}".format(p.pid))
+        save_pid(config.OUTPUT_DIR, p.pid)
     else:
         p = subprocess.Popen(
             config.DRAGON_EXE,
@@ -103,10 +112,10 @@ class Config:
     INPUT = "CGN_PIN_A_SHORT"
     CWD = os.getcwd()
     OUTPUT_DIR = op.join(CWD, "output" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
-    LIB_DIR = "/home/legha/bin/libraries/l_endian"
+    LIB_DIR = os.getenv("DRAGON_LIB_DIR") or "/home/legha/bin/libraries/l_endian"
     LIB_FILE = op.join(LIB_DIR, "draglibJeff3p1p1SHEM295")
     LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
-    DRAGON_EXE = "/home/legha/bin/Version5_ev1738/Dragon/bin/Linux_x86_64/Dragon"
+    DRAGON_EXE = os.getenv("DRAGON_EXE") or "/home/legha/bin/Version5_ev1738/Dragon/bin/Linux_x86_64/Dragon"
     DRAGON_INPUT_FILE_NAME = INPUT + ".x2m"
     DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
