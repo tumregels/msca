@@ -164,17 +164,17 @@ LIBRARY := LIB: ::
     COMB 21 1.0
 
 *G4 *G0804*
-  MIX 168
+  MIX 13
     COMB 21 1.0
-  MIX 169
+  MIX 14
     COMB 21 1.0
-  MIX 170
+  MIX 15
     COMB 21 1.0
-  MIX 171
+  MIX 16
     COMB 21 1.0
-  MIX 172
+  MIX 112
     COMB 21 1.0
-  MIX 173
+  MIX 113
     COMB 21 1.0
 
 *G5 *G0707*
