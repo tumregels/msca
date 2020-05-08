@@ -73,9 +73,9 @@ LIBRARY := LIB: ::
 *----
 * C1 Cell
   MIX 3 900.0
-    U235      = U235     4.08785E-4 1 IRSET PT 1
-    U238      = U238     2.20157E-2 1 IRSET PT 1
-    O16       = O16      4.48565E-2
+    U235      = U235     1.01057E-3 1 IRSET PT 1
+    U238      = U238     2.14140E-2 1 IRSET PT 1
+    O16       = O16      4.48701E-2
   MIX 4 
     COMB 3 1.0
   MIX 5 
@@ -110,14 +110,14 @@ LIBRARY := LIB: ::
     
 * G1 *G0301*
   MIX 21 900.0
-    O16Gd2    = O16     4.40721E-02
-    U235Gd    = U235    1.42679E-04   3 IRSET PT 1     
-    U238Gd    = U238    1.97006E-02   3 IRSET PT 1    
-    Gd154     = Gd154   6.37452E-05   3 IRSET PT NONE
-    Gd155     = Gd155   4.32736E-04   3 IRSET PT NONE
-    Gd156     = Gd156   5.98515E-04   3 IRSET PT NONE
-    Gd157     = Gd157   4.57602E-04   3 IRSET PT NONE
-    Gd158     = Gd158   7.26282E-04   3 IRSET PT NONE
+    O16Gd2    = O16     4.41647E-02
+    U235Gd    = U235    5.09462E-04   3 IRSET PT 1     
+    U238Gd    = U238    1.96177E-02   3 IRSET PT 1    
+    Gd154     = Gd154   5.68369E-05   3 IRSET PT NONE
+    Gd155     = Gd155   3.85839E-04   3 IRSET PT NONE
+    Gd156     = Gd156   5.33652E-04   3 IRSET PT NONE
+    Gd157     = Gd157   4.08010E-04   3 IRSET PT NONE
+    Gd158     = Gd158   6.47572E-04   3 IRSET PT NONE
  
   MIX 22
     COMB 21 1.0
