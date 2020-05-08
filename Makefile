@@ -6,6 +6,7 @@ SYNC_DIR = /tmp/
 help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+
 # ASSEMBLY_A
 .PHONY: push-assembly-a
 push-assembly-a: ## push ASSEMBLY_A
@@ -58,6 +59,24 @@ pull-assembly-c:
 .PHONY: pull-assembly-c-dry
 pull-assembly-c-dry:
 	rsync -av boltzmann:$(SYNC_DIR)/ASSEMBLY_C . --delete --dry-run
+
+
+# ASSEMBLY_D
+.PHONY: push-assembly-d
+push-assembly-d:
+	rsync -avzP ./ASSEMBLY_D boltzmann:$(SYNC_DIR) --delete
+
+.PHONY: push-assembly-d-dry
+push-assembly-d-dry:
+	rsync -anv ./ASSEMBLY_D boltzmann:$(SYNC_DIR) --delete
+
+.PHONY: pull-assembly-d
+pull-assembly-d:
+	rsync -avzP boltzmann:$(SYNC_DIR)/ASSEMBLY_D .
+
+.PHONY: pull-assembly-d-dry
+pull-assembly-d-dry:
+	rsync -av boltzmann:$(SYNC_DIR)/ASSEMBLY_D . --delete --dry-run
 
 
 # PIN_A
