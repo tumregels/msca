@@ -2,11 +2,13 @@
 SHELL := /bin/bash
 SYNC_DIR = /tmp/
 # SYNC_DIR=~/bin/Version5_ev1738/Dragon/msca/
-REMOTE_SERV = doppler
+REMOTE_SERV = doppler # boltzmann
 
 help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+copy_tmuxlog: ## cp tmuxlog files to remote
+	scp -r scripts/tmuxlog*.sh $(REMOTE_SERV):~/bin/Version5_ev1738/Dragon/msca/
 
 # ASSEMBLY_A
 push-assembly-a: ## push ASSEMBLY_A
@@ -102,7 +104,7 @@ push-assembly-c-short-dry:
 pull-assembly-c-short:
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_C_SHORT .
 
-pull-assembly-c-dry:
+pull-assembly-c-short-dry:
 	rsync -av $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_C_SHORT . --delete --dry-run
 
 
