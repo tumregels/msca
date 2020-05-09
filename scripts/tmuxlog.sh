@@ -31,13 +31,13 @@ if [ $? != 0 ]; then
   tmux splitw -v -p 50
 
   tmux selectp -t 0 -T "ASSEMBLY_A"
-  tmux send-keys "tail -f -n +1 /tmp/ASSEMBLY_A/output*/*.result | nl" C-m
+  tmux send-keys "tail -f -n +1 $(ls -td -- /tmp/ASSEMBLY_A/output*/ | head -n 1)*.result | nl" C-m
   tmux selectp -t 1 -T "ASSEMBLY_B"
-  tmux send-keys "tail -f -n +1 /tmp/ASSEMBLY_B/output*/*.result | nl" C-m
+  tmux send-keys "tail -f -n +1 $(ls -td -- /tmp/ASSEMBLY_B/output*/ | head -n 1)*.result | nl" C-m
   tmux selectp -t 2 -T "ASSEMBLY_C"
-  tmux send-keys "tail -f -n +1 /tmp/ASSEMBLY_C/output*/*.result | nl" C-m
+  tmux send-keys "tail -f -n +1 $(ls -td -- /tmp/ASSEMBLY_C/output*/ | head -n 1)*.result | nl" C-m
   tmux selectp -t 3 -T "ASSEMBLY_D"
-  tmux send-keys "tail -f -n +1 /tmp/ASSEMBLY_D/output*/*.result | nl" C-m
+  tmux send-keys "tail -f -n +1 $(ls -td -- /tmp/ASSEMBLY_D/output*/ | head -n 1)*.result | nl" C-m
   # return to main window
   tmux selectp -t 0
   tmux select-window -t $session:0
