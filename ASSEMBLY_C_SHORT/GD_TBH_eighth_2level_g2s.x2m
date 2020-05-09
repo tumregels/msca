@@ -4,7 +4,7 @@
 *----
 LINKED_LIST GEOSS GEON1 GEON2 TRACKSS TRACKN1 TRACKN2 LIBRARY LIBRARY2
             SYS FLUX FLUX2 EDITION LIBEQ DONNEES LIBHOM BURNUP 
-            EDIHOM  RES ;
+            EDIHOM RES ;
 MODULE SYBILT: G2S: SALT: MCCGT: USS: ASM: FLU: EDI: SPH: UTL: DELETE:
        END: EVO: GREP: LIB: ;
 REAL Rcomb1 Rcomb2 Rcomb3 Rcomb4 Rcomb5 Rcomb6 R_int_TG R_ext_TG 
@@ -155,53 +155,53 @@ WHILE istep maxstep < DO
 *----
 * USS
 *----
- IF istep 1 = THEN
+  IF istep 1 = THEN
       LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 
-      	  CALC  REGI W1 U235  ALL
-                REGI W1 U236  ALL    
-                REGI W1 Pu239 ALL    
-                REGI W1 Pu240 ALL    
-                REGI W1 Pu241 ALL
-	        REGI W1 Pu242 ALL
+      	  CALC  REGI W1 U235   ALL
+                REGI W1 U236   ALL
+                REGI W1 Pu239  ALL
+                REGI W1 Pu240  ALL
+                REGI W1 Pu241  ALL
+	              REGI W1 Pu242  ALL
 
-	        REGI W1 U235Gd  ALL
-	        REGI W1 U236Gd  ALL
+	              REGI W1 U235Gd ALL
+	              REGI W1 U236Gd ALL
 	        
-	        REGI W1 Gd154  ALL
-	        REGI W1 Gd155  ALL
-	        REGI W1 Gd156  ALL
-	        REGI W1 Gd157  ALL
-	        REGI W1 Gd158  ALL
-	        REGI W1 Gd160  ALL
+	              REGI W1 Gd154  ALL
+	              REGI W1 Gd155  ALL
+	              REGI W1 Gd156  ALL
+	              REGI W1 Gd157  ALL
+	              REGI W1 Gd158  ALL
+	              REGI W1 Gd160  ALL
 	        
-	        REGI W1 Zr90g  ALL
-	        REGI W1 Zr91g  ALL
-	       ENDC ;
+	              REGI W1 Zr90g  ALL
+	              REGI W1 Zr91g  ALL
+	        ENDC ;
   ELSE
     GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
     GREP: DONNEES :: GETVAL "BURN" <<istep>> >>BU<< ;
         IF BUautop BU = THEN
           LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 3 
-	  CALC REGI W1 U235  ALL
-                REGI W1 U236  ALL    
-                REGI W1 Pu239 ALL    
-                REGI W1 Pu240 ALL    
-                REGI W1 Pu241 ALL
-	        REGI W1 Pu242 ALL
+	            CALC  REGI W1 U235   ALL
+                    REGI W1 U236   ALL
+                    REGI W1 Pu239  ALL
+                    REGI W1 Pu240  ALL
+                    REGI W1 Pu241  ALL
+	                  REGI W1 Pu242  ALL
 
-	        REGI W1 U235Gd  ALL
-	        REGI W1 U236Gd  ALL
+	                  REGI W1 U235Gd ALL
+	                  REGI W1 U236Gd ALL
 	        
-	        REGI W1 Gd154  ALL
-	        REGI W1 Gd155  ALL
-	        REGI W1 Gd156  ALL
-	        REGI W1 Gd157  ALL
-	        REGI W1 Gd158  ALL
-	        REGI W1 Gd160  ALL
+	                  REGI W1 Gd154  ALL
+	                  REGI W1 Gd155  ALL
+	                  REGI W1 Gd156  ALL
+	                  REGI W1 Gd157  ALL
+	                  REGI W1 Gd158  ALL
+	                  REGI W1 Gd160  ALL
 	        
-	        REGI W1 Zr90g  ALL
-	        REGI W1 Zr91g  ALL    
-	       ENDC  ;
+	                  REGI W1 Zr90g  ALL
+	                  REGI W1 Zr91g  ALL
+	            ENDC  ;
 	  EVALUATE iAutop := iAutop 1 + ;
 	ENDIF ;
   ENDIF ;
@@ -240,8 +240,8 @@ EDIHOM := DELETE: EDIHOM ;
    EDIT 0
    MAXS
 
-  MIX   1 MIX   2 MIX   3 MIX   4 MIX   5 MIX   6  
-  MIX   7 MIX   8 MIX   9 MIX  10 MIX  11 MIX  12 
+  MIX   1 MIX   2 MIX   3 MIX   4 MIX   5 MIX   6
+  MIX   7 MIX   8 MIX   9 MIX  10 MIX  11 MIX  12
   MIX  13 MIX  14 MIX  15 MIX  16 MIX  17 MIX  18
   MIX  19 MIX  20 MIX  21 MIX  22 MIX  23 MIX  24
   MIX  25 MIX  26 MIX  27 MIX  28 MIX  29 MIX  30
