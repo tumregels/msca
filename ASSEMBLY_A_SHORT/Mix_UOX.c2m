@@ -40,11 +40,11 @@ STRING Library ;
 *  Modules used in this procedure
 *----
 MODULE  LIB: UTL: DELETE: END: ABORT: ;
-                              
+                                   
 LIBRARY := LIB: ::
-  EDIT 1
+  EDIT 0
   DEPL LIB: DRAGON FIL: <<Library>>
-  NMIX 161 CTRA APOL ANIS 2
+  NMIX 167 CTRA APOL ANIS 2
   PT
   MIXS LIB: DRAGON FIL: <<Library>>
 
@@ -69,7 +69,7 @@ LIBRARY := LIB: ::
 *----
 *    Fuel -> 8 * 4 evolving mixes
 *----
-* C1 Cell
+* C1 *C0201*
   MIX 3 900.0
     U235      = U235     4.08785E-4 1 IRSET PT 1
     U238      = U238     2.20157E-2 1 IRSET PT 1
@@ -96,7 +96,7 @@ LIBRARY := LIB: ::
     Zr94      = Zr94     7.316029E-3
     Zr96      = Zr96     1.178642E-3
 
-* C2 Cell
+* C2 *C0202*
   MIX 9
     COMB 3 1.0
   MIX 10
@@ -105,70 +105,70 @@ LIBRARY := LIB: ::
     COMB 3 1.0
   MIX 12
     COMB 3 1.0
-
+    
 *----
 *    Cladding TG
 *----
-  MIX 25 COMB 2 1.0
+  MIX 27 COMB 2 1.0
 
-* C4 Cell
-  MIX 94
+* C4 *C0801*
+  MIX 100
     COMB 3 1.0
-  MIX 95
+  MIX 101
     COMB 3 1.0
-  MIX 96
+  MIX 102
     COMB 3 1.0
-  MIX 97
-    COMB 3 1.0
-
-* C3 Cell
-  MIX 114
-    COMB 3 1.0
-  MIX 115
-    COMB 3 1.0
-  MIX 116
-    COMB 3 1.0
-  MIX 117
+  MIX 103
     COMB 3 1.0
 
-* C5 Cell
+* C3 *C0806*
+  MIX 120
+    COMB 3 1.0
+  MIX 121
+    COMB 3 1.0
   MIX 122
     COMB 3 1.0
   MIX 123
     COMB 3 1.0
-  MIX 124
-    COMB 3 1.0
-  MIX 125
-    COMB 3 1.0
 
-* C6 Cell
-  MIX 126
-    COMB 3 1.0
-  MIX 127
-    COMB 3 1.0
+* C5 *C0808*
   MIX 128
     COMB 3 1.0
   MIX 129
     COMB 3 1.0
-
-* C7 Cell
-  MIX 154
+  MIX 130
     COMB 3 1.0
-  MIX 155
-    COMB 3 1.0
-  MIX 156
-    COMB 3 1.0
-  MIX 157
+  MIX 131
     COMB 3 1.0
 
-* C8 Cell
-  MIX 158
+* C6 *C0901*
+  MIX 132
     COMB 3 1.0
-  MIX 159
+  MIX 133
     COMB 3 1.0
+  MIX 134
+    COMB 3 1.0
+  MIX 135
+    COMB 3 1.0
+
+* C7 *C0908*
   MIX 160
     COMB 3 1.0
   MIX 161
+    COMB 3 1.0
+  MIX 162
+    COMB 3 1.0
+  MIX 163
+    COMB 3 1.0
+
+* C8 *C0909*
+  MIX 164
+    COMB 3 1.0
+  MIX 165
+    COMB 3 1.0
+  MIX 166
+    COMB 3 1.0
+  MIX 167
     COMB 3 1.0
 ;
 

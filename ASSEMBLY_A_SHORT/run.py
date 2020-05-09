@@ -109,7 +109,7 @@ def execute(config, background=False):
 
 
 class Config(object):
-    INPUT = "UOX+B_TBH_eighth_2level_g2s"
+    INPUT = "UOX_TBH_eighth_2level_g2s"
     CWD = os.getcwd()
     OUTPUT_DIR = op.join(CWD, "output" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     LIB_DIR = os.getenv("DRAGON_LIB_DIR") or "/home/legha/bin/libraries/l_endian"
