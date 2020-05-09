@@ -3,7 +3,7 @@
 *  Name          : Geo_N1.c2m
 *  Type          : DRAGON procedure
 *  Use           : Geometry generation for 1st Level Flux Calculation
-*                  with 32 fuel regions
+*                  with 37 fuel regions
 *  Author        : A. Canbakan
 *
 *  Procedure called as: 
@@ -101,39 +101,39 @@ GEON1 := GEO: :: CAR2D 9 9
          MIX 9 10 11 12   7 8 1 1
   ;
   ::: C3 := GEO: C1
-         MIX 114 115 116 117   7 8 1 1
+         MIX 120 121 122 123  7 8 1 1
   ;
   ::: C4 := GEO: C1
-         MIX 94 95 96 97   7 8 1 1
+         MIX 100 101 102 103  7 8 1 1
   ;
   ::: C5 := GEO: C1
-         MIX 122 123 124 125   7 8 1 1
+         MIX 128 129 130 131  7 8 1 1
   ;
   ::: C6 := GEO: CARCEL 7
          MESHX 0.0 <<CoteL>>
          MESHY 0.0 <<Cote>>
          RADIUS 0.0 <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                 <<R_int_G>> <<R_ext_G>> <<RmodeN1>>
-         MIX 126 127 128 129   7 8 1 1
+         MIX 132 133 134 135  7 8 1 1
   ;
   ::: C7 := GEO: C6
-         MIX 154 155 156 157   7 8 1 1
+         MIX 160 161 162 163  7 8 1 1
   ;
   ::: C8 := GEO: CARCEL 7
          MESHX 0.0 <<CoteL>>
          MESHY 0.0 <<CoteL>>
          RADIUS 0.0 <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                 <<R_int_G>> <<R_ext_G>> <<RmodeN1>>
-         MIX 158 159 160 161   7 8 1 1
+         MIX 164 165 166 167  7 8 1 1
   ;
   ::: T2 := GEO: CARCEL 2
          MESHX 0.0 <<Cote>>
          MESHY 0.0 <<Cote>>
          RADIUS 0.0 <<R_int_TG>> <<R_ext_TG>>
-         MIX 1 25 1
+         MIX 1 27 1
   ;
   ::: T1 := GEO: T2
-         MIX 1 25 1
+         MIX 1 27 1
   ;
   ::: TI := GEO: CARCEL 2
          MESHX 0.0 <<Cote>>
