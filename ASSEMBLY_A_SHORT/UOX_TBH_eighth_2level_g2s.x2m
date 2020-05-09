@@ -285,8 +285,7 @@ ENDIF ;
 
 IF istep 1 = THEN
   RES := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5                              
-  MICR 14 U234 U235 U238 O16 U234Gd U235Gd U238Gd O16Gd2 Gd154 Gd155
-          Gd156 Gd157 Gd158 Gd160
+  MICR 3 U235 U238 O16
   MERG MIX                                                               
   COND 19                               
   SAVE ON COND2                                                        
