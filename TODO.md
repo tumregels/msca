@@ -11,6 +11,16 @@
 - [ ] rm unused variables i and iNext
 - [x] organise CALC rows in x2m files
 
+# Serpent
+
+- [ ] prepare initial inputs
+- [ ] perform calculations
+
+# Data Analyses
+
+- [ ] generate plots for Dragon calculations
+- [ ] plots for serpent
+- [ ] plots for both
 
 ## Questions
 
