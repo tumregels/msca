@@ -99,7 +99,7 @@ DONNEES := UTL: ::
     24000.0    26000.0    28000.0    30000.0    32000.0    34000.0
     36000.0    38000.0    40000.0    42000.0    44000.0    46000.0
     48000.0    50000.0    52000.0    54000.0    56000.0    58000.0
-    60000.0    62000.0    64000.0    66000.0    68000.0    70000.0                     
+    60000.0    62000.0    64000.0    66000.0    68000.0    70000.0
     ;
     
 DONNEES := UTL: DONNEES ::
@@ -175,53 +175,53 @@ WHILE istep maxstep < DO
 *----
   IF istep 1 = THEN
       LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 
-      	  CALC  REGI W1 U235   ALL
-                REGI W1 U236   ALL    
-                REGI W1 Pu239  ALL    
-                REGI W1 Pu240  ALL    
+          CALC  REGI W1 U235   ALL
+                REGI W1 U236   ALL
+                REGI W1 Pu239  ALL
+                REGI W1 Pu240  ALL
                 REGI W1 Pu241  ALL
-	              REGI W1 Pu242  ALL
+                REGI W1 Pu242  ALL
 
-	              REGI W1 U235Gd ALL
-	              REGI W1 U236Gd ALL
-	        
-	              REGI W1 Gd154  ALL
-	              REGI W1 Gd155  ALL
-	              REGI W1 Gd156  ALL
-	              REGI W1 Gd157  ALL
-	              REGI W1 Gd158  ALL
-	              REGI W1 Gd160  ALL
-	        
-	              REGI W1 Zr90g  ALL
-	              REGI W1 Zr91g  ALL
-	        ENDC ;
+                REGI W1 U235Gd ALL
+                REGI W1 U236Gd ALL
+
+                REGI W1 Gd154  ALL
+                REGI W1 Gd155  ALL
+                REGI W1 Gd156  ALL
+                REGI W1 Gd157  ALL
+                REGI W1 Gd158  ALL
+                REGI W1 Gd160  ALL
+
+                REGI W1 Zr90g  ALL
+                REGI W1 Zr91g  ALL
+          ENDC ;
   ELSE
     GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
     GREP: DONNEES :: GETVAL "BURN" <<istep>> >>BU<< ;
         IF BUautop BU = THEN
           LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 3 
-	            CALC  REGI W1 U235   ALL
-                    REGI W1 U236   ALL    
-                    REGI W1 Pu239  ALL    
-                    REGI W1 Pu240  ALL    
+              CALC  REGI W1 U235   ALL
+                    REGI W1 U236   ALL
+                    REGI W1 Pu239  ALL
+                    REGI W1 Pu240  ALL
                     REGI W1 Pu241  ALL
-	                  REGI W1 Pu242  ALL
+                    REGI W1 Pu242  ALL
 
-	                  REGI W1 U235Gd ALL
-	                  REGI W1 U236Gd ALL
-	        
-	                  REGI W1 Gd154  ALL
-	                  REGI W1 Gd155  ALL
-	                  REGI W1 Gd156  ALL
-	                  REGI W1 Gd157  ALL
-	                  REGI W1 Gd158  ALL
-	                  REGI W1 Gd160  ALL
-	        
-	                  REGI W1 Zr90g  ALL
-	                  REGI W1 Zr91g  ALL    
-	            ENDC  ;
-	  EVALUATE iAutop := iAutop 1 + ;
-	ENDIF ;
+                    REGI W1 U235Gd ALL
+                    REGI W1 U236Gd ALL
+
+                    REGI W1 Gd154  ALL
+                    REGI W1 Gd155  ALL
+                    REGI W1 Gd156  ALL
+                    REGI W1 Gd157  ALL
+                    REGI W1 Gd158  ALL
+                    REGI W1 Gd160  ALL
+
+                    REGI W1 Zr90g  ALL
+                    REGI W1 Zr91g  ALL
+              ENDC  ;
+    EVALUATE iAutop := iAutop 1 + ;
+  ENDIF ;
   ENDIF ;
 
 ************************************************************************
