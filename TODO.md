@@ -4,12 +4,12 @@
 - [ ] prepare input maps for assemblies in excel sheet
 - [x] create short calculation inputs with 2 burnup steps for assemblies
 - [x] check pin materials
-- [ ] rm U234 from the list
-- [ ] fix assembly A and D
+- [x] rm U234 from the list
+- [x] fix assembly A and D
 - [ ] check low keff for assembly D
 - [ ] launch full calculation for all assemblies
 - [ ] rm unused variables i and iNext
-- [ ] organise CALC rows in x2m files
+- [x] organise CALC rows in x2m files
 
 
 ## Questions
