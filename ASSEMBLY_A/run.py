@@ -58,20 +58,33 @@ def save_pid(file_dir, process_id):
         f.write("process id: {}".format(process_id))
 
 
-def execute(config, background=False):
+def execute(config, background=True):
     """
-    this will immitate the following behavior
+    This script will immitate the following behavior
     
-    $ dragon_exe < file.in > file.out
+        $ /path/to/dragon_exe < file.in > file.out
     
-    to run the script
+    To run the script
     
-    $ ./run.py
+        $ python3 run.py
     
-    which will return process id if `background=False`
+    which will run the simulation in background 
+    (default behavior set by `background=True`)
+    and return the process id.
     To follow up the process use top
     
-    $ top -p process-id
+        $ top -p process-id
+
+    or tail command
+
+        $ tail -f -n +1 $(ls -td -- output*/ | head -n 1)*.result | nl
+
+    To run in debug mode
+
+        $ DEBUG=1 python3 run.py
+
+    which will write the output of the simulation
+    both to terminal and *.result file.
     """
     
     init(config)
@@ -79,7 +92,7 @@ def execute(config, background=False):
     input_ = open(config.DRAGON_INPUT_FILE)
     output_ = open(config.DRAGON_OUTPUT_FILE, 'w')
 
-    if background:
+    if background and 'DEBUG' not in os.environ:
         p = subprocess.Popen(
             config.DRAGON_EXE, 
             stdin=input_, 
@@ -106,7 +119,6 @@ def execute(config, background=False):
             raise subprocess.CalledProcessError(p.returncode, p.args)
     
     return p
-
 
 class Config(object):
     INPUT = "UOX_TBH_eighth_2level_g2s"
