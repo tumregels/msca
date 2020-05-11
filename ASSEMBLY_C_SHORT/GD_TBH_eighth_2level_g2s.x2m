@@ -88,7 +88,7 @@ DONNEES := UTL: ::
 DONNEES := UTL: DONNEES ::
     CREA
           AUTOP <<maxautop>> =
-         15.0    50.0   112.5
+          15.0    50.0   112.5
     ;
 ************************************************************************
 *  END DECLARATION                                                     *
@@ -249,7 +249,7 @@ EDIHOM := DELETE: EDIHOM ;
   MIX  37 MIX  38 MIX  39 MIX  40 MIX  41 MIX  42
   MIX  43 MIX  44 MIX  45 MIX  46 MIX  47 MIX  48
   MIX  49 MIX  50 MIX  51 MIX  52 MIX  53 MIX  54
-  MIX  55 
+  MIX  55
   ;
     
  LIBEQ LIBHOM := DELETE: LIBEQ LIBHOM ;
@@ -341,7 +341,7 @@ ECHO "Resultat Keff= " Keff " at burnup= " BUend ;
 ************************************************************************
 
 ENDWHILE ;
-assertS FLUX2 :: K-EFFECTIVE 1 0.8919430 ;
+assertS FLUX2 :: K-EFFECTIVE 1 0.9649251 ;
 ************************************************************************
 *  END SECOND LEVEL FLUX CALCULATION                                   *
 ************************************************************************

@@ -31,7 +31,6 @@
 *  Output data  :
 *    GEON1      : Geometry for 1st Level Flux Calculation
 
-
 PARAMETER  GEON1  ::  
        EDIT 0 
            ::: LINKED_LIST GEON1  ; 
@@ -45,12 +44,12 @@ MODULE  GEO: END: ;
 *  Input data recovery
 *----
 *                                                                      ;
-REAL Rcomb1       Rcomb2       Rcomb3       Rcomb4        ;
-:: >>Rcomb1<<   >>Rcomb2<<   >>Rcomb3<<   >>Rcomb4<<      ;
-REAL R_int_TG     R_ext_TG     R_int_TI     R_ext_TI      ;
-:: >>R_int_TG<< >>R_ext_TG<< >>R_int_TI<< >>R_ext_TI<<    ;
-REAL R_int_G      R_ext_G      Cote         CoteL         ;
-:: >>R_int_G<<  >>R_ext_G<<  >>Cote<<     >>CoteL<<       ;
+REAL Rcomb1       Rcomb2       Rcomb3       Rcomb4     ;
+:: >>Rcomb1<<   >>Rcomb2<<   >>Rcomb3<<   >>Rcomb4<<   ;
+REAL R_int_TG     R_ext_TG     R_int_TI     R_ext_TI   ;
+:: >>R_int_TG<< >>R_ext_TG<< >>R_int_TI<< >>R_ext_TI<< ;
+REAL R_int_G      R_ext_G      Cote         CoteL      ;
+:: >>R_int_G<<  >>R_ext_G<<  >>Cote<<     >>CoteL<<    ;
 REAL RmodeN1      Rcomb1Gad     Rcomb2Gad     Rcomb3Gad   ;
 :: >>RmodeN1<<  >>Rcomb1Gad<< >>Rcomb2Gad<< >>Rcomb3Gad<< ;
 REAL Rcomb4Gad       Rcomb5Gad       Rcomb6Gad            ;
@@ -101,15 +100,9 @@ GEON1 := GEO: :: CAR2D 9 9
          <<R_int_G>> <<R_ext_G>> <<RmodeN1>>
          MIX  21 22 23 24 25 26  7 8 1 1
   ;
-
   ::: G2 := GEO: G1
-         MIX  52 53 54 55 56 57  7 8 1 1
+         MIX 68 69 96 97 98 99  7 8 1 1
   ;
-
-*  ::: G3 := GEO: G1
-*         MIX  58 59 60 61 62 63  7 8 1 1
-*  ;
-    
   ::: C1 := GEO: CARCEL 7
          MESHX 0.0 <<Cote>>
          MESHY 0.0 <<Cote>>

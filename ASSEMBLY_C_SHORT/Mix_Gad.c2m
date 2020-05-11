@@ -129,38 +129,24 @@ LIBRARY := LIB: ::
   MIX 26
     COMB 21 1.0
 
+* G2 *G0707*
+  MIX 68
+    COMB 21 1.0
+  MIX 69
+    COMB 21 1.0
+  MIX 96
+    COMB 21 1.0
+  MIX 97
+    COMB 21 1.0
+  MIX 98
+    COMB 21 1.0
+  MIX 99
+    COMB 21 1.0
+
 *----
 *    Cladding TG
 *----
   MIX 27 COMB 2 1.0
-
-*G2 *G0707*
-  MIX 52
-    COMB 21 1.0
-  MIX 53
-    COMB 21 1.0
-  MIX 54
-    COMB 21 1.0
-  MIX 55
-    COMB 21 1.0
-  MIX 56
-    COMB 21 1.0
-  MIX 57
-    COMB 21 1.0    
-    
-* C1 *C0601*
-  MIX 58
-    COMB 3 1.0
-  MIX 59
-    COMB 4 1.0
-  MIX 60
-    COMB 5 1.0
-  MIX 61
-    COMB 6 1.0
-*  MIX 62
-*    COMB 21 1.0
-*  MIX 63
-*    COMB 21 1.0
 
 * C4 *C0801*
   MIX 100
