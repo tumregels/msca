@@ -13,7 +13,8 @@
 
 # Serpent
 
-- [ ] prepare initial inputs
+- [x] prepare initial inputs
+- [ ] setup dev serpent and execute on shortened inputs
 - [ ] perform calculations
 
 # Data Analyses
