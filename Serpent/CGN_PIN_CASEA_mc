@@ -1,0 +1,222 @@
+% --- Problem title:
+set title "CGN-CASEA Pin cell benchmark"
+
+% --- Cross section library file path:
+
+set acelib "/home/nucl/serpent/xs/jeff311/sss_jeff311u.data"
+
+% --- Decay data library
+
+set declib "/home/nucl/serpent/xs/jeff311/sss_jeff311.dec"
+
+% --- Neutron-induced fission yield library
+
+set nfylib "/home/nucl/serpent/xs/jeff311/sss_jeff311.nfy"
+
+% fuel pin -> 4 rings, radii: 0.289631cm, 0.366357cm, 0.399229cm, 0.409600cm
+
+pin 1
+UO2_A     0.289631
+UO2_B     0.366357
+UO2_C     0.399229
+UO2_D     0.409600
+gap       0.4180
+clad      0.4750
+water
+
+surf 10 sqc 0.0 0.0 0.63
+cell 1 0  fill 1   -10
+cell 2 0  outside   10
+
+mat UO2_A   sum  burn 1 tmp 900.0
+92235.09c    4.08785E-4
+92238.09c    2.20157E-2
+ 8016.09c    4.48565E-2
+ 
+mat UO2_B   sum  burn 1 tmp 900.0
+92235.09c    4.08785E-4
+92238.09c    2.20157E-2
+ 8016.09c    4.48565E-2
+
+mat UO2_C   sum  burn 1 tmp 900.0
+92235.09c    4.08785E-4
+92238.09c    2.20157E-2
+ 8016.09c    4.48565E-2
+
+mat UO2_D   sum  burn 1 tmp 900.0
+92235.09c    4.08785E-4
+92238.09c    2.20157E-2
+ 8016.09c    4.48565E-2
+
+mat ZRO  sum
+40090.03c  2.2247E-02
+40091.03c  4.8516E-03
+40092.03c  7.4158E-03
+40094.03c  7.5153E-03
+40096.03c  1.2107E-03
+
+% moderator
+mat water sum  tmp 600.0 moder lwtr 1001 
+ 8016.06c  2.34793E-2
+ 1001.06c  4.69585E-2
+ 5010.06c  5.53089E-6
+ 5011.06c  2.18498E-5
+
+mat clad  sum  tmp 600.0
+40090.06c 2.16576E-2
+40091.06c 4.72300E-3
+40092.06c 7.21921E-3
+40094.06c 7.31603E-3
+40096.06c 1.17864E-3
+
+mat gap  sum  tmp 600.0
+8016.06c 3.76439E-6
+
+% --- Thermal scattering data for light water:
+% --- lwj3: jeff-3.1  13t: 623.6K
+
+therm lwtr lwj3.13t
+
+% --- reflective boundary condition:
+set bc 2
+
+mat U235  1.0 tmp 900.0 92235.09c 1.0
+mat U238  1.0 tmp 900.0 92238.09c 1.0
+mat O16f  1.0 tmp 900.0 8016.09c  1.0
+mat O16m  1.0 tmp 600.0 8016.06c  1.0
+mat H1    1.0 tmp 600.0 1001.06c  1.0
+mat Zr90  1.0 tmp 600.0 40090.06c 1.0
+mat Zr91  1.0 tmp 600.0 40091.06c 1.0
+mat Zr92  1.0 tmp 600.0 40092.06c 1.0
+mat Zr94  1.0 tmp 600.0 40094.06c 1.0
+mat Zr96  1.0 tmp 600.0 40096.06c 1.0
+mat B10   1.0 tmp 600.0 5010.06c  1.0
+mat B11   1.0 tmp 600.0 5011.06c  1.0
+
+% --- energy grid for the detectors (13g - SHEM295 compatible)
+ene 1 1 1.1E-11 1.90005E-7 6.25E-7 4E-6 7.62243E-6 1.90315E-5 2.26712E-5 3.97296E-5 7.63323E-5 7.48518E-4 1.1138E-2 4.94002E-1 2.2313 1.9640E+1
+
+det _flux295         de 1  
+
+set ures no
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUEL POWER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+det _PIN_A   de 1   dm UO2_A
+   dr -6 U235  
+   dr -6 U238 
+det _PIN_B   de 1   dm UO2_B
+   dr -6 U235  
+   dr -6 U238 
+det _PIN_C   de 1   dm UO2_C
+   dr -6 U235  
+   dr -6 U238 
+det _PIN_D   de 1   dm UO2_D
+   dr -6 U235  
+   dr -6 U238 
+
+% end of detectors definition
+
+set bumode 2  % CRAM method
+set pcc 1     % Predictor-corrector calculation on
+set powdens 39.0E-3
+set gcu 0
+set sym 4
+set nfg 2 0.625E-6
+set pop 4000 4000 20
+plot 3 500 500
+mesh 3 500 500
+
+set inventory
+922350
+922360
+922380
+932370
+942380
+942390
+942400
+942410
+942420
+952410
+952421
+952430
+962420
+962430
+962440
+962450
+601450
+601480
+541350
+451030
+551330
+641550
+420950
+430990
+441010
+471090
+621470
+621490
+621500
+621510
+621520
+631530
+
+dep butot     
+ 0.03
+ 0.05
+ 0.075
+ 0.15
+ 0.5
+ 0.75
+ 1.0
+ 2.0
+ 2.5
+ 3.0
+ 3.5
+ 4.0
+ 4.5
+ 5.0
+ 5.5
+ 6.0
+ 6.5
+ 7.0
+ 7.5
+ 8.0
+ 8.5
+ 9.0
+ 9.5
+ 10.0
+ 11.0
+ 12.0
+ 13.0
+ 14.0
+ 15.0
+ 16.0
+ 17.0
+ 18.0
+ 19.0
+ 20.0
+ 22.0
+ 24.0
+ 26.0
+ 28.0
+ 30.0
+ 32.0
+ 34.0
+ 36.0
+ 38.0
+ 40.0
+ 42.0
+ 44.0
+ 46.0
+ 48.0
+ 50.0
+ 52.0
+ 54.0
+ 56.0
+ 58.0
+ 60.0
+ 62.0
+ 64.0
+ 66.0
+ 68.0
+ 70.0
