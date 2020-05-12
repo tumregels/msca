@@ -1,17 +1,17 @@
 % --- Problem title:
-set title "CGN-CASEB Pin cell benchmark"
+set title "CGN-CASEA Pin cell benchmark"
 
 % --- Cross section library file path:
 
-set acelib "/home/nucl/serpent/xs/jeff311/sss_jeff311u.data"
+set acelib "{ACELIB}"
 
 % --- Decay data library
 
-set declib "/home/nucl/serpent/xs/jeff311/sss_jeff311.dec"
+set declib "{DECLIB}"
 
 % --- Neutron-induced fission yield library
 
-set nfylib "/home/nucl/serpent/xs/jeff311/sss_jeff311.nfy"
+set nfylib "{NFYLIB}"
 
 % fuel pin -> 4 rings, radii: 0.289631cm, 0.366357cm, 0.399229cm, 0.409600cm
 
@@ -29,24 +29,24 @@ cell 1 0  fill 1   -10
 cell 2 0  outside   10
 
 mat UO2_A   sum  burn 1 tmp 900.0
-92235.09c    7.04005E-4
-92238.09c    2.17205E-2
- 8016.09c    4.48632E-2
+92235.09c    4.08785E-4
+92238.09c    2.20157E-2
+ 8016.09c    4.48565E-2
  
 mat UO2_B   sum  burn 1 tmp 900.0
-92235.09c    7.04005E-4
-92238.09c    2.17205E-2
- 8016.09c    4.48632E-2
+92235.09c    4.08785E-4
+92238.09c    2.20157E-2
+ 8016.09c    4.48565E-2
 
 mat UO2_C   sum  burn 1 tmp 900.0
-92235.09c    7.04005E-4
-92238.09c    2.17205E-2
- 8016.09c    4.48632E-2
+92235.09c    4.08785E-4
+92238.09c    2.20157E-2
+ 8016.09c    4.48565E-2
 
 mat UO2_D   sum  burn 1 tmp 900.0
-92235.09c    7.04005E-4
-92238.09c    2.17205E-2
- 8016.09c    4.48632E-2
+92235.09c    4.08785E-4
+92238.09c    2.20157E-2
+ 8016.09c    4.48565E-2
 
 mat ZRO  sum
 40090.03c  2.2247E-02

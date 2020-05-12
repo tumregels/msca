@@ -3,15 +3,15 @@ set title "CGN-CASEC Pin cell benchmark"
 
 % --- Cross section library file path:
 
-set acelib "/home/nucl/serpent/xs/jeff311/sss_jeff311u.data"
+set acelib "{ACELIB}"
 
 % --- Decay data library
 
-set declib "/home/nucl/serpent/xs/jeff311/sss_jeff311.dec"
+set declib "{DECLIB}"
 
 % --- Neutron-induced fission yield library
 
-set nfylib "/home/nucl/serpent/xs/jeff311/sss_jeff311.nfy"
+set nfylib "{NFYLIB}"
 
 % fuel pin -> 4 rings, radii: 0.289631cm, 0.366357cm, 0.399229cm, 0.409600cm
 
