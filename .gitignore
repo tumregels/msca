@@ -1,4 +1,5 @@
-.ipynb_checkpoints/
+.idea
+.ipynb_checkpoints
 .mypy_cache/*
 output/*
 output_short/
@@ -13,3 +14,4 @@ CGN_PIN_A_short.x2m
 other/*
 output_*
 TBH_*
+venv
