@@ -1,14 +1,41 @@
 #!/home/legha/bin/miniconda3/envs/jupyter/bin/python3
+import glob
 import json
 import os
 import os.path as op
-import sys
-import os
-import stat
-import subprocess
+import pathlib
 import shutil
-import glob
+import subprocess
+import sys
 from datetime import datetime
+
+
+def screenshot(config):
+    """create screenshot of input files"""
+    s = """
+!============
+!{input_name}
+!============
+
+{input_content}
+"""
+
+    text = ""
+    text += s.format(
+        input_name=pathlib.Path(config.DRAGON_INPUT_FILE).name,
+        input_content=pathlib.Path(config.DRAGON_INPUT_FILE).read_text()
+    )
+
+    if hasattr(config, "DRAGON_INPUT_SUPPORT_FILES"):
+        for file in sorted(config.DRAGON_INPUT_SUPPORT_FILES):
+            text += s.format(
+                    input_name=pathlib.Path(file).name,
+                    input_content=pathlib.Path(file).read_text()
+                )
+
+    filename = f'{pathlib.Path(config.OUTPUT_DIR).name}.input'
+    p = pathlib.Path(config.OUTPUT_DIR) / filename
+    p.write_text(text)
 
 
 def init(config):
@@ -47,6 +74,8 @@ def init(config):
     # write config file
     with open(op.join(config.OUTPUT_DIR, "config.json"), "w") as f:
         f.write(json.dumps({k: v for k, v in dict(vars(config)).items() if not k.startswith('__')}, indent=4))
+
+    screenshot(config)
 
 
 def save_pid(file_dir, process_id):
@@ -119,6 +148,7 @@ def execute(config, background=True):
             raise subprocess.CalledProcessError(p.returncode, p.args)
     
     return p    
+
 
 class Config(object):
     INPUT = "GD_TBH_eighth_2level_g2s"
