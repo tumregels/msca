@@ -33,3 +33,5 @@
 
 - [ ] ask logic behind `DONNEES := UTL: DONNEES :: CREA AUTOP <<maxautop>> = `...
 - [x] ask if NMIX value should be adjusted in Mix_Gad.c2m and MultLIBEQ.c2m 
+
+- [ ] got `SYBILF: EXPECTING IFTRAK=0` for `UOX_AIC_eighth_2level_g2s`
