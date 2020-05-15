@@ -7,34 +7,31 @@
 
 
 import os
-import sys
-import re
-from pprint import pprint
-from decimal import Decimal
 import os.path as op
-import matplotlib.pyplot as plt
+import re
+from decimal import Decimal
 from typing import Iterator, Tuple, List, Dict
-from matplotlib.ticker import FormatStrFormatter, ScalarFormatter
+
+import matplotlib.pyplot as plt
 from IPython.display import Image
-import contextlib
-import doctest
+from matplotlib.ticker import ScalarFormatter
 
 
-def parse_echo(s : str)-> Iterator[str]:
+def parse_echo(s: str) -> Iterator[str]:
     """
     Parse ECHO statements from dragon 5 output
     
     >>> next(parse_echo('\\n>|BURNUP step 1 between  0.000000e+00 and  7.692308e-01 day:              |>0131\\n'))
     'start:2      end:2      text: >|BURNUP step 1 between  0.000000e+00 and  7.692308e-01 day:              '
     """
-    
-    end='.*\n'
-    line=[m.end() for m in re.finditer(end, s)]
+
+    end = '.*\n'
+    line = [m.end() for m in re.finditer(end, s)]
 
     pattern = '>\|(.*?)(?=\|>\d+)'
-    match=re.compile(pattern, re.MULTILINE|re.DOTALL)
+    match = re.compile(pattern, re.MULTILINE | re.DOTALL)
     for m in re.finditer(match, s):
-        lineno = next(i+1 for i in range(len(line)) if line[i]>m.start(1))
+        lineno = next(i + 1 for i in range(len(line)) if line[i] > m.start(1))
         endno = lineno + len(m.group().splitlines()) - 1
         text = m.group()
         yield f'start:{lineno: <6} end:{endno: <6} text: {text}'
@@ -42,7 +39,7 @@ def parse_echo(s : str)-> Iterator[str]:
         yield ''
 
 
-def parse_burnup_vs_kinf(s: str, debug: bool = False)-> List[Tuple[Decimal, Decimal]]:
+def parse_burnup_vs_kinf(s: str, debug: bool = False) -> List[Tuple[Decimal, Decimal]]:
     """
     Parse ECHO dragon statement to extract values for BURNUP and K-INFINITY
     
@@ -50,52 +47,54 @@ def parse_burnup_vs_kinf(s: str, debug: bool = False)-> List[Tuple[Decimal, Deci
     >>> parse_burnup_vs_kinf(s)
     [(Decimal('30.00000'), Decimal('1.055019'))]
     """
-    
-    end='.*\n'
-    line=[m.end() for m in re.finditer(end, s)]
-    
-    burn_vs_kinf = [] # save burnup vs kinf in list
+
+    end = '.*\n'
+    line = [m.end() for m in re.finditer(end, s)]
+
+    burn_vs_kinf = []  # save burnup vs kinf in list
 
     pattern = r'''>\|(BURNUP:(?P<burnup>.*?)<-> K-INFINITY :(?P<kinf>.*?))(?=\|>\d+)'''
-    match=re.compile(pattern, re.MULTILINE | re.DOTALL)
+    match = re.compile(pattern, re.MULTILINE | re.DOTALL)
     for m in re.finditer(match, s):
-        lineno = next(i+1 for i in range(len(line)) if line[i]>m.start(1))
+        lineno = next(i + 1 for i in range(len(line)) if line[i] > m.start(1))
         endno = lineno + len(m.group().splitlines()) - 1
         text = m.group()
         burnup = Decimal(m.group("burnup").strip())
         kinf = Decimal(m.group("kinf").strip())
-        print(f'start:{lineno: <6} end:{endno: <6} burnup: {float(burnup)} kinf: {float(kinf)} text: {text}') if debug else None
+        print(
+            f'start:{lineno: <6} end:{endno: <6} burnup: {float(burnup)} kinf: {float(kinf)} text: {text}'
+        ) if debug else None
         burn_vs_kinf.append((burnup, kinf))
-        
+
     return burn_vs_kinf
 
 
-def plot_burnup_vs_kinf(data: List[Tuple[Decimal, Decimal]])-> Image:
-    x_val = [x[0]/1000 for x in data]
+def plot_burnup_vs_kinf(data: List[Tuple[Decimal, Decimal]]) -> Image:
+    x_val = [x[0] / 1000 for x in data]
     y_val = [x[1] for x in data]
-    
+
     fig = plt.figure()
     plt.grid()
-    plt.plot(x_val,y_val)
-    plt.plot(x_val,y_val,'or')
+    plt.plot(x_val, y_val)
+    plt.plot(x_val, y_val, 'or')
     plt.suptitle('$k_{inf} \ vs \ Burnup$', fontsize=12)
     plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
     plt.ylabel(r'$Multiplication \ factor \ k_{inf}$', fontsize=12)
     filename = 'kinf_vs_burnup.png'
     plt.savefig(filename, dpi=300, bbox_inches="tight")
-    #plt.show()
+    # plt.show()
     plt.close(fig)
     return Image(filename, width=600, height=600)
 
 
 def get_burnup_step_data(s: str, debug: bool = False) -> Iterator[Tuple[str, str]]:
-    end='.*\n'
-    line=[m.end() for m in re.finditer(end, s)]
+    end = '.*\n'
+    line = [m.end() for m in re.finditer(end, s)]
 
     pattern = '>\|(BURNUP step (?P<step>\d+).*?)(?=>\|BURNUP step|>\|CGN_PIN_A completed)'
-    match=re.compile(pattern, re.MULTILINE|re.DOTALL)
+    match = re.compile(pattern, re.MULTILINE | re.DOTALL)
     for m in re.finditer(match, s):
-        lineno = next(i+1 for i in range(len(line)) if line[i]>m.start(1))
+        lineno = next(i + 1 for i in range(len(line)) if line[i] > m.start(1))
         endno = lineno + len(m.group().splitlines()) - 1
         text = m.group()
         step = m.group('step')
@@ -132,20 +131,20 @@ def get_iso_dens_vs_burnup(s: str, debug: bool = False) -> Dict[Decimal, List[Tu
     return iso_dens_vs_burnup
 
 
-def plot_atomic_dens_vs_burnup(d: Dict[Decimal, List[Tuple[str, str, Decimal]]]) -> Image:
-    burnup = [ k/1000 for k in d.keys()]
-    pu239 = [v[0][2] for _, v in d.items() if v[0][0]=='Pu239']
-    u235 = [v[4][2] for _, v in d.items() if v[4][0]=='U235']
-    pu241 = [v[8][2] for _, v in d.items() if v[8][0]=='Pu241']
-    
+def plot_atomic_dens_vs_burnup(d: Dict[Decimal, List[Tuple[str, str, Decimal]]]):
+    burnup = [k / 1000 for k in d.keys()]
+    pu239 = [v[0][2] for _, v in d.items() if v[0][0] == 'Pu239']
+    u235 = [v[4][2] for _, v in d.items() if v[4][0] == 'U235']
+    pu241 = [v[8][2] for _, v in d.items() if v[8][0] == 'Pu241']
+
     fig = plt.figure()
-    plt.plot(burnup,u235, label='U235', linestyle=':', color='r', linewidth=3) # dotted
-    plt.plot(burnup,pu239, label='Pu239', linestyle='--', color='b', linewidth=3) # dashed
-    plt.plot(burnup,pu241, label='Pu241', linestyle='-.', color='y', linewidth=3) # dashdot
+    plt.plot(burnup, u235, label='U235', linestyle=':', color='r', linewidth=3)  # dotted
+    plt.plot(burnup, pu239, label='Pu239', linestyle='--', color='b', linewidth=3)  # dashed
+    plt.plot(burnup, pu241, label='Pu241', linestyle='-.', color='y', linewidth=3)  # dashdot
     plt.legend(loc='upper right')
     plt.grid()
     plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset=True))
-    plt.ticklabel_format(axis='y', style='sci', scilimits=(-2,2))
+    plt.ticklabel_format(axis='y', style='sci', scilimits=(-2, 2))
     plt.suptitle('Atomic density vs burnup', fontsize=12)
     plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
     plt.ylabel(r'$Atomic \ density \ 10^{24}/cc$', fontsize=12)
@@ -153,16 +152,15 @@ def plot_atomic_dens_vs_burnup(d: Dict[Decimal, List[Tuple[str, str, Decimal]]])
     plt.savefig(filename, dpi=300, bbox_inches="tight")
     # plt.show()
     plt.close(fig)
-    return Image(filename, width=500, height=500)
 
 
-def create_plots(result: str)-> None:
+def create_plots(result: str) -> None:
     cwd = os.getcwd()
     input_abs_path = op.abspath(op.dirname(result))
     input_file_name = op.basename(result)
-    
+
     os.chdir(input_abs_path)
-    
+
     with open(input_file_name) as f:
         long_str = f.read()
 
@@ -171,16 +169,16 @@ def create_plots(result: str)-> None:
 
     iso_dens_vs_burnup = get_iso_dens_vs_burnup(long_str, debug=False)
     plot_atomic_dens_vs_burnup(d=iso_dens_vs_burnup)
-    
+
     os.chdir(cwd)
 
 
 if __name__ == '__main__':
     results = [
-        'output_CGN_PIN_A_2020-01-27_16-03-18/CGN_PIN_A.result',
-        'output_CGN_PIN_B_2020-01-27_16-27-30/CGN_PIN_B.result',
-        'output_CGN_PIN_C_2020-01-27_16-51-51/CGN_PIN_C.result'
+        'Dragon/PIN_A/output_2020-05-01_23-02-16/CGN_PIN_A.result',
+        'Dragon/PIN_B/output_2020-05-02_00-15-18/CGN_PIN_B.result',
+        'Dragon/PIN_C/output_2020-05-02_00-16-03/CGN_PIN_C.result'
     ]
-    
+
     for result in results:
         create_plots(result)
