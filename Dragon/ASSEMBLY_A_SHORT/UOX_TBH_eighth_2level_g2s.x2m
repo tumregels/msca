@@ -68,13 +68,13 @@ UOX_TBH FIG_UOX := G2S: GEON2 ;
 DONNEES := UTL: ::
  CREA
    BURN <<maxstep>> =
-        0.0       30.0       50.0       75.0      112.5
+        0.0   30.0   50.0   75.0   112.5
     ;
-    
+
 DONNEES := UTL: DONNEES ::
     CREA
           AUTOP <<maxautop>> =
-          50.0   112.5 
+          50.0   112.5
     ;
 ************************************************************************
 *  END DECLARATION                                                     *
