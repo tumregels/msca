@@ -15,7 +15,7 @@ push-assembly-all:
 	rsync -avzP ./ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 push-assembly-all-dry:
-	rsync -anv ./ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR)  --delete
+	rsync -anv ./ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 pull-assembly-all:
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_* ./Dragon
@@ -156,7 +156,7 @@ pull-pin-b:
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/PIN_B ./Dragon
 
 pull-pin-b-dry:
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_B ./Dragon --delete
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_B ./Dragon
 
 
 # PIN_C
@@ -170,7 +170,7 @@ pull-pin-c:
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/PIN_C ./Dragon
 
 pull-pin-c-dry:
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_C ./Dragon --delete
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_C ./Dragon
 
 
 # PIN_A_SHORT
@@ -184,7 +184,7 @@ pull-pin-short: ## pull PIN_A_SHORT
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/PIN_A_SHORT ./Dragon
 
 pull-pin-short-dry: ## pull PIN_A_SHORT dry
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_A_SHORT ./Dragon --delete
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_A_SHORT ./Dragon
 
 
 # Serpent
@@ -198,4 +198,4 @@ pull-serpent: ## pull serpent data
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/Serpent ./Serpent
 
 pull-serpent-dry: ## pull dry serpent data
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/Serpent ./Serpent --delete
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/Serpent ./Serpent
