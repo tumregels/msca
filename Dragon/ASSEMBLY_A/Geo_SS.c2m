@@ -116,14 +116,14 @@ GEOSS := GEO: :: CAR2D 9 9
          MIX 132 133 134 135   7 8 1
   ;
   ::: C7 := GEO: C6
-         MIX 160 161 162 163   7 8 1
+         MIX  25  26 160 161   7 8 1
   ;
   ::: C8 := GEO: CARCEL 6
          MESHX 0.0 <<CoteL>>
          MESHY 0.0 <<CoteL>>
          RADIUS 0.0 <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                 <<R_int_G>> <<R_ext_G>>
-         MIX 164 165 166 167   7 8 1
+         MIX  68  69  70  71   7 8 1
   ;
   ::: T2 := GEO: CARCEL 2
          MESHX 0.0 <<Cote>>
