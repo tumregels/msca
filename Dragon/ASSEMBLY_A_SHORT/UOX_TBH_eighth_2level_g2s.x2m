@@ -15,7 +15,7 @@ SEQ_ASCII FIG_UOX :: FILE './FIG_UOX.ps' ;
 SEQ_BINARY TF_EXC ;
 INTEGER an2d := 8 ;
 REAL densur := 20.0 ;
-INTEGER istep maxstep istepNext maxautop iAutop := 0 6 0 3 1 ;
+INTEGER istep maxstep istepNext maxautop iAutop := 0 5 0 2 1 ;
 REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
 REAL Fuelpwr Keff := 36.8 0.0 ;
 REAL BU BUautop  := 0.0 0.0 ;
@@ -68,13 +68,13 @@ UOX_TBH FIG_UOX := G2S: GEON2 ;
 DONNEES := UTL: ::
  CREA
    BURN <<maxstep>> =
-        0.0       15.0       30.0       50.0       75.0      112.5
+        0.0       30.0       50.0       75.0      112.5
     ;
     
 DONNEES := UTL: DONNEES ::
     CREA
           AUTOP <<maxautop>> =
-          15.0    50.0   112.5 
+          50.0   112.5 
     ;
 ************************************************************************
 *  END DECLARATION                                                     *
@@ -201,18 +201,17 @@ IF istep 1 > THEN
     MICR ALL
     COND
     MERG MIX
-      1   2   3   4   5   6   7   8   9  10  11  12   3   4   5
-      6   9  10  11  12  38  39  40  41  42  43  27   3   4   5
-      6   3   4   5   6   3   4   5   6   9  10  11  12   9  10
-     11  12   3   4   5   6  44  45  46  47  48  49  50  51  52
-     53  54  55   9  10  11  12   9  10  11  12   3   4   5   6
-      3   4   5   6   3   4   5   6   3   4   5   6   3   4   5
-      6   3   4   5   6   9  10  11  12  17  18  19  20   9  10
-     11  12   9  10  11  12  17  18  19  20   9  10  11  12  13
-     14  15  16  13  14  15  16  21  22  23  24  26  27  28  29
-     26  27  28  29  26  27  28  29  26  27  28  29  26  27  28
-     29  26  27  28  29  26  27  28  29  30  31  32  33  34  35
-     36  37
+       1   2   3   4   5   6   7   8   9  10  11  12   3   4   5
+       6   9  10  11  12   9  10  11  12  30  31  25   3   4   5
+       6   3   4   5   6   3   4   5   6   9  10  11  12   9  10
+      11  12   3   4   5   6   9  10  11  12   9  10  11  12   3
+       4   5   6   9  10  11  12  34  35  36  37   3   4   5   6
+       3   4   5   6   3   4   5   6   3   4   5   6   3   4   5
+       6   3   4   5   6   9  10  11  12  17  18  19  20   9  10
+      11  12   9  10  11  12  17  18  19  20   9  10  11  12  13
+      14  15  16  13  14  15  16  21  22  23  24  26  27  28  29
+      26  27  28  29  26  27  28  29  26  27  28  29  26  27  28
+      29  26  27  28  29  26  27  28  29  32  33
     SAVE ON HOMOGENE
   ;
 
@@ -232,10 +231,7 @@ EDIHOM := DELETE: EDIHOM ;
   MIX  19 MIX  20 MIX  21 MIX  22 MIX  23 MIX  24
   MIX  25 MIX  26 MIX  27 MIX  28 MIX  29 MIX  30
   MIX  31 MIX  32 MIX  33 MIX  34 MIX  35 MIX  36
-  MIX  37 MIX  38 MIX  39 MIX  40 MIX  41 MIX  42
-  MIX  43 MIX  44 MIX  45 MIX  46 MIX  47 MIX  48
-  MIX  49 MIX  50 MIX  51 MIX  52 MIX  53 MIX  54
-  MIX  55 
+  MIX  37
   ;
     
  LIBEQ LIBHOM := DELETE: LIBEQ LIBHOM ;

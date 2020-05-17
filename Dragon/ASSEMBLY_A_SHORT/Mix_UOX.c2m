@@ -44,7 +44,7 @@ MODULE  LIB: UTL: DELETE: END: ABORT: ;
 LIBRARY := LIB: ::
   EDIT 0
   DEPL LIB: DRAGON FIL: <<Library>>
-  NMIX 167 CTRA APOL ANIS 2
+  NMIX 161 CTRA APOL ANIS 2
   PT
   MIXS LIB: DRAGON FIL: <<Library>>
 
@@ -152,23 +152,23 @@ LIBRARY := LIB: ::
     COMB 3 1.0
 
 * C7 *C0908*
+  MIX  25
+    COMB 3 1.0
+  MIX  26
+    COMB 3 1.0
   MIX 160
     COMB 3 1.0
   MIX 161
     COMB 3 1.0
-  MIX 162
-    COMB 3 1.0
-  MIX 163
-    COMB 3 1.0
 
 * C8 *C0909*
-  MIX 164
+  MIX  68
     COMB 3 1.0
-  MIX 165
+  MIX  69
     COMB 3 1.0
-  MIX 166
+  MIX  70
     COMB 3 1.0
-  MIX 167
+  MIX  71
     COMB 3 1.0
 ;
 
