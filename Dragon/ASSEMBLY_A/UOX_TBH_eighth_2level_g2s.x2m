@@ -152,7 +152,7 @@ WHILE istep maxstep < DO
 *----
 * USS
 *----
- IF istep 1 = THEN
+  IF istep 1 = THEN
       LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 
           CALC  REGI W1 U235   ALL
                 REGI W1 U236   ALL
