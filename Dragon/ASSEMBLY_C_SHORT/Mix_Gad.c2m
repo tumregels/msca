@@ -45,7 +45,7 @@ LIBRARY := LIB: ::
   EDIT 0
   DEPL LIB: DRAGON FIL: <<Library>>
 
-  NMIX 167 CTRA APOL ANIS 2
+  NMIX 165 CTRA APOL ANIS 2
   PT
   MIXS LIB: DRAGON FIL: <<Library>>
 
@@ -199,13 +199,13 @@ LIBRARY := LIB: ::
     COMB 3 1.0
 
 * C8 *C0909*
+  MIX 70
+    COMB 3 1.0
+  MIX 71
+    COMB 3 1.0
   MIX 164
     COMB 3 1.0
   MIX 165
-    COMB 3 1.0
-  MIX 166
-    COMB 3 1.0
-  MIX 167
     COMB 3 1.0
 ;
 
