@@ -15,7 +15,7 @@ SEQ_ASCII FIG_UOX :: FILE './FIG_UOX.ps' ;
 SEQ_BINARY TF_EXC ;
 INTEGER an2d := 8 ;
 REAL densur := 20.0 ;
-INTEGER istep maxstep istepNext maxautop iAutop := 0 5 0 2 1 ;
+INTEGER istep maxstep istepNext maxautop iAutop := 0 6 0 3 1 ;
 REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
 REAL Fuelpwr Keff := 36.8 0.0 ;
 REAL BU BUautop  := 0.0 0.0 ;
@@ -68,13 +68,13 @@ UOX_TBH FIG_UOX := G2S: GEON2 ;
 DONNEES := UTL: ::
  CREA
    BURN <<maxstep>> =
-        0.0   30.0   50.0   75.0   112.5
+        0.0  15.0  30.0  50.0  75.0  112.5
     ;
 
 DONNEES := UTL: DONNEES ::
     CREA
           AUTOP <<maxautop>> =
-          50.0   112.5
+          15.0    50.0   112.5 
     ;
 ************************************************************************
 *  END DECLARATION                                                     *
