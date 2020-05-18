@@ -13,7 +13,8 @@ tmux has-session -t $session 2>/dev/null
 
 if [ $? != 0 ]; then
 
-  tmux set pane-border-status bottom
+  # view pane titles at the top
+  tmux set pane-border-status top
 
   # create a new tmux session
   tmux new-session -d -s $session
