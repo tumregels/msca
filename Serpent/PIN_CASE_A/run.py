@@ -1,13 +1,10 @@
 #!/home/legha/bin/miniconda3/envs/jupyter/bin/python3
+import glob
 import json
 import os
 import os.path as op
-import sys
-import os
-import stat
 import subprocess
-import shutil
-import glob
+import sys
 from datetime import datetime
 
 
@@ -55,18 +52,18 @@ def save_pid(file_dir, process_id):
 def execute(config, background=True):
     """
     This script will immitate the following behavior
-    
+
         $ /path/to/serpent_exe serpent.in > serpent.out
-    
+
     To run the script
-    
+
         $ python3 run.py
-    
-    which will run the simulation in background 
+
+    which will run the simulation in background
     (default behavior set by `background=True`)
     and return the process id.
     To follow up the process use top
-    
+
         $ top -p process-id
 
     or tail command
@@ -80,21 +77,23 @@ def execute(config, background=True):
     which will write the output of the simulation
     both to terminal and *.result file.
     """
-    
+
     init(config)
-    
+
     output_ = open(config.SERPENT_OUTPUT_FILE, 'w')
+
+    serpent_cmd = [config.SERPENT_EXE, '-mpi', str(config.MPI), op.join(config.OUTPUT_DIR, config.INPUT)]
 
     if background and 'DEBUG' not in os.environ:
         p = subprocess.Popen(
-            [config.SERPENT_EXE, op.join(config.OUTPUT_DIR,config.INPUT)],
-            stdout=output_, 
+            serpent_cmd,
+            stdout=output_,
             cwd=config.OUTPUT_DIR
         )
         save_pid(config.OUTPUT_DIR, p.pid)
     else:
         p = subprocess.Popen(
-            [config.SERPENT_EXE, op.join(config.OUTPUT_DIR,config.INPUT)],
+            serpent_cmd,
             stdout=subprocess.PIPE,
             bufsize=1,
             universal_newlines=True,
@@ -104,11 +103,11 @@ def execute(config, background=True):
             output_.write(line)
             print(line, end="")
             sys.stdout.flush()
-            
+
         p.wait()
         if p.returncode != 0:
             raise subprocess.CalledProcessError(p.returncode, p.args)
-    
+
     return p
 
 
@@ -122,6 +121,7 @@ class Config:
     XS_DECLIB_FILE = op.join(XS_LIB_DIR, "sss_jeff311.dec")
     XS_NFYLIB_FILE = op.join(XS_LIB_DIR, "sss_jeff311.nfy")
     SERPENT_EXE = os.getenv("SERPENT_EXE") or "/home/legha/bin/serpent-mpi/bin/sss2"
+    MPI = 5  # number of CPU-s to use
     SERPENT_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
 
 
