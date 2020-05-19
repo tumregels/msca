@@ -6,10 +6,11 @@
 - [x] check pin materials
 - [x] rm U234 from the list
 - [x] fix assembly A and D
-- [ ] check low keff for assembly D
+- [x] check low keff for assembly D
 - [ ] launch full calculation for all assemblies
 - [ ] rm unused variables i and iNext
 - [x] organise CALC rows in x2m files
+- [x] fix merg mix mapping
 
 # Serpent
 
@@ -19,9 +20,7 @@
 
 # Data Analyses
 
-- [ ] generate plots for Dragon calculations
-- [ ] plots for serpent
-- [ ] plots for both
+- [ ] generate plots for pin dragon/serpent calculations
 
 ## Questions
 
