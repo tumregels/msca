@@ -11,14 +11,30 @@ help: ## this help
 copy_tmuxlog: ## cp tmuxlog files to remote
 	scp -r scripts/tmuxlog*.sh $(REMOTE_SERV):~/bin/Version5_ev1738/Dragon/msca/
 
+# Serpent
+push-serpent: ## push serpent inputs
+	rsync -avzP ./Serpent $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+
+push-serpent-dry: ## push serpent inputs dry
+	rsync -anv ./Serpent $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+
+pull-serpent: ## pull serpent data
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/Serpent .
+
+pull-serpent-dry: ## pull dry serpent data
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/Serpent .
+
+
+# Dragon
 push-assembly-all:
-	rsync -avzP ./ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+	rsync -avzP ./Dragon/ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 push-assembly-all-dry:
-	rsync -anv ./ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+	rsync -anv ./Dragon/ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 pull-assembly-all:
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_* ./Dragon
+
 
 # ASSEMBLY_A
 push-assembly-a: ## push ASSEMBLY_A
@@ -185,17 +201,3 @@ pull-pin-short: ## pull PIN_A_SHORT
 
 pull-pin-short-dry: ## pull PIN_A_SHORT dry
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_A_SHORT ./Dragon
-
-
-# Serpent
-push-serpent: ## push serpent inputs
-	rsync -avzP ./Serpent $(REMOTE_SERV):$(SYNC_DIR) --delete
-
-push-serpent-dry: ## push serpent inputs dry
-	rsync -anv ./Serpent $(REMOTE_SERV):$(SYNC_DIR) --delete
-
-pull-serpent: ## pull serpent data
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/Serpent ./Serpent
-
-pull-serpent-dry: ## pull dry serpent data
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/Serpent ./Serpent
