@@ -1,4 +1,4 @@
-# CGN_ASSEMBLY
+# Dragon
 
 - [x] check isotopes
 - [ ] prepare input maps for assemblies in excel sheet
@@ -15,12 +15,13 @@
 # Serpent
 
 - [x] prepare initial inputs
+- [ ] check serp input materials
 - [ ] setup dev serpent and execute on shortened inputs
-- [ ] perform calculations
 
 # Data Analyses
 
-- [ ] generate plots for pin dragon/serpent calculations
+- [x] generate plots for pin dragon/serpent calculations
+- [ ] create analysex package for data analyses scripts
 
 ## Questions
 
