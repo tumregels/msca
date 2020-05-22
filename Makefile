@@ -35,6 +35,8 @@ push-assembly-all-dry:
 pull-assembly-all:
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_* ./Dragon
 
+pull-assembly-all-dry:
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_* ./Dragon
 
 # ASSEMBLY_A
 push-assembly-a: ## push ASSEMBLY_A
