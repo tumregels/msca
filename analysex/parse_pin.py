@@ -2,18 +2,16 @@
 # 
 # * Fission and capture reaction rate comparisons at each burnup step
 # * Number density evolution for typical isotopes with burnup
-# * Keff comparison at each burnup step (DRAGON+)
-# * Fission map comparison at each burnup step 
 
 
 import os
-import os.path as op
+import pathlib
 import re
 from decimal import Decimal
-from typing import Iterator, Tuple, List, Dict
+from typing import Iterator, Tuple, List, Dict, Any
 
 import matplotlib.pyplot as plt
-from IPython.display import Image
+import scipy.io
 from matplotlib.ticker import ScalarFormatter
 
 
@@ -69,24 +67,6 @@ def parse_burnup_vs_kinf(s: str, debug: bool = False) -> List[Tuple[Decimal, Dec
     return burn_vs_kinf
 
 
-def plot_burnup_vs_kinf(data: List[Tuple[Decimal, Decimal]]) -> Image:
-    x_val = [x[0] / 1000 for x in data]
-    y_val = [x[1] for x in data]
-
-    fig = plt.figure()
-    plt.grid()
-    plt.plot(x_val, y_val)
-    plt.plot(x_val, y_val, 'or')
-    plt.suptitle('$k_{inf} \ vs \ Burnup$', fontsize=12)
-    plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
-    plt.ylabel(r'$Multiplication \ factor \ k_{inf}$', fontsize=12)
-    filename = 'kinf_vs_burnup.png'
-    plt.savefig(filename, dpi=300, bbox_inches="tight")
-    # plt.show()
-    plt.close(fig)
-    return Image(filename, width=600, height=600)
-
-
 def get_burnup_step_data(s: str, debug: bool = False) -> Iterator[Tuple[str, str]]:
     end = '.*\n'
     line = [m.end() for m in re.finditer(end, s)]
@@ -106,9 +86,12 @@ def get_iso_density_per_ring(s: str, debug: bool = False) -> List[Tuple[str, str
     iso_data = []
     for iso in ['Pu239', 'U235', 'Pu241']:
         pattern = (
-            '(?<=ISOTOPIC DENSITIES AFTER BURNUP FOR MIXTURE =)\s+?(?P<ring>\d+)\s\(10\*\*24 PARTICLES/CC\)' # look behind and find ISOTOPIC DENSITIES string
-            '.*?' # some data
-            f'{iso}\s+:[\s=]+(?P<density>[+-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+))' # iso name followed by : and float number
+            # look behind and find ISOTOPIC DENSITIES string
+            '(?<=ISOTOPIC DENSITIES AFTER BURNUP FOR MIXTURE =)\s+?(?P<ring>\d+)\s\(10\*\*24 PARTICLES/CC\)'
+            # some data
+            '.*?'
+            # iso name followed by : and float number
+            f'{iso}\s+:[\s=]+(?P<density>[+-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+))'
         )
         prog = re.compile(pattern, re.MULTILINE | re.DOTALL)
         for m in re.finditer(prog, s):
@@ -131,11 +114,17 @@ def get_iso_dens_vs_burnup(s: str, debug: bool = False) -> Dict[Decimal, List[Tu
     return iso_dens_vs_burnup
 
 
-def plot_atomic_dens_vs_burnup(d: Dict[Decimal, List[Tuple[str, str, Decimal]]]):
-    burnup = [k / 1000 for k in d.keys()]
-    pu239 = [v[0][2] for _, v in d.items() if v[0][0] == 'Pu239']
-    u235 = [v[4][2] for _, v in d.items() if v[4][0] == 'U235']
-    pu241 = [v[8][2] for _, v in d.items() if v[8][0] == 'Pu241']
+def plot_atomic_dens_vs_burnup_dragon(
+        data: Dict[Decimal, List[Tuple[str, str, Decimal]]],
+        title: str = 'Atomic density vs burnup',
+        filename: str = 'atomic_dens_vs_burnup.png'
+):
+    pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
+
+    burnup = [k / 1000 for k in data.keys()]
+    pu239 = [v[0][2] for _, v in data.items() if v[0][0] == 'Pu239']
+    u235 = [v[4][2] for _, v in data.items() if v[4][0] == 'U235']
+    pu241 = [v[8][2] for _, v in data.items() if v[8][0] == 'Pu241']
 
     fig = plt.figure()
     plt.plot(burnup, u235, label='U235', linestyle=':', color='r', linewidth=3)  # dotted
@@ -145,40 +134,71 @@ def plot_atomic_dens_vs_burnup(d: Dict[Decimal, List[Tuple[str, str, Decimal]]])
     plt.grid()
     plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset=True))
     plt.ticklabel_format(axis='y', style='sci', scilimits=(-2, 2))
-    plt.suptitle('Atomic density vs burnup', fontsize=12)
+    plt.suptitle(title, fontsize=12, y=1.02)
     plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
     plt.ylabel(r'$Atomic \ density \ 10^{24}/cc$', fontsize=12)
-    filename = 'atomic_dens_vs_burnup.png'
     plt.savefig(filename, dpi=300, bbox_inches="tight")
-    # plt.show()
     plt.close(fig)
 
 
-def create_plots(result: str) -> None:
-    cwd = os.getcwd()
-    input_abs_path = op.abspath(op.dirname(result))
-    input_file_name = op.basename(result)
+def plot_atomic_dens_vs_burnup_serpent(
+        data: Any,
+        title: str = 'Atomic density vs burnup',
+        filename: str = 'atomic_dens_vs_burnup_serpent.png'
+):
+    pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
 
-    os.chdir(input_abs_path)
+    burnup = data['BU'][0]
+    pu239 = data['TOT_ADENS'][int(data['iPu239'][0, 0]) - 1]  # in matlab indexes starts from 1
+    u235 = data['TOT_ADENS'][int(data['iU235'][0, 0]) - 1]
+    pu241 = data['TOT_ADENS'][int(data['iPu241'][0, 0]) - 1]
 
-    with open(input_file_name) as f:
-        long_str = f.read()
-
-    burnup_vs_kinf = parse_burnup_vs_kinf(long_str)
-    plot_burnup_vs_kinf(data=burnup_vs_kinf)
-
-    iso_dens_vs_burnup = get_iso_dens_vs_burnup(long_str, debug=False)
-    plot_atomic_dens_vs_burnup(d=iso_dens_vs_burnup)
-
-    os.chdir(cwd)
+    fig = plt.figure()
+    plt.plot(burnup, u235, label='U235', linestyle=':', color='r', linewidth=3)  # dotted
+    plt.plot(burnup, pu239, label='Pu239', linestyle='--', color='b', linewidth=3)  # dashed
+    plt.plot(burnup, pu241, label='Pu241', linestyle='-.', color='y', linewidth=3)  # dashdot
+    plt.legend(loc='upper right')
+    plt.grid()
+    plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset=True))
+    plt.ticklabel_format(axis='y', style='sci', scilimits=(-2, 2))
+    plt.suptitle(title, fontsize=12, y=1.02)
+    plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
+    plt.ylabel(r'$Atomic \ density \ 10^{24}/cc$', fontsize=12)
+    plt.savefig(filename, dpi=300, bbox_inches="tight")
+    plt.show()
+    plt.close(fig)
 
 
 if __name__ == '__main__':
-    results = [
+    os.chdir(pathlib.Path(__file__).parent.parent)
+
+    drag_output_files = [
         'Dragon/PIN_A/output_2020-05-01_23-02-16/CGN_PIN_A.result',
         'Dragon/PIN_B/output_2020-05-02_00-15-18/CGN_PIN_B.result',
         'Dragon/PIN_C/output_2020-05-02_00-16-03/CGN_PIN_C.result'
     ]
 
-    for result in results:
-        create_plots(result)
+    for p in drag_output_files:
+        file = pathlib.Path(p)
+        long_str = file.read_text()
+
+        iso_dens_vs_burnup = get_iso_dens_vs_burnup(long_str, debug=False)
+        plot_atomic_dens_vs_burnup_dragon(
+            data=iso_dens_vs_burnup,
+            title=f'$Atomic density \ vs \ Burnup$\n {file}\n',
+            filename=f'pin_plots/atomic_dens_vs_burnup_{re.search("/(PIN_.*?)/", str(file)).group(1)}'
+        )
+
+    serp_output_files = [
+        'Serpent/PIN_A/output_2020-05-11_22-39-35/PIN_CASEA_mc_dep.mat',
+        'Serpent/PIN_B/output_2020-05-11_22-39-42/PIN_CASEB_mc_dep.mat',
+        'Serpent/PIN_C/output_2020-05-11_22-39-48/PIN_CASEC_mc_dep.mat',
+    ]
+
+    for p in serp_output_files:
+        data = scipy.io.loadmat(p)
+        plot_atomic_dens_vs_burnup_serpent(
+            data=data,
+            title=f'$Atomic density \ vs \ Burnup$\n {p}\n',
+            filename=f'pin_plots/atomic_dens_vs_burnup_serpent_{re.search("/(PIN_.*?)/", p).group(1)}'
+        )
