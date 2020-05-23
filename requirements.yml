@@ -144,6 +144,7 @@ dependencies:
     - python-dateutil==2.8.1
     - pyzmq==19.0.1
     - requests==2.23.0
+    - scipy==1.4.1
     - send2trash==1.5.0
     - terminado==0.8.3
     - testpath==0.4.4
