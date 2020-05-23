@@ -11,6 +11,9 @@ help: ## this help
 copy_tmuxlog: ## cp tmuxlog files to remote
 	scp -r scripts/tmuxlog*.sh $(REMOTE_SERV):~/bin/Version5_ev1738/Dragon/msca/
 
+export_conda_requirements:
+    conda env export > requirements.yml
+
 # Serpent
 push-serpent: ## push serpent inputs
 	rsync -avzP ./Serpent $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
