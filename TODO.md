@@ -16,12 +16,13 @@
 
 - [x] prepare initial inputs
 - [ ] check serp input materials
-- [ ] setup dev serpent and execute on shortened inputs
+- [x] fix pin burnup steps
+- [ ] plot atomic dens vs burnup for serpent
 
 # Data Analyses
 
 - [x] generate plots for pin dragon/serpent calculations
-- [ ] create analysex package for data analyses scripts
+- [x] create analysex package for data analyses scripts
 
 ## Questions
 
