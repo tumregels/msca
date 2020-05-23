@@ -12,7 +12,10 @@ copy_tmuxlog: ## cp tmuxlog files to remote
 	scp -r scripts/tmuxlog*.sh $(REMOTE_SERV):~/bin/Version5_ev1738/Dragon/msca/
 
 export_conda_requirements:
-    conda env export > requirements.yml
+	conda env export > requirements.yml
+
+convert_m_files: ## convert serpent output files to mat files
+	octave-cli --persist scripts/create_mat_files.m || true
 
 # Serpent
 push-serpent: ## push serpent inputs
