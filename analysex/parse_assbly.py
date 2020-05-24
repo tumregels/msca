@@ -5,6 +5,7 @@
 # * Keff comparison at each burnup step (DRAGON+)
 # * Fission map comparison at each burnup step
 import csv
+import os
 import pathlib
 import re
 from decimal import Decimal
@@ -110,5 +111,6 @@ def create_plots(path: pathlib.Path) -> None:
 
 
 if __name__ == '__main__':
+    os.chdir(pathlib.Path(__file__).parent.parent)
     for path in pathlib.Path('Dragon').rglob('*.result'):
         create_plots(path)
