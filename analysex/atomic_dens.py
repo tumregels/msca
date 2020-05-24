@@ -5,7 +5,12 @@ import re
 from decimal import Decimal
 from typing import List, Dict, Any, Tuple
 
-from analysex.parse_pin import get_iso_density_per_ring, get_iso_dens_vs_burnup
+from analysex.parse_pin import get_iso_density_per_ring
+
+
+def round_up(x):
+    ndigits = -(len(str(int(x))) - 3)
+    return round(x, ndigits)
 
 
 def get_burnup_step_data(input_: str, debug: bool = False) -> List[Dict[str, Any]]:
@@ -14,9 +19,10 @@ def get_burnup_step_data(input_: str, debug: bool = False) -> List[Dict[str, Any
     """
     pattern = 'EVOBLD: TARGET FUEL BURNUP .*?\((?P<step>.*?)MW\*DAY/TONNE\)'
     match = re.compile(pattern)
-    burnup = 0
+    burnup = 0.0
     burnup_steps = []
     lines = input_.splitlines()
+
     for j, line in enumerate(lines, start=1):
         m = re.search(match, line)
         # if matched append line number and burnup into list
@@ -26,13 +32,16 @@ def get_burnup_step_data(input_: str, debug: bool = False) -> List[Dict[str, Any
             step = float(m.group('step').strip())
             print(f'lineno start:{lineno: <6} step: {step} text: {mtext[:70]}') if debug else None
             burnup += step
-            burnup_steps.append((int(burnup), lineno))
+            burnup_steps.append((round_up(burnup), lineno))
 
     # calculate burnup step start and end line numbers
     data_points = [dict(burnup=burnup, start=start, end=burnup_steps[i + 1][1] - 1)
                    for i, (burnup, start) in enumerate(burnup_steps[:-1])
                    ]
     data_points.append(dict(burnup=burnup_steps[-1][0], start=burnup_steps[-1][1], end=len(lines)))
+
+    print([d['burnup'] for d in data_points]) if debug else None
+
     # extract text between start and end line numbers
     for d in data_points:
         d['text'] = '\n'.join(lines[d['start']:d['end']]).lstrip()
@@ -63,12 +72,17 @@ def extract_pin_data():
 
     for i in range(len(drag_output_files)):
         drag_file_name = drag_output_files[i]
-        dragon_pin_a_str = pathlib.Path(drag_file_name).read_text()
-        data = get_iso_dens_vs_burnup(dragon_pin_a_str)
+        text = pathlib.Path(drag_file_name).read_text()
+        data_points = get_burnup_step_data(text, debug=False)
+
+        for d in data_points:
+            d['iso'] = get_iso_density_per_ring(d['text'])
+
+        burnup_vs_iso = {Decimal(d['burnup']): d['iso'] for d in data_points}
 
         csvfilename = 'pin_plots/adens_vs_burnup_data_{}.csv'.format(
             re.search("/(PIN_.*?)/", drag_file_name).group(1))
-        save_as_csv(data, csvfilename)
+        save_as_csv(data=burnup_vs_iso, filename=csvfilename)
 
 
 def extract_assbly_data():
@@ -81,8 +95,9 @@ def extract_assbly_data():
     for filename in filenames:
         text = pathlib.Path(filename).read_text()
         data_points = get_burnup_step_data(text, debug=False)
+
         for d in data_points:
-            d['iso'] = get_iso_density_per_ring(s=d['text'])
+            d['iso'] = get_iso_density_per_ring(d['text'])
 
         burnup_vs_iso = {Decimal(d['burnup']): d['iso'] for d in data_points}
         csvfilename = 'assbly_plots/adens_vs_burnup_data_{}.csv'.format(
