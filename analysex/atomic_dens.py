@@ -63,6 +63,24 @@ def save_as_csv(data: Dict[Decimal, List[Tuple[str, str, Decimal]]], filename: s
     print('\u2713')
 
 
+def save_as_csv_sorted(data: Dict[Decimal, List[Tuple[str, str, Decimal]]], filename: str):
+    print(f'parsing {filename}', end=' ')
+
+    pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
+    with open(filename, 'w', newline="") as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(["burnup", "isotope", "mixture", "atomic density 10**24 p/cc"])
+        new_data = []
+        for key, value in data.items():
+            for item in value:
+                new_data.append((float(key), item[0], item[1], float(item[2])))
+        new_data = sorted(new_data, key=lambda x: (
+            int(x[2]), int(x[1].replace('Pu', '').replace('U', ''))))
+        writer.writerows(new_data)
+
+    print('\u2713')
+
+
 def extract_pin_data():
     drag_output_files = [
         'Dragon/PIN_A/output_2020-05-01_23-02-16/CGN_PIN_A.result',
@@ -82,14 +100,15 @@ def extract_pin_data():
 
         csvfilename = 'pin_plots/adens_vs_burnup_data_{}.csv'.format(
             re.search("/(PIN_.*?)/", drag_file_name).group(1))
-        save_as_csv(data=burnup_vs_iso, filename=csvfilename)
+        save_as_csv_sorted(data=burnup_vs_iso, filename=csvfilename)
 
 
 def extract_assbly_data():
     filenames = [
         'Dragon/ASSEMBLY_A/output_2020-05-17_17-42-26/UOX_TBH_eighth_2level_g2s.result',
         'Dragon/ASSEMBLY_B/output_2020-05-17_23-29-31/GD_TBH_eighth_2level_g2s.result',
-        'Dragon/ASSEMBLY_C/output_2020-05-17_23-27-23/GD_TBH_eighth_2level_g2s.result'
+        'Dragon/ASSEMBLY_C/output_2020-05-17_23-27-23/GD_TBH_eighth_2level_g2s.result',
+        'Dragon/ASSEMBLY_D/output_2020-05-17_20-49-07/GD_TBH_eighth_2level_g2s.result',
     ]
 
     for filename in filenames:
@@ -102,7 +121,7 @@ def extract_assbly_data():
         burnup_vs_iso = {Decimal(d['burnup']): d['iso'] for d in data_points}
         csvfilename = 'assbly_plots/adens_vs_burnup_data_{}.csv'.format(
             re.search("/(ASSEMBLY_.*?)/", filename).group(1))
-        save_as_csv(data=burnup_vs_iso, filename=csvfilename)
+        save_as_csv_sorted(data=burnup_vs_iso, filename=csvfilename)
 
 
 if __name__ == '__main__':
