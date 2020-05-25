@@ -16,7 +16,7 @@ SEQ_ASCII FIG_GD :: FILE './FIG_GD.ps' ;
 SEQ_BINARY TF_EXC ;
 INTEGER an2d := 8 ;
 REAL densur := 20.0 ;
-INTEGER istep maxstep iNext maxautop iAutop := 0 108 0 8 1 ;
+INTEGER istep maxstep iNext maxautop iAutop := 0 107 0 8 1 ;
 INTEGER i istepNext := 0 0 ;
 REAL BU BUautop  := 0.0 0.0 ;
 REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
