@@ -20,7 +20,7 @@ INTEGER istep maxstep iNext maxautop iAutop := 0 6 0 3 1 ;
 INTEGER i istepNext := 0 0 ;
 REAL BU BUautop  := 0.0 0.0 ;
 REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
-REAL Fuelpwr Keff := 36.8 0.0 ;
+REAL Fuelpwr Keff := 39.0 0.0 ;
 STRING Library := "DLIB_295" ;
 PROCEDURE Geo_SS Geo_N1 Geo_N2 Mix_Gad MultLIBEQ ;
 PROCEDURE assertS ;

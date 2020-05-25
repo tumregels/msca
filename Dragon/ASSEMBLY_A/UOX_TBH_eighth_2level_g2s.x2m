@@ -17,7 +17,7 @@ INTEGER an2d := 8 ;
 REAL densur := 20.0 ;
 INTEGER istep maxstep istepNext maxautop iAutop := 0 61 0 8 1 ;
 REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
-REAL Fuelpwr Keff := 36.8 0.0 ;
+REAL Fuelpwr Keff := 39.0 0.0 ;
 REAL BU BUautop  := 0.0 0.0 ;
 STRING Library := "DLIB_295" ;
 PROCEDURE Geo_SS Geo_N1 Geo_N2 Mix_UOX MultLIBEQ ;
