@@ -15,6 +15,7 @@ if [ $? != 0 ]; then
 
   # view pane titles at the top
   tmux set pane-border-status top
+  tmux set pane-border-format ' #{pane_index} #{pane_title} '
 
   # create a new tmux session
   tmux new-session -d -s $session
