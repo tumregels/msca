@@ -14,7 +14,7 @@
 *----
 
 
-LINKED_LIST GEOM TRACK_SS TRACK LIBRARY LIBRARY2 CP CALC 
+LINKED_LIST GEOM TRACK_SS TRACK LIBRARY LIBRARY2 CP CALC
   StepList BURNUP EDIOBJ ;
 
 SEQ_ASCII UOX_TBH ;
@@ -28,15 +28,15 @@ SEQ_ASCII _EDIT :: FILE './_EDIT_rowland.txt' ;
 
 
 MODULE LIB: GEO: SYBILT: G2S: SALT: MAC: USS:
-   TONE: ASM: FLU: DELETE: UTL: EVO: GREP: 
+   TONE: ASM: FLU: DELETE: UTL: EVO: GREP:
     EDI: END: ;
 
-INTEGER COMB0101 COMB0105 COMB0106 COMB0107 GAP2 GAIN3 MODE4 := 
+INTEGER COMB0101 COMB0105 COMB0106 COMB0107 GAP2 GAIN3 MODE4 :=
         1 5 6 7 2 3 4 ; (* DISTRIBUTED SELF-SHIELDING *)
-        
+
 REAL N_Zr90       N_Zr91      N_Zr92       N_Zr94       N_Zr96       :=
      2.165762E-02 4.72300E-03 7.219212E-03 7.316029E-03 1.178642E-03 ;
-     
+
 
 INTEGER an2d := 12 ;  (*ANGULAR QUADRATURE PARAMETER*)
 REAL densur := 20.0 ; (*DENSITY OF INTEGRATION LINES CM^-1*)
@@ -54,10 +54,10 @@ REAL Kinf1 Keff1 ;
 !---GEOMETRIE---!
 
 GEOM := GEO: :: CARCEL 6
-      X- REFL X+ REFL 
+      X- REFL X+ REFL
       Y- REFL Y+ REFL
       RADIUS 0.0 <<RCOMB1>> <<RCOMB5>>
-                 <<RCOMB6>> <<RCOMB7>> 0.4180 0.4750 
+                 <<RCOMB6>> <<RCOMB7>> 0.4180 0.4750
       MIX <<COMB0101>>  <<COMB0105>>
           <<COMB0106>> <<COMB0107>> <<GAP2>> <<GAIN3>> <<MODE4>>
       MESHX 0.0 1.2600 MESHY 0.0 1.2600
@@ -135,20 +135,20 @@ EDIOBJ := EDI: CALC LIBRARY2 TRACK ::
 ;
 
 * END: ;
-* QUIT . 
+* QUIT .
 !---BURN UP---!
 
-REAL Norm_f2 := 39.0 ; (*power norm 39W/gU*) 
+REAL Norm_f2 := 39.0 ; (*power norm 39W/gU*)
 INTEGER istep :=  1 ;
-INTEGER nstep := 60 ; 
-INTEGER nauto := 60 ; 
+INTEGER nstep := 60 ;
+INTEGER nauto := 60 ;
 INTEGER iauto :=  1 ;
 INTEGER  valstep valauto ;
 REAL    evobeg evoend step2 stepauto ;
 
 StepList := UTL: :: CREA 'ListBU' <<nstep>> =
-    30.00 
-    50.00 
+    30.00
+    50.00
     75.00
    150.00
    250.00
@@ -209,8 +209,8 @@ StepList := UTL: :: CREA 'ListBU' <<nstep>> =
  70000.00 ;
 
 StepList := UTL: StepList :: CREA 'ListAutop' <<nauto>> =
-    30.00 
-    50.00 
+    30.00
+    50.00
     75.00
    150.00
    250.00
@@ -269,7 +269,7 @@ StepList := UTL: StepList :: CREA 'ListAutop' <<nauto>> =
  66000.00
  68000.00
  70000.00 ;
- 
+
 
 EVALUATE evoend := 0. ;
 WHILE istep nstep <= DO
@@ -282,7 +282,7 @@ WHILE istep nstep <= DO
   ECHO "BURNUP step" istep "between" evobeg "and" evoend "day:" ;
 
   IF istep 1 = THEN
-    BURNUP LIBRARY2 := EVO: LIBRARY2 CALC TRACK :: 
+    BURNUP LIBRARY2 := EVO: LIBRARY2 CALC TRACK ::
      EDIT 2
      DEPL <<evobeg>> <<evoend>> DAY POWR <<Norm_f2>>
      KAPS EXTR NSAT NODI
@@ -290,13 +290,13 @@ WHILE istep nstep <= DO
      ;
 
   ELSE
-    BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 CALC TRACK :: 
+    BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 CALC TRACK ::
      EDIT 2
      DEPL <<evobeg>> <<evoend>> DAY POWR <<Norm_f2>>
-     KAPS EXTR NSAT NODI 
-     GLOB 
+     KAPS EXTR NSAT NODI
+     GLOB
      ;
-     
+
   ENDIF ;
 
 
@@ -308,10 +308,10 @@ WHILE istep nstep <= DO
 
     ECHO "StepAuto:" stepauto "MWj/t" ;
     ECHO "Self-shielding calculation" istep "at" evoend "DAY:" ;
-  
-    LIBRARY2 := USS: LIBRARY LIBRARY2 TRACK_SS :: 
+
+    LIBRARY2 := USS: LIBRARY LIBRARY2 TRACK_SS ::
      EDIT 1 TRAN PASS 3 GRMIN 52 ;
-  
+
   ENDIF ;
 
   IF iauto nauto < THEN
@@ -332,12 +332,12 @@ WHILE istep nstep <= DO
      Pu240 Pu241 Pu242 Am241 Am243
      Cm242 Cm244
     TAKE MIX 1 0 0 0 1 1 1
-    COND 
+    COND
     SAVE ON FUEL
   ;
 
 
-  GREP: CALC :: GETVAL 'K-INFINITY  ' 1 1 1 >>Kinf1<< 
+  GREP: CALC :: GETVAL 'K-INFINITY  ' 1 1 1 >>Kinf1<<
       GETVAL 'K-EFFECTIVE ' 1 1 1 >>Keff1<< ;
 
   !  ECHO "Output of FLU: at burnup:" step2 ;

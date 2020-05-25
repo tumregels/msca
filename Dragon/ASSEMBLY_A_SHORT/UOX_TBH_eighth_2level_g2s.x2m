@@ -3,11 +3,11 @@
 * Author: A. Canbakan
 *----
 LINKED_LIST GEOSS GEON1 GEON2 TRACKSS TRACKN1 TRACKN2 LIBRARY LIBRARY2
-            SYS FLUX FLUX2 EDITION LIBEQ DONNEES LIBHOM BURNUP 
+            SYS FLUX FLUX2 EDITION LIBEQ DONNEES LIBHOM BURNUP
             EDIHOM RES ;
 MODULE SYBILT: G2S: SALT: MCCGT: USS: ASM: FLU: EDI: SPH: UTL: DELETE:
        END: EVO: GREP: LIB: ;
-REAL Rcomb1 Rcomb2 Rcomb3 Rcomb4 R_int_TG R_ext_TG R_int_TI R_ext_TI 
+REAL Rcomb1 Rcomb2 Rcomb3 Rcomb4 R_int_TG R_ext_TG R_int_TI R_ext_TI
      R_int_G R_ext_G Cote CoteL RmodeN1 Lame Rtub1 Rtub2 ;
 SEQ_ASCII UOX_TBH :: FILE './UOX_TBH_g2s.txt' ;
 SEQ_ASCII BCOND2 :: FILE './UOX_R_BCOND2.txt' ;
@@ -44,24 +44,24 @@ EVALUATE Lame := CoteL Cote - ;
 EVALUATE RmodeN1 := 0.670 ;
 
 GEOSS := Geo_SS :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
-                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>> 
+                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
                       <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
                       <<CoteL>> ;
 
 GEON1 := Geo_N1 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
-                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>> 
+                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
                       <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
                       <<CoteL>> <<RmodeN1>> ;
 
 GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
-                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>> 
+                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
                       <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
                       <<Lame>> <<Rtub1>> <<Rtub2>> ;
 UOX_TBH FIG_UOX := G2S: GEON2 ;
 ************************************************************************
 *  END GEOMETRY                                                        *
 ************************************************************************
- 
+
 ************************************************************************
 *  BEGIN DECLARATION                                                   *
 ************************************************************************
@@ -74,7 +74,7 @@ DONNEES := UTL: ::
 DONNEES := UTL: DONNEES ::
     CREA
           AUTOP <<maxautop>> =
-          15.0    50.0   112.5 
+          15.0    50.0   112.5
     ;
 ************************************************************************
 *  END DECLARATION                                                     *
@@ -131,18 +131,18 @@ WHILE istep maxstep < DO
 
  EVALUATE istep := istep 1 + ;
  ECHO "istep: " istep "/" maxstep ;
- 
+
  EVALUATE BUbeg Tbeg := BUend Tend ;
  GREP: DONNEES :: GETVAL 'BURN' <<istep>> >>BUend<< ;
  EVALUATE Tend := BUend Fuelpwr / ;
  ECHO Tbeg ;
  ECHO Tend ;
- 
+
 *----
 * USS
 *----
  IF istep 1 = THEN
-      LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 
+      LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3
           CALC  REGI W1 U235   ALL
                 REGI W1 U236   ALL
                 REGI W1 Pu239  ALL
@@ -167,7 +167,7 @@ WHILE istep maxstep < DO
     GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
     GREP: DONNEES :: GETVAL "BURN" <<istep>> >>BU<< ;
         IF BUautop BU = THEN
-          LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 3 
+          LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 3
               CALC  REGI W1 U235   ALL
                     REGI W1 U236   ALL
                     REGI W1 Pu239  ALL
@@ -225,21 +225,21 @@ EDIHOM := DELETE: EDIHOM ;
    EDIT 0
    MAXS
 
-  MIX   1 MIX   2 MIX   3 MIX   4 MIX   5 MIX   6  
-  MIX   7 MIX   8 MIX   9 MIX  10 MIX  11 MIX  12 
+  MIX   1 MIX   2 MIX   3 MIX   4 MIX   5 MIX   6
+  MIX   7 MIX   8 MIX   9 MIX  10 MIX  11 MIX  12
   MIX  13 MIX  14 MIX  15 MIX  16 MIX  17 MIX  18
   MIX  19 MIX  20 MIX  21 MIX  22 MIX  23 MIX  24
   MIX  25 MIX  26 MIX  27 MIX  28 MIX  29 MIX  30
   MIX  31 MIX  32 MIX  33 MIX  34 MIX  35 MIX  36
   MIX  37
   ;
-    
+
  LIBEQ LIBHOM := DELETE: LIBEQ LIBHOM ;
 ENDIF ;
 
-SYS := ASM: LIBRARY2 TRACKN1 :: ARM EDIT 0 ; 
+SYS := ASM: LIBRARY2 TRACKN1 :: ARM EDIT 0 ;
 
-FLUX := FLU: LIBRARY2 SYS TRACKN1 :: 
+FLUX := FLU: LIBRARY2 SYS TRACKN1 ::
      EDIT 1 TYPE K ;
       GREP: FLUX :: GETVAL 'K-EFFECTIVE  ' 1 1 1 >>Keff<< ;
   ECHO "Resultat1 Keff= " Keff " at burnup= " BUend ;
@@ -269,23 +269,23 @@ FLUX SYS EDITION := DELETE: FLUX SYS EDITION ;
 *  BEGIN SECOND LEVEL FLUX CALCULATION                                 *
 ************************************************************************
 LIBEQ := MultLIBEQ LIBEQ ;
-SYS := ASM: LIBEQ TRACKN2 TF_EXC :: ARM EDIT 0 ;    
-
-IF istep 1 = THEN     
-   FLUX2 := FLU: LIBEQ SYS TRACKN2 TF_EXC :: 
-     EDIT 1 TYPE K ;
-ELSE
-   FLUX2 := FLU: FLUX2 LIBEQ SYS TRACKN2 TF_EXC :: 
-     EDIT 1 TYPE K ;
-ENDIF ; 
+SYS := ASM: LIBEQ TRACKN2 TF_EXC :: ARM EDIT 0 ;
 
 IF istep 1 = THEN
-  RES := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5                              
+   FLUX2 := FLU: LIBEQ SYS TRACKN2 TF_EXC ::
+     EDIT 1 TYPE K ;
+ELSE
+   FLUX2 := FLU: FLUX2 LIBEQ SYS TRACKN2 TF_EXC ::
+     EDIT 1 TYPE K ;
+ENDIF ;
+
+IF istep 1 = THEN
+  RES := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5
   MICR 3 U235 U238 O16
-  MERG MIX                                                               
-  COND 19                               
-  SAVE ON COND2                                                        
-  ;       
+  MERG MIX
+  COND 19
+  SAVE ON COND2
+  ;
   BCOND2 := RES :: STEP UP COND2 ;
 ENDIF ;
 
@@ -296,25 +296,25 @@ ECHO "Resultat Keff= " Keff " at burnup= " BUend ;
   EVALUATE istepNext := istep 1 + ;
   GREP: DONNEES :: GETVAL 'BURN' <<istepNext>> >>BUend<< ;
   EVALUATE Tend := BUend Fuelpwr / ;
-  
+
   IF istep 1 = THEN
      BURNUP LIBEQ := EVO: LIBEQ FLUX2 TRACKN2 ::
-      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>> 
+      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
       NOEX ;
   ELSE
     IF istep 5 < THEN
      BURNUP LIBEQ := EVO: BURNUP LIBEQ FLUX2 TRACKN2 ::
-      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>> 
+      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
       NOEX ;
     ELSE
      BURNUP LIBEQ := EVO: BURNUP LIBEQ FLUX2 TRACKN2 ::
-      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>> 
+      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
        ;
-     ENDIF ;    
+     ENDIF ;
   ENDIF ;
- 
+
   SYS := DELETE: SYS ;
-  
+
  ENDIF ;
 
 ************************************************************************
