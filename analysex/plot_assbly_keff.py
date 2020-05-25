@@ -95,22 +95,26 @@ def save_as_csv(data: List[Tuple[Decimal, Decimal]], filename: str = 'burnup_vs_
 
 
 def create_plots(path: pathlib.Path) -> None:
+    print(path, end=' ')
     long_str = path.read_text()
 
-    regex = re.search('^Dragon/(ASSEMBLY.*?)/.*.result$', str(path))
+    regex = re.search('^Dragon/(ASSEMBLY.*?)/output_(.*?)/.*.result$', str(path))
     if regex:
-        print(f'plotting for {path}')
-        name = '_' + regex.group(1).lower() if regex else ''
+        name = regex.group(1).lower() + '_' + regex.group(2).lower()
         burnup_vs_keff = parse_burnup_vs_keff(long_str)
-        save_as_csv(burnup_vs_keff, filename=f'burnup_vs_keff{name}.csv')
-        plot_burnup_vs_keff(data=burnup_vs_keff, filename=f'burnup_vs_keff{name}.png',
-                            title=f'$k_{{eff}} \ vs \ Burnup$\n {name.replace("_", " ")}')
-        plot_burnup_vs_keff(data=burnup_vs_keff[:10],
-                            filename=f'burnup_vs_keff_cut{name}.png',
-                            title=f'$k_{{eff}} \ vs \ Burnup$\n {name.replace("_", " ")} cut')
+        save_as_csv(burnup_vs_keff, filename=f'assbly_plots/burnup_vs_keff_{name}.csv')
+        plot_burnup_vs_keff(
+            data=burnup_vs_keff,
+            filename=f'assbly_plots/burnup_vs_keff_{name}.png',
+            title=f'$k_{{eff}} \ vs \ Burnup$\n {str(path)}')
+        plot_burnup_vs_keff(
+            data=burnup_vs_keff[:10],
+            filename=f'assbly_plots/burnup_vs_keff_cut_{name}.png',
+            title=f'$k_{{eff}} \ vs \ Burnup$\n {str(path)} cut')
+        print('\u2713')
 
 
 if __name__ == '__main__':
     os.chdir(pathlib.Path(__file__).parent.parent)
-    for path in pathlib.Path('Dragon').rglob('*.result'):
+    for path in pathlib.Path('Dragon').rglob('ASSEMBLY_?/**/*.result'):
         create_plots(path)
