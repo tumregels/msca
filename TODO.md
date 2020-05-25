@@ -11,6 +11,7 @@
 - [ ] rm unused variables i and iNext
 - [x] organise CALC rows in x2m files
 - [x] fix merg mix mapping
+- [x] fix Fuelpwr in ASSBLY inputs, should be 39 W/gU
 
 # Serpent
 
@@ -36,3 +37,4 @@
 - [x] ask if NMIX value should be adjusted in Mix_Gad.c2m and MultLIBEQ.c2m 
 
 - [ ] got `SYBILF: EXPECTING IFTRAK=0` for `UOX_AIC_eighth_2level_g2s`
+- [ ] ask which variable is `DO` in `WHILE istep maxstep < DO`
