@@ -65,7 +65,7 @@ def parse_burnup_vs_keff_drag_assbly(s: str, debug: bool = False) -> List[Tuple[
     return burn_vs_keff
 
 
-def parse_burnup_vs_keff_serp_assbly(data: dict) -> List[Tuple[float, float]]:
+def parse_burnup_vs_keff_serp(data: dict) -> List[Tuple[float, float]]:
     burnup_vs_keff = [(data['BURNUP'][:, 0][i], data['ABS_KEFF'][:, 0][i])
                       for i in range(len(data['BURNUP']))]
     return burnup_vs_keff
@@ -178,7 +178,7 @@ if __name__ == '__main__':
     for i in range(len(drag_output_files)):
         serp_file_name = serp_output_files[i]
         serp_res_data = scipy.io.loadmat(serp_file_name)
-        burnup_vs_keff_serp = parse_burnup_vs_keff_serp_assbly(serp_res_data)
+        burnup_vs_keff_serp = parse_burnup_vs_keff_serp(serp_res_data)
 
         drag_file_name = drag_output_files[i]
         dragon_pin_a_str = pathlib.Path(drag_file_name).read_text()
