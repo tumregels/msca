@@ -1,8 +1,5 @@
 import os
 import pathlib
-
-import os
-import pathlib
 import re
 from decimal import Decimal
 from typing import Tuple, List, Dict
@@ -12,14 +9,13 @@ import scipy.io
 from matplotlib.ticker import ScalarFormatter
 
 from analysex.parse_pin import get_iso_dens_vs_burnup
-from analysex.plot_assbly_densities import load_csv
 
 
 def plot_atomic_dens_vs_burnup_dragon(
         data: Dict[Decimal, List[Tuple[str, str, Decimal]]],
         title: str = 'Atomic density vs burnup',
         filename: str = 'atomic_dens_vs_burnup.png'
-):
+) -> None:
     pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
 
     burnup = [k / 1000 for k in data.keys()]
@@ -46,7 +42,7 @@ def plot_atomic_dens_vs_burnup_serpent(
         data: dict,
         title: str = 'Atomic density vs burnup',
         filename: str = 'atomic_dens_vs_burnup_serpent.png'
-):
+) -> None:
     pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
 
     burnup = data['BU'][0]
@@ -75,29 +71,45 @@ def plot_atomic_dens_vs_burnup_serp_dragon(
         data_drag: Dict[Decimal, List[Tuple[str, str, Decimal]]],
         filename: str = 'atomic_dens_vs_burnup.png',
         title: str = '$Atomic \ density \ vs \ Burnup$'
-):
+) -> None:
     pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
 
-    burnup_s = data_serp['BU'][0]
-    pu239_s = data_serp['TOT_ADENS'][int(data_serp['iPu239'][0, 0]) - 1]  # in matlab indexes starts from 1
-    u235_s = data_serp['TOT_ADENS'][int(data_serp['iU235'][0, 0]) - 1]
-    pu241_s = data_serp['TOT_ADENS'][int(data_serp['iPu241'][0, 0]) - 1]
+    xs = data_serp['BU'][0].tolist()
+    # in matlab indexes starts from 1, thus -1
+    pu239_s = data_serp['TOT_ADENS'][int(data_serp['iPu239'][0, 0]) - 1].tolist()
+    u235_s = data_serp['TOT_ADENS'][int(data_serp['iU235'][0, 0]) - 1].tolist()
+    pu241_s = data_serp['TOT_ADENS'][int(data_serp['iPu241'][0, 0]) - 1].tolist()
 
-    burnup_d = [k / 1000 for k in data_drag.keys()]
+    xd = [float(k / 1000) for k in data_drag.keys()]
     pu239_d = [v[0][2] for _, v in data_drag.items() if v[0][0] == 'Pu239']
     u235_d = [v[4][2] for _, v in data_drag.items() if v[4][0] == 'U235']
     pu241_d = [v[8][2] for _, v in data_drag.items() if v[8][0] == 'Pu241']
 
+    # remove any burnup point missing in xs or xd
+    for item in list(set(xs) - set(xd)):
+        index = xs.index(item)
+        print(f'removing xs[{index}]={item}')
+        xs.pop(index)
+        [iso.pop(index) for iso in [pu239_s, u235_s, pu241_s]]
+    for item in list(set(xd) - set(xs)):
+        index = xd.index(item)
+        print(f'removing xd[{index}]={item}')
+        xd.pop(index)
+        [iso.pop(index) for iso in [pu239_d, u235_d, pu241_d]]
+
+    assert xd == xs
+
     fig = plt.figure()
     plt.suptitle(title, fontsize=12, y=1.02)
     plt.grid()
-    plt.plot(burnup_s, u235_s, 'xk', label='$U235_{Serpent \ 2}$', linewidth=2)  # dotted
-    plt.plot(burnup_s, pu239_s, '4b', label='$Pu239_{Serpent \ 2}$', linewidth=2)  # dashed
-    plt.plot(burnup_s, pu241_s, '3c', label='$Pu241_{Serpent \ 2}$', linewidth=2)  # dashdot
 
-    plt.plot(burnup_d, u235_d, '1r', label='$U235_{Dragon \ 5}$', linewidth=2)  # dotted
-    plt.plot(burnup_d, pu239_d, '+g', label='$Pu239_{Dragon \ 5}$', linewidth=2)  # dashed
-    plt.plot(burnup_d, pu241_d, '2m', label='$Pu241_{Dragon \ 5}$', linewidth=2)  # dashdot
+    plt.plot(xs, u235_s, 'xk', label='$U235_{Serpent \ 2}$', linewidth=2)
+    plt.plot(xs, pu239_s, '4b', label='$Pu239_{Serpent \ 2}$', linewidth=2)
+    plt.plot(xs, pu241_s, '3c', label='$Pu241_{Serpent \ 2}$', linewidth=2)
+
+    plt.plot(xd, u235_d, '1r', label='$U235_{Dragon \ 5}$', linewidth=2)
+    plt.plot(xd, pu239_d, '+g', label='$Pu239_{Dragon \ 5}$', linewidth=2)
+    plt.plot(xd, pu241_d, '2m', label='$Pu241_{Dragon \ 5}$', linewidth=2)
 
     plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
     plt.ylabel(r'$Atomic \ density \ 10^{24}/cc$', fontsize=12)
@@ -113,54 +125,71 @@ def plot_atomic_dens_vs_burnup_serp_dragon_relative(
         data_drag: Dict[Decimal, List[Tuple[str, str, Decimal]]],
         filename: str = 'atomic_dens_vs_burnup.png',
         title: str = '$Atomic \ density \ vs \ Burnup$'
-):
+) -> None:
     pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
 
-    burnup_s = data_serp['BU'][0]
-    pu239_s = data_serp['TOT_ADENS'][int(data_serp['iPu239'][0, 0]) - 1]  # in matlab indexes starts from 1
-    u235_s = data_serp['TOT_ADENS'][int(data_serp['iU235'][0, 0]) - 1]
-    pu241_s = data_serp['TOT_ADENS'][int(data_serp['iPu241'][0, 0]) - 1]
+    xs = data_serp['BU'][0].tolist()
+    # in matlab indexes starts from 1, thus -1
+    pu239_s = data_serp['TOT_ADENS'][int(data_serp['iPu239'][0, 0]) - 1].tolist()
+    u235_s = data_serp['TOT_ADENS'][int(data_serp['iU235'][0, 0]) - 1].tolist()
+    pu241_s = data_serp['TOT_ADENS'][int(data_serp['iPu241'][0, 0]) - 1].tolist()
 
-    burnup_d = [k / 1000 for k in data_drag.keys()]
+    xd = [float(k / 1000) for k in data_drag.keys()]
     pu239_d = [v[0][2] for _, v in data_drag.items() if v[0][0] == 'Pu239']
     u235_d = [v[4][2] for _, v in data_drag.items() if v[4][0] == 'U235']
     pu241_d = [v[8][2] for _, v in data_drag.items() if v[8][0] == 'Pu241']
+
+    # remove any burnup point missing in xs or xd
+    for item in list(set(xs) - set(xd)):
+        index = xs.index(item)
+        print(f'removing xs[{index}]={item}')
+        xs.pop(index)
+        [iso.pop(index) for iso in [pu239_s, u235_s, pu241_s]]
+    for item in list(set(xd) - set(xs)):
+        index = xd.index(item)
+        print(f'removing xd[{index}]={item}')
+        xd.pop(index)
+        [iso.pop(index) for iso in [pu239_d, u235_d, pu241_d]]
+
+    assert xd == xs
+
+    re_u235 = []
+    re_pu239 = []
+    re_pu241 = []
+    for i in range(len(xs)):
+        re_u235.append(abs(100 * (u235_s[i] - float(u235_d[i])) / u235_s[i])) \
+            if u235_s[i] != 0 else re_u235.append(0)
+        re_pu239.append(abs(100 * (pu239_s[i] - float(pu239_d[i])) / pu239_s[i])) \
+            if pu239_s[i] != 0 else re_pu239.append(0)
+        re_pu241.append(abs(100 * (pu241_s[i] - float(pu241_d[i])) / pu241_s[i])) \
+            if pu241_s[i] != 0 else re_pu241.append(0)
 
     fig = plt.figure()
 
     p1 = plt.subplot(2, 1, 1)
     p1.set_title(title, fontsize=12)
-
     plt.grid()
-    plt.plot(burnup_s, u235_s, 'xk', label='$U235_{Serpent \ 2}$', linewidth=2)  # dotted
-    plt.plot(burnup_s, pu239_s, '4b', label='$Pu239_{Serpent \ 2}$', linewidth=2)  # dashed
-    plt.plot(burnup_s, pu241_s, '3c', label='$Pu241_{Serpent \ 2}$', linewidth=2)  # dashdot
 
-    plt.plot(burnup_d, u235_d, '1r', label='$U235_{Dragon \ 5}$', linewidth=2)  # dotted
-    plt.plot(burnup_d, pu239_d, '+g', label='$Pu239_{Dragon \ 5}$', linewidth=2)  # dashed
-    plt.plot(burnup_d, pu241_d, '2m', label='$Pu241_{Dragon \ 5}$', linewidth=2)  # dashdot
+    plt.plot(xs, u235_s, 'xk', label='$U235_{Serpent \ 2}$', linewidth=2)
+    plt.plot(xs, pu239_s, '4b', label='$Pu239_{Serpent \ 2}$', linewidth=2)
+    plt.plot(xs, pu241_s, '3c', label='$Pu241_{Serpent \ 2}$', linewidth=2)
+
+    plt.plot(xd, u235_d, '1r', label='$U235_{Dragon \ 5}$', linewidth=2)
+    plt.plot(xd, pu239_d, '+g', label='$Pu239_{Dragon \ 5}$', linewidth=2)
+    plt.plot(xd, pu241_d, '2m', label='$Pu241_{Dragon \ 5}$', linewidth=2)
 
     plt.ylabel(r'$Atomic \ density \ 10^{24}/cc$', fontsize=12)
     plt.legend(loc="upper right", fontsize=5)
 
     p2 = plt.subplot(2, 1, 2)
     plt.grid()
-    relative_error_u235 = []
-    relative_error_pu239 = []
-    relative_error_pu241 = []
-    for i in range(len(burnup_s)):
-        relative_error_u235.append(abs(100 * (u235_s[i] - float(u235_d[i])) / u235_s[i])) \
-            if u235_s[i] != 0 else relative_error_u235.append(0)
-        relative_error_pu239.append(abs(100 * (pu239_s[i] - float(pu239_d[i])) / pu239_s[i])) \
-            if pu239_s[i] != 0 else relative_error_pu239.append(0)
-        relative_error_pu241.append(abs(100 * (pu241_s[i] - float(pu241_d[i])) / pu241_s[i])) \
-            if pu241_s[i] != 0 else relative_error_pu241.append(0)
 
-    plt.semilogy(burnup_s, relative_error_u235, linestyle=':', color='r', label=r'$U235$')
-    plt.semilogy(burnup_s, relative_error_pu239, linestyle='-.', color='c', label=r'$Pu239$')
-    plt.semilogy(burnup_s, relative_error_pu241, linestyle='--', color='b', label=r'$Pu241$')
+    plt.semilogy(xs, re_u235, linestyle=':', color='r', label=r'$U235$')
+    plt.semilogy(xs, re_pu239, linestyle='-.', color='c', label=r'$Pu239$')
+    plt.semilogy(xs, re_pu241, linestyle='--', color='b', label=r'$Pu241$')
+
     plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
-    plt.ylabel(r'$Relative \ error, \%$', fontsize=12)
+    plt.ylabel(r'$Relative \ error \ |\%|$', fontsize=12)
     plt.legend(loc="upper right", fontsize=5)
     p2.yaxis.set_label_coords(-0.13, 0.42)
 
@@ -168,9 +197,9 @@ def plot_atomic_dens_vs_burnup_serp_dragon_relative(
     plt.show()
     plt.close(fig)
 
+
 if __name__ == '__main__':
     os.chdir(pathlib.Path(__file__).parent.parent)
-    # plt.rcParams['figure.figsize'] = [15, 7.5]
 
     drag_output_files = [
         'Dragon/PIN_A/output_2020-05-01_23-02-16/CGN_PIN_A.result',
@@ -184,26 +213,9 @@ if __name__ == '__main__':
         'Serpent/PIN_C/output_2020-05-11_22-39-48/PIN_CASEC_mc_dep.mat',
     ]
 
-    # for p in drag_output_files:
-    #     file = pathlib.Path(p)
-    #     long_str = file.read_text()
-    #
-    #     iso_dens_vs_burnup = get_iso_dens_vs_burnup(long_str, debug=False)
-    #     plot_atomic_dens_vs_burnup_dragon(
-    #         data=iso_dens_vs_burnup,
-    #         title=f'$Atomic density \ vs \ Burnup$\n {file}\n',
-    #         filename=f'pin_plots/adens_vs_burnup_{re.search("/(PIN_.*?)/", str(file)).group(1)}'
-    #     )
-    #
-    # for p in serp_output_files:
-    #     data = scipy.io.loadmat(p)
-    #     plot_atomic_dens_vs_burnup_serpent(
-    #         data=data,
-    #         title=f'$Atomic density \ vs \ Burnup$\n {p}\n',
-    #         filename=f'pin_plots/adens_vs_burnup_serpent_{re.search("/(PIN_.*?)/", p).group(1)}'
-    #     )
-
     for i in range(len(drag_output_files)):
+        print(f'plotting {drag_output_files[i]}')
+
         serp_file_name = serp_output_files[i]
         serp_dep_data = scipy.io.loadmat(serp_file_name)
 
@@ -224,3 +236,5 @@ if __name__ == '__main__':
             title=f'$Atomic \ density \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
             filename=f'pin_plots/adens_vs_burnup_comparison_relative_{re.search("/(PIN_.*?)/", serp_file_name).group(1)}.png'
         )
+
+        print('✓')
