@@ -33,10 +33,10 @@ pull-serpent-dry: ## pull dry serpent data
 
 # Dragon
 push-assembly-all:
-	rsync -avzP ./Dragon/ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+	rsync -avzP ./Dragon/ASSEMBLY_* $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 push-assembly-all-dry:
-	rsync -anv ./Dragon/ASSEMBLY_*_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+	rsync -anv ./Dragon/ASSEMBLY_* $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 pull-assembly-all:
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_* ./Dragon
