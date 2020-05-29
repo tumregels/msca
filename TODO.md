@@ -12,13 +12,17 @@
 - [x] organise CALC rows in x2m files
 - [x] fix merg mix mapping
 - [x] fix Fuelpwr in ASSBLY inputs, should be 39 W/gU
-
+- [x] pack assembly inputs into standard format
+- [ ] plot TBH curves and email to AH
+- [ ] reread Canbakan paper
+ 
 # Serpent
 
 - [x] prepare initial inputs
-- [ ] check serp input materials
+- [x] check serp input materials
 - [x] fix pin burnup steps
 - [ ] plot atomic dens vs burnup for serpent
+- [ ] sync burnup steps with Dragon
 
 # Data Analyses
 
