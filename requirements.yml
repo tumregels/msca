@@ -135,6 +135,7 @@ dependencies:
     - octave-kernel==0.31.1
     - openpyxl==3.0.3
     - packaging==20.4
+    - pandas==1.0.4
     - pandocfilters==1.4.2
     - prometheus-client==0.7.1
     - pycodestyle==2.6.0
@@ -142,9 +143,11 @@ dependencies:
     - pyparsing==2.4.7
     - pyrsistent==0.16.0
     - python-dateutil==2.8.1
+    - pytz==2020.1
     - pyzmq==19.0.1
     - requests==2.23.0
     - scipy==1.4.1
+    - seaborn==0.10.1
     - send2trash==1.5.0
     - terminado==0.8.3
     - testpath==0.4.4
