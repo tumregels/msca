@@ -12,6 +12,7 @@ burnup_step_text.txt
 run_short.py
 CGN_PIN_A_short.x2m
 *.png
+*.eps
 other/*
 output_*
 TBH_*
