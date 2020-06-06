@@ -1,0 +1,368 @@
+*DECK MultLIBEQ
+*----
+*  Name          : MultLIBEQ.c2m
+*  Type          : DRAGON procedure
+*  Use           : Increase the number of mixes in the microlib
+*  Author        : A. Canbakan
+*
+*  Procedure called as:
+*
+*  LIBEQ := MultLIBEQ_32 LIBEQ ;
+*
+*  Input data   :
+*    LIBEQ      : Microlib with the number of mixs of the 1st level
+*
+*  Output data  :
+*    LIBEQ      : Microlib with the number of mixs of the 2nd level
+
+
+PARAMETER  LIBEQ  ::
+       EDIT 0
+           ::: LINKED_LIST LIBEQ  ;
+   ;
+*
+MODULE LIB: END: ;
+
+LIBEQ := LIB: LIBEQ ::
+  EDIT 0
+  NMIX 163
+  DEPL LIB: DRAGON FIL: LIBEQ
+  MIXS LIB: MICROLIB FIL: LIBEQ
+
+*******
+*C0301*  *C1
+*******
+MIX 13
+	COMB 3 1.0
+MIX 14
+	COMB 4 1.0
+MIX 15
+	COMB 5 1.0
+MIX 16
+	COMB 6 1.0
+*******
+*C0302*  *C2
+*******
+MIX 17
+	COMB 9 1.0
+MIX 18
+	COMB 10 1.0
+MIX 19
+	COMB 11 1.0
+MIX 20
+	COMB 12 1.0
+*******
+*C0303*  *C2
+*******
+MIX 21
+	COMB 9 1.0
+MIX 22
+	COMB 10 1.0
+MIX 23
+	COMB 11 1.0
+MIX 24
+	COMB 12 1.0
+*******
+*C0402*  *C1
+*******
+MIX 26
+	COMB 3 1.0
+MIX 27
+	COMB 4 1.0
+MIX 28
+	COMB 5 1.0
+MIX 29
+	COMB 6 1.0
+*******
+*C0403*  *C1
+*******
+MIX 30
+	COMB 3 1.0
+MIX 31
+	COMB 4 1.0
+MIX 32
+	COMB 5 1.0
+MIX 33
+	COMB 6 1.0
+*******
+*C0501*  *C1
+*******
+MIX 34
+	COMB 3 1.0
+MIX 35
+	COMB 4 1.0
+MIX 36
+	COMB 5 1.0
+MIX 37
+	COMB 6 1.0
+*******
+*C0502*  *C2
+*******
+MIX 38
+	COMB 9 1.0
+MIX 39
+	COMB 10 1.0
+MIX 40
+	COMB 11 1.0
+MIX 41
+	COMB 12 1.0
+*******
+*C0503*  *C2
+*******
+MIX 42
+	COMB 9 1.0
+MIX 43
+	COMB 10 1.0
+MIX 44
+	COMB 11 1.0
+MIX 45
+	COMB 12 1.0
+*******
+*C0504*  *C1
+*******
+MIX 46
+	COMB 3 1.0
+MIX 47
+	COMB 4 1.0
+MIX 48
+	COMB 5 1.0
+MIX 49
+	COMB 6 1.0
+*******
+*C0505*  *C2
+*******
+MIX 50
+	COMB 9 1.0
+MIX 51
+	COMB 10 1.0
+MIX 52
+	COMB 11 1.0
+MIX 53
+	COMB 12 1.0
+*******
+*C0601*  *C1
+*******
+MIX 54
+	COMB 3 1.0
+MIX 55
+	COMB 4 1.0
+MIX 56
+	COMB 5 1.0
+MIX 57
+	COMB 6 1.0
+*******
+*C0602*  *C2
+*******
+MIX 58
+	COMB 9 1.0
+MIX 59
+	COMB 10 1.0
+MIX 60
+	COMB 11 1.0
+MIX 61
+	COMB 12 1.0
+*******
+*C0604*  *C1
+*******
+MIX 68
+	COMB 3 1.0
+MIX 69
+	COMB 4 1.0
+MIX 70
+	COMB 5 1.0
+MIX 71
+	COMB 6 1.0
+*******
+*C0605*  *C1
+*******
+MIX 72
+	COMB 3 1.0
+MIX 73
+	COMB 4 1.0
+MIX 74
+	COMB 5 1.0
+MIX 75
+	COMB 6 1.0
+*******
+*C0702*  *C1
+*******
+MIX 76
+	COMB 3 1.0
+MIX 77
+	COMB 4 1.0
+MIX 78
+	COMB 5 1.0
+MIX 79
+	COMB 6 1.0
+*******
+*C0703*  *C1
+*******
+MIX 80
+	COMB 3 1.0
+MIX 81
+	COMB 4 1.0
+MIX 82
+	COMB 5 1.0
+MIX 83
+	COMB 6 1.0
+*******
+*C0705*  *C1
+*******
+MIX 84
+	COMB 3 1.0
+MIX 85
+	COMB 4 1.0
+MIX 86
+	COMB 5 1.0
+MIX 87
+	COMB 6 1.0
+*******
+*C0706*  *C1
+*******
+MIX 88
+	COMB 3 1.0
+MIX 89
+	COMB 4 1.0
+MIX 90
+	COMB 5 1.0
+MIX 91
+	COMB 6 1.0
+*******
+*C0707*  *C2
+*******
+MIX 92
+	COMB 9 1.0
+MIX 93
+	COMB 10 1.0
+MIX 94
+	COMB 11 1.0
+MIX 95
+	COMB 12 1.0
+*******
+*C0801*  *C4
+*******
+*******
+*C0802*  *C2
+*******
+MIX 100
+	COMB 9 1.0
+MIX 101
+	COMB 10 1.0
+MIX 102
+	COMB 11 1.0
+MIX 103
+	COMB 12 1.0
+*******
+*C0803*  *C2
+*******
+MIX 104
+	COMB 9 1.0
+MIX 105
+	COMB 10 1.0
+MIX 106
+	COMB 11 1.0
+MIX 107
+	COMB 12 1.0
+*******
+*C0804*   *C4
+*******
+MIX 108
+	COMB 96 1.0
+MIX 109
+	COMB 97 1.0
+MIX 110
+	COMB 98 1.0
+MIX 111
+	COMB 99 1.0
+*******
+*C0805*  *C2
+*******
+MIX 112
+	COMB 9 1.0
+MIX 113
+	COMB 10 1.0
+MIX 114
+	COMB 11 1.0
+MIX 115
+	COMB 12 1.0
+*******
+*C0807*  *C3
+*******
+MIX 120
+	COMB 116 1.0
+MIX 121
+	COMB 117 1.0
+MIX 122
+	COMB 118 1.0
+MIX 123
+	COMB 119 1.0
+*******
+*C0902*  *C6
+*******
+MIX 132
+	COMB 128 1.0
+MIX 133
+	COMB 129 1.0
+MIX 134
+	COMB 130 1.0
+MIX 135
+	COMB 131 1.0
+*******
+*C0903*  *C6
+*******
+MIX 136
+	COMB 128 1.0
+MIX 137
+	COMB 129 1.0
+MIX 138
+	COMB 130 1.0
+MIX 139
+	COMB 131 1.0
+*******
+*C0904*  *C6
+*******
+MIX 140
+	COMB 128 1.0
+MIX 141
+	COMB 129 1.0
+MIX 142
+	COMB 130 1.0
+MIX 143
+	COMB 131 1.0
+*******
+*C0905*  *C6
+*******
+MIX 144
+	COMB 128 1.0
+MIX 145
+	COMB 129 1.0
+MIX 146
+	COMB 130 1.0
+MIX 147
+	COMB 131 1.0
+*******
+*C0906*  *C6
+*******
+MIX 148
+	COMB 128 1.0
+MIX 149
+	COMB 129 1.0
+MIX 150
+	COMB 130 1.0
+MIX 151
+	COMB 131 1.0
+*******
+*C0907*  *C6
+*******
+MIX 152
+	COMB 128 1.0
+MIX 153
+	COMB 129 1.0
+MIX 154
+	COMB 130 1.0
+MIX 155
+	COMB 131 1.0
+;
+
+END: ;
+QUIT .

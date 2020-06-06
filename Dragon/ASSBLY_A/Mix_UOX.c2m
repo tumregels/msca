@@ -1,0 +1,170 @@
+*DECK Mix_Assb_DRA
+*----
+*  Name          : Mix_UOX.c2m
+*  Type          : DRAGON procedure
+*  Use           : Microlib generation with Draglibs for
+*                  UOX calculation with 37 fuel regions
+*  Author        : A. Canbakan
+*
+*  Procedure called as:
+*
+*  LIBRARY := Mix_UOX ::
+*    <<dens_mod>> <<pbore>> <<N_U5_UOX>> <<densU_UOX>>
+*    <<temp_comb>> <<temp_mode>> <<temp_clad>> ;
+*
+*
+*  Output data  :
+*    LIBRARY    : Microlib with table of probabilities
+
+
+PARAMETER  LIBRARY  ::
+       EDIT 0
+           ::: LINKED_LIST LIBRARY  ;
+   ;
+
+*----
+*  Input data recovery
+*----
+STRING Library ;
+:: >>Library<< ;
+
+*----
+*  Modules used in this procedure
+*----
+MODULE  LIB: UTL: DELETE: END: ABORT: ;
+
+LIBRARY := LIB: ::
+  EDIT 1
+  DEPL LIB: DRAGON FIL: <<Library>>
+  NMIX 161 CTRA APOL ANIS 2
+  PT
+  MIXS LIB: DRAGON FIL: <<Library>>
+
+*----
+*    Moderator
+*----
+  MIX 1 600.0 NOEV
+    H1        = H1_H2O   4.69585E-2
+    O16       = O16      2.34793E-2
+    B10       = B10      5.53089E-6
+    B11       = B11      2.18498E-5
+
+*----
+*    Cladding TI
+*----
+  MIX 2 600.0 NOEV
+    Zr90     = Zr90     2.16576E-2 2 IRSET PT 1
+    Zr91     = Zr91     4.72300E-3 2 IRSET PT 1
+    Zr92     = Zr92     7.21921E-3 2 IRSET PT 1
+    Zr94     = Zr94     7.31603E-3
+    Zr96     = Zr96     1.17864E-3
+
+*----
+*    Fuel -> 8 * 4 evolving mixes
+*----
+* C1 Cell
+  MIX 3 900.0
+    U235  = U235  4.08785E-4 1 IRSET PT 1
+    U238  = U238  2.20157E-2 1 IRSET PT 1
+    O16   = O16   4.48565E-2
+  MIX 4
+    COMB 3 1.0
+  MIX 5
+    COMB 3 1.0
+  MIX 6
+    COMB 3 1.0
+
+*----
+*    Gap
+*----
+  MIX 7 600.0 NOEV
+    O16     = O16    3.76439E-6
+
+*----
+*    Cladding fuel
+*----
+  MIX 8 600.0 NOEV
+    Zr90     = Zr90     2.16576E-2 2 IRSET PT 1
+    Zr91     = Zr91     4.72300E-3 2 IRSET PT 1
+    Zr92     = Zr92     7.21921E-3 2 IRSET PT 1
+    Zr94     = Zr94     7.31603E-3
+    Zr96     = Zr96     1.17864E-3
+
+* C2 Cell
+  MIX 9
+    COMB 3 1.0
+  MIX 10
+    COMB 3 1.0
+  MIX 11
+    COMB 3 1.0
+  MIX 12
+    COMB 3 1.0
+
+*----
+*    Cladding TG
+*----
+  MIX 25 COMB 2 1.0
+
+* C4 Cell
+  MIX 94
+    COMB 3 1.0
+  MIX 95
+    COMB 3 1.0
+  MIX 96
+    COMB 3 1.0
+  MIX 97
+    COMB 3 1.0
+
+* C3 Cell
+  MIX 114
+    COMB 3 1.0
+  MIX 115
+    COMB 3 1.0
+  MIX 116
+    COMB 3 1.0
+  MIX 117
+    COMB 3 1.0
+
+* C5 Cell
+  MIX 122
+    COMB 3 1.0
+  MIX 123
+    COMB 3 1.0
+  MIX 124
+    COMB 3 1.0
+  MIX 125
+    COMB 3 1.0
+
+* C6 Cell
+  MIX 126
+    COMB 3 1.0
+  MIX 127
+    COMB 3 1.0
+  MIX 128
+    COMB 3 1.0
+  MIX 129
+    COMB 3 1.0
+
+* C7 Cell
+  MIX 154
+    COMB 3 1.0
+  MIX 155
+    COMB 3 1.0
+  MIX 156
+    COMB 3 1.0
+  MIX 157
+    COMB 3 1.0
+
+* C8 Cell
+  MIX 158
+    COMB 3 1.0
+  MIX 159
+    COMB 3 1.0
+  MIX 160
+    COMB 3 1.0
+  MIX 161
+    COMB 3 1.0
+;
+
+END: ;
+QUIT .
