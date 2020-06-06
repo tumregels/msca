@@ -1,4 +1,4 @@
-*DECK Mix_Assb_DRA
+*DECK Mix_Gad
 *----
 *  Name          : Mix_Gad.c2m
 *  Type          : DRAGON procedure
@@ -8,10 +8,7 @@
 *
 *  Procedure called as:
 *
-*  LIBRARY := Mix_Gad ::
-*    <<dens_mod>> <<pbore>> <<N_U5_UOX>> <<densU_UOX>>
-*    <<temp_comb>> <<temp_mode>> <<temp_clad>> ;
-*
+*  LIBRARY := Mix_Gad :: <<Library>> ;
 *
 *  Output data  :
 *    LIBRARY    : Microlib with table of probabilities

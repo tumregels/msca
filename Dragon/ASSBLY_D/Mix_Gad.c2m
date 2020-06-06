@@ -1,6 +1,6 @@
-*DECK Mix_Assb_DRA
+*DECK Mix_Gad
 *----
-*  Name          : Mix_UOX.c2m
+*  Name          : Mix_Gad.c2m
 *  Type          : DRAGON procedure
 *  Use           : Microlib generation with Draglibs for
 *                  UOX/GD calculation with 42 fuel regions
@@ -8,19 +8,7 @@
 *
 *  Procedure called as:
 *
-*  LIBRARY := Mix_Gad ::
-*    <<dens_mod>> <<pbore>> <<N_U5_UOX>> <<densU_UOX>>
-*    <<temp_comb>> <<temp_mode>> <<temp_clad>>
-*    <<ten_Gad>> <<U5_support>> <<ten_U5>> ;
-*
-*  Input data   :
-*    dens_mod   : Theoretical moderator density
-*    pbore      : Natural boron concentration (ppm)
-*    N_U5_UOX   : U235 enrichment in UOX-Fuel
-*    densU_UOX  : Theoretical density of Uranium in UOX-Fuel
-*    temp_comb  : Theoretical Fuel temperature (K)
-*    temp_mode  : Theoretical moderator temperature (K)
-*    temp_clad  : Theoretical clad temperature (K)
+*  LIBRARY := Mix_Gad :: <<Library>> ;
 *
 *  Output data  :
 *    LIBRARY    : Microlib with table of probabilities
@@ -36,12 +24,15 @@ PARAMETER  LIBRARY  ::
 *----
 STRING Library ;
 :: >>Library<< ;
+
+*----
+*  Modules used in this procedure
+*----
 MODULE  LIB: UTL: DELETE: END: ABORT: ;
 
 LIBRARY := LIB: ::
-  EDIT 0
+  EDIT 1
   DEPL LIB: DRAGON FIL: <<Library>>
-
   NMIX 171 CTRA APOL ANIS 2
   PT
   MIXS LIB: DRAGON FIL: <<Library>>
@@ -49,7 +40,7 @@ LIBRARY := LIB: ::
 *----
 *    Moderator
 *----
-  MIX 1 600.0 NOEV (*MODE*)
+  MIX 1 600.0 NOEV
     H1        = H1_H2O   4.69585E-2
     O16       = O16      2.34793E-2
     B10       = B10      5.53089E-6
@@ -58,7 +49,7 @@ LIBRARY := LIB: ::
 *----
 *    Cladding TI
 *----
-  MIX 2 600.0 NOEV (*GAINE_TI*)
+  MIX 2 600.0 NOEV
     Zr90     = Zr90     2.16576E-2 2 IRSET PT 1
     Zr91     = Zr91     4.72300E-3 2 IRSET PT 1
     Zr92     = Zr92     7.21921E-3 2 IRSET PT 1
@@ -69,7 +60,7 @@ LIBRARY := LIB: ::
 *    Fuel -> 8 * 4 evolving mixes
 *----
 * C1 Cell
-  MIX 3 900.0 (*COMB1.1*)
+  MIX 3 900.0
     U235  = U235  1.01057E-3 1 IRSET PT 1
     U238  = U238  2.14140E-2 1 IRSET PT 1
     O16   = O16   4.48701E-2
@@ -89,7 +80,7 @@ LIBRARY := LIB: ::
 *----
 *    Cladding fuel
 *----
-  MIX 8 600.0 NOEV (*GAINE_TI*)
+  MIX 8 600.0 NOEV
     Zr90     = Zr90     2.16576E-2 2 IRSET PT 1
     Zr91     = Zr91     4.72300E-3 2 IRSET PT 1
     Zr92     = Zr92     7.21921E-3 2 IRSET PT 1
