@@ -150,16 +150,17 @@ def execute(config, background=True):
     return p
 
 
-class Config:
-    INPUT = "CGN_PIN_C"
+class Config(object):
     CWD = os.getcwd()
+    INPUT = list(pathlib.Path(CWD).glob('*.x2m'))[0].stem
     OUTPUT_DIR = op.join(CWD, "output" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     LIB_DIR = os.getenv("DRAGON_LIB_DIR") or "/home/legha/bin/libraries/l_endian"
     LIB_FILE = op.join(LIB_DIR, "draglibJeff3p1p1SHEM295")
     LIB_SYMLINK = op.join(OUTPUT_DIR, "DLIB_295")
-    DRAGON_EXE = os.getenv("DRAGON_EXE") or "/home/legha/bin/Version5_ev1738/Dragon/bin/Linux_x86_64/Dragon"
+    DRAGON_EXE = os.getenv("DRAGON_EXE") or "/home/legha/bin/Version5_ev1849/Dragon/bin/Linux_x86_64/Dragon"
     DRAGON_INPUT_FILE_NAME = INPUT + ".x2m"
     DRAGON_INPUT_FILE = op.join(CWD, DRAGON_INPUT_FILE_NAME)
+    DRAGON_INPUT_SUPPORT_FILES = [str(x) for x in pathlib.Path(CWD).glob('*.c2m')]
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
 
 
