@@ -13,6 +13,7 @@ REAL Rcomb1 Rcomb2 Rcomb3 Rcomb4 R_int_TG R_ext_TG R_int_TI R_ext_TI
 REAL Rcomb1Gad Rcomb2Gad Rcomb3Gad Rcomb4Gad Rcomb5Gad Rcomb6Gad ;
 SEQ_ASCII ASSBLY_CASEC :: FILE './ASSBLY_CASEC_g2s.txt' ;
 SEQ_ASCII BCOND2 :: FILE './ASSBLY_CASEC_R_BCOND2.txt' ;
+SEQ_ASCII BURN2 :: FILE './ASSBLY_CASEC_BURN2.txt' ;
 SEQ_ASCII FIGASB_CASEC :: FILE './FIGASB_CASEC.ps' ;
 SEQ_BINARY TF_EXC ;
 INTEGER an2d := 8 ;
@@ -344,6 +345,9 @@ ECHO "+++ Burnup=" BUend " Keff=" Keff ;
 ************************************************************************
 
 ENDWHILE ;
+
+BURN2 := BURNUP ;
+
 assertS FLUX2 :: K-EFFECTIVE 1 0.7532252 ;
 ************************************************************************
 *  END SECOND LEVEL FLUX CALCULATION                                   *
