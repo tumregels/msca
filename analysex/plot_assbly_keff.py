@@ -38,14 +38,14 @@ def parse_echo(s: str) -> Iterator[str]:
 def parse_burnup_vs_keff_drag_assbly(
         s: str,
         debug: bool = False,
-        pattern: str = r'>\|(Resultat Keff=(?P<keff>.*?)  at burnup=(?P<burnup>.*?))(?=\|>\d+)'
+        pattern: str = r'>\|\+\+\+ Burnup=(?P<burnup>.*?)\s+Keff=(?P<keff>.*?)\s+(?=\|>\d+)'
 ) -> List[Tuple[float, float]]:
     """
     Parse ECHO dragon statement to extract values for BURNUP and K-INFINITY
 
-    >>> s = '\\n>|Resultat Keff=   1.082721e+00  at burnup=   0.000000e+00               |>0173\\n'
+    >>> s = '\\n>|+++ Burnup=  0.000000e+00  Keff=  1.084023e+00                          |>0144\\n'
     >>> parse_burnup_vs_keff_drag_assbly(s)
-    [(Decimal('0.000000'), Decimal('1.082721'))]
+    [(0.0, 1.084023)]
     """
 
     end = '.*\n'
@@ -61,7 +61,7 @@ def parse_burnup_vs_keff_drag_assbly(
         burnup = float(m.group("burnup").strip())
         keff = float(m.group("keff").strip())
         print(
-            f'start:{lineno: <6} end:{endno: <6} burnup: {burnup} kinf: {keff} text: {text}'
+            f'start:{lineno: <6} end:{endno: <6} burnup: {burnup} keff: {keff} text: {text}'
         ) if debug else None
         burn_vs_keff.append((burnup, keff))
 
