@@ -154,3 +154,4 @@ dependencies:
     - tornado==6.0.4
     - urllib3==1.25.9
     - webencodings==0.5.1
+    - xlsxwriter==1.2.9
