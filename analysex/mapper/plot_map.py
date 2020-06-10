@@ -1,6 +1,7 @@
 import ast
 import os
 import pathlib
+from textwrap import dedent
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -42,6 +43,7 @@ def plot_geo_map(matrix, filename='table.eps'):
 
         if 'TI' in cell.get_text().get_text(): cell.set_facecolor("#7FC544")
         if any(x in cell.get_text().get_text() for x in ['T2', 'T1', 'TG']): cell.set_facecolor("#8AD2EA")
+        if any(x in cell.get_text().get_text() for x in [f'G{i}' for i in range(1, 6)]): cell.set_facecolor("#F3BE18")
         if 'C1' in cell.get_text().get_text(): cell.set_facecolor("#EFF4AE")
         if 'C2' in cell.get_text().get_text(): cell.set_facecolor("#FBD7CE")
         if 'C3' in cell.get_text().get_text(): cell.set_facecolor("#D8CDE6")
@@ -57,15 +59,22 @@ def plot_geo_map(matrix, filename='table.eps'):
 
         if rc == (0, 0):
             cell.set_visible(True)
+            cell.get_text().set_text(dedent('''\
+            Level 1 cell name
+            Level 1 cell mixtures
+            Level 2 cell name
+            Level 2 cell mixtures'''))
+            cell.set_facecolor("#FFFFFF")
+
+        if rc == (1, 0):
+            cell.set_visible(True)
             cell.get_text().set_text('$\ Instrumentation \ tube$')
             cell.set_facecolor("#7FC544")
-            # ax.text(-6, 3.8, r'$\ Instrumentation \ tube$', fontsize=35)
 
         if rc == (2, 0):
             cell.set_visible(True)
             cell.get_text().set_text('$\ Water\ whole$')
             cell.set_facecolor("#8AD2EA")
-            # ax.text(-6, 1.8, r'$\ Water\ whole$', fontsize=35)
 
     # red_patch = mpatches.Patch(color='red', label='The red data')
     # green_patch = mpatches.Patch(color='green', label='The green data')
@@ -74,7 +83,7 @@ def plot_geo_map(matrix, filename='table.eps'):
     #            bbox_to_anchor=(-0.4, 3.7),
     #            ncol=2)
 
-    p.savefig(filename, format='eps', dpi=1000, bbox_inches='tight')
+    p.savefig(filename, bbox_inches='tight')
 
 
 def main():
