@@ -7,7 +7,11 @@ from typing import Tuple, List
 import matplotlib.pyplot as plt
 import scipy.io
 
-from analysex.plot_assbly_keff import parse_burnup_vs_keff_serp
+from analysex.file_map import file_map
+from analysex.plot_assbly_keff import (
+    parse_burnup_vs_keff_serp,
+    parse_burnup_vs_keff_drag_assbly,
+)
 
 
 def parse_burnup_vs_kinf_drag(s: str, debug: bool = False) -> List[Tuple[float, float]]:
@@ -106,26 +110,36 @@ def plot_serp_dragon_burnup_vs_keff_relative_error(
 
     fig = plt.figure()
 
+    ratio = 0.7
+    ax = plt.gca()
+    xleft, xright = ax.get_xlim()
+    ybottom, ytop = ax.get_ylim()
+    ax.set_aspect(abs((xright - xleft) / (ybottom - ytop)) * ratio)
+
     p1 = plt.subplot(2, 1, 1)
     p1.set_title(title, fontsize=12)
 
     plt.grid()
-    plt.plot(xd, yd, 'or', label='Dragon 5')
+    plt.plot(xd, yd, '.r', label='Dragon 5')
     plt.plot(xs, ys, '+b', label='Serpent 2')
 
-    plt.ylabel(r'$Multiplication \ factor \ k_{eff}$', fontsize=12)
+    plt.ylabel(r'$k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
 
     p2 = plt.subplot(2, 1, 2)
     plt.grid()
-    relative_error = [100 * abs(ys[i] - yd[i]) / ys[i] for i in range(len(ys))]
 
-    plt.semilogy(xd, relative_error, 'xg', label=r'$\frac{|k_{Serpent}-k_{Dragon}|}{k_{Serpent}} \times 100$')
+    rho_s = [(ys[i] - 1) * 10 ** 5 / ys[i] for i in range(len(ys))]
+    rho_d = [(yd[i] - 1) * 10 ** 5 / yd[i] for i in range(len(yd))]
+
+    diff = [rho_s[i] - rho_d[i] for i in range(len(ys))]
+
+    plt.plot(xd, diff, '-', label=r'$\rho_{Serpent}-\rho_{Dragon}$')
     plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
-    plt.ylabel(r'$Relative \ error, \%$', fontsize=12)
-    plt.legend(loc="upper right", fontsize=15)
-    p2.yaxis.set_label_coords(-0.04, 0.52)
+    plt.ylabel(r'$Discrepancy, \ pcm$', fontsize=10)
 
+    plt.legend()  # plt.legend(loc=(1.04, 0), fontsize=12)
+    plt.tight_layout()
     plt.savefig(filename, dpi=300, bbox_inches="tight")
     plt.show()
     plt.close(fig)
@@ -160,49 +174,31 @@ def sync_drag_serp_data(
 
 if __name__ == '__main__':
     os.chdir(pathlib.Path(__file__).parent.parent)
+    d = file_map
 
-    plt.rcParams['figure.figsize'] = [15, 7.5]
+    for key in d.keys():
+        print(f"plotting {d[key]['drag_res']}")
 
-    drag_output_files = [
-        'Dragon/PIN_A/output_2020-05-01_23-02-16/CGN_PIN_A.result',
-        'Dragon/PIN_B/output_2020-05-02_00-15-18/CGN_PIN_B.result',
-        'Dragon/PIN_C/output_2020-05-02_00-16-03/CGN_PIN_C.result',
-    ]
-
-    serp_output_files = [
-        'Serpent/PIN_A/output_2020-05-11_22-39-35/PIN_CASEA_mc_res.mat',
-        'Serpent/PIN_B/output_2020-05-11_22-39-42/PIN_CASEB_mc_res.mat',
-        'Serpent/PIN_C/output_2020-05-11_22-39-48/PIN_CASEC_mc_res.mat',
-    ]
-
-    for i in range(len(drag_output_files)):
-        print(f'plotting {drag_output_files[i]}')
-
-        serp_file_name = serp_output_files[i]
+        serp_file_name = d[key]['serp_res']
         serp_res_data = scipy.io.loadmat(serp_file_name)
         burnup_vs_keff_serp = parse_burnup_vs_keff_serp(serp_res_data)
 
-        drag_file_name = drag_output_files[i]
+        drag_file_name = d[key]['drag_res']
         dragon_pin_a_str = pathlib.Path(drag_file_name).read_text()
-        burnup_vs_kinf_dragon = parse_burnup_vs_kinf_drag(dragon_pin_a_str)
+        burnup_vs_keff_dragon = parse_burnup_vs_keff_drag_assbly(dragon_pin_a_str)
+        burnup_vs_keff_dragon = [
+            (step / 1000, burnup) for step, burnup in burnup_vs_keff_dragon]
 
-        burnup_vs_kinf_dragon, burnup_vs_keff_serp = sync_drag_serp_data(
-            data_drag=burnup_vs_kinf_dragon,
+        burnup_vs_keff_dragon, burnup_vs_keff_serp = sync_drag_serp_data(
+            data_drag=burnup_vs_keff_dragon,
             data_serp=burnup_vs_keff_serp,
         )
 
         plot_serp_dragon_burnup_vs_keff_relative_error(
             data_serp=burnup_vs_keff_serp,
-            data_drag=burnup_vs_kinf_dragon,
+            data_drag=burnup_vs_keff_dragon,
             title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
-            filename=f'pin_plots/keff_vs_burnup_comparison_{re.search("/(PIN_.*?)/", serp_file_name).group(1)}.png'
-        )
-
-        plot_serp_dragon_burnup_vs_keff_relative_error(
-            data_serp=burnup_vs_keff_serp[:10],
-            data_drag=burnup_vs_kinf_dragon[:10],
-            title=f'$k_{{eff}} \ vs \ Burnup (cut)$\n {serp_file_name}\n {drag_file_name}\n',
-            filename=f'pin_plots/keff_vs_burnup_comparison_cut_{re.search("/(PIN_.*?)/", serp_file_name).group(1)}.png'
+            filename=f'all_plots/keff_vs_burnup_comparison_{key}.png'
         )
 
         print('\u2713')

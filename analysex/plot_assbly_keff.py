@@ -12,6 +12,8 @@ from typing import Iterator, Tuple, List
 import matplotlib.pyplot as plt
 import scipy.io
 
+from analysex.file_map import file_map
+
 
 def parse_echo(s: str) -> Iterator[str]:
     """
@@ -163,35 +165,23 @@ def plot_serp_dragon_burnup_vs_keff_assbly(
 
 
 if __name__ == '__main__':
-    os.chdir(pathlib.Path(__file__).parent.parent)
-    drag_output_files = [
-        'Dragon/ASSEMBLY_A/output_2020-05-17_17-42-26/UOX_TBH_eighth_2level_g2s.result',
-        'Dragon/ASSEMBLY_B/output_2020-05-17_23-29-31/GD_TBH_eighth_2level_g2s.result',
-        'Dragon/ASSEMBLY_C/output_2020-05-17_23-27-23/GD_TBH_eighth_2level_g2s.result',
-        'Dragon/ASSEMBLY_D/output_2020-05-17_20-49-07/GD_TBH_eighth_2level_g2s.result',
-    ]
+    os.chdir(pathlib.Path(__file__).resolve().parent.parent)
+    d = file_map
 
-    serp_output_files = [
-        'Serpent/ASSEMBLY_A/output_2020-05-13_12-24-33/ASSBLY_CASEA_mc_res.mat',
-        'Serpent/ASSEMBLY_B/output_2020-05-13_22-47-03/ASSBLY_CASEB_mc_res.mat',
-        'Serpent/ASSEMBLY_C/output_2020-05-18_15-13-07/ASSBLY_CASEC_mc_res.mat',
-        'Serpent/ASSEMBLY_D/output_2020-05-21_10-05-13/ASSBLY_CASED_mc_res.mat',
-    ]
-
-    for i in range(len(drag_output_files)):
-        serp_file_name = serp_output_files[i]
+    for key in d.keys():
+        serp_file_name = d[key]['serp_res']
         serp_res_data = scipy.io.loadmat(serp_file_name)
         burnup_vs_keff_serp = parse_burnup_vs_keff_serp(serp_res_data)
 
-        drag_file_name = drag_output_files[i]
-        dragon_pin_a_str = pathlib.Path(drag_file_name).read_text()
-        burnup_vs_keff_drag = parse_burnup_vs_keff_drag_assbly(dragon_pin_a_str)
+        drag_file_name = d[key]['drag_res']
+        dragon_result_str = pathlib.Path(drag_file_name).read_text()
+        burnup_vs_keff_drag = parse_burnup_vs_keff_drag_assbly(dragon_result_str)
 
         print(f'plotting {serp_file_name}', end=' ')
         plot_serp_dragon_burnup_vs_keff_assbly(
             data_serp=burnup_vs_keff_serp,
             data_drag=burnup_vs_keff_drag,
             title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
-            filename=f'assbly_plots/keff_vs_burnup_{re.search("/(ASSEMBLY_.*?)/", serp_file_name).group(1)}.png'
+            filename=f'all_plots/keff_vs_burnup_{key}.png'
         )
         print('\u2713')
