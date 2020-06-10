@@ -134,49 +134,42 @@ if __name__ == '__main__':
     d = {
         'PIN_A': {
             'drag_res': 'Dragon/PIN_A/output_2020-06-09_17-14-57/CGN_PIN_A.result',
-            'drag_pat': r'>\|\+\+\+ Burnup=(?P<burnup>.*?)\s+Keff=(?P<keff>.*?)\s+(?=\|>\d+)',
             'drag_burn': 'Dragon/PIN_A/output_2020-06-09_17-14-57/_BURN_rowland.txt',
             'serp_dep': 'Serpent/PIN_A/output_2020-05-11_22-39-35/PIN_CASEA_mc_dep.mat',
             'serp_res': 'Serpent/PIN_A/output_2020-05-11_22-39-35/PIN_CASEA_mc_res.mat',
         },
         'PIN_B': {
             'drag_res': 'Dragon/PIN_B/output_2020-06-09_17-16-38/CGN_PIN_B.result',
-            'drag_pat': r'>\|\+\+\+ Burnup=(?P<burnup>.*?)\s+Keff=(?P<keff>.*?)\s+(?=\|>\d+)',
             'drag_burn': 'Dragon/PIN_B/output_2020-06-09_17-16-38/_BURN_rowland.txt',
             'serp_dep': 'Serpent/PIN_B/output_2020-05-11_22-39-42/PIN_CASEB_mc_dep.mat',
             'serp_res': 'Serpent/PIN_B/output_2020-05-11_22-39-42/PIN_CASEB_mc_res.mat',
         },
         'PIN_C': {
             'drag_res': 'Dragon/PIN_C/output_2020-06-09_17-18-27/CGN_PIN_C.result',
-            'drag_pat': r'>\|\+\+\+ Burnup=(?P<burnup>.*?)\s+Keff=(?P<keff>.*?)\s+(?=\|>\d+)',
             'drag_burn': 'Dragon/PIN_C/output_2020-06-09_17-18-27/_BURN_rowland.txt',
             'serp_dep': 'Serpent/PIN_C/output_2020-05-11_22-39-48/PIN_CASEC_mc_dep.mat',
             'serp_res': 'Serpent/PIN_C/output_2020-05-11_22-39-48/PIN_CASEC_mc_res.mat',
         },
         'ASSBLY_A': {
             'drag_res': 'Dragon/ASSBLY_A/output_2020-06-06_13-46-57/ASSBLY_CASEA.result',
-            'drag_pat': r'>\|\+\+\+ Burnup=(?P<burnup>.*?)\s+Keff=(?P<keff>.*?)\s+(?=\|>\d+)',
             'drag_burn': 'Dragon/ASSBLY_A/output_2020-06-06_13-46-57/ASSBLY_CASEA_BURN2.txt',
             'serp_dep': 'Serpent/ASSEMBLY_A/output_2020-05-13_12-24-33/ASSBLY_CASEA_mc_dep.mat',
             'serp_res': 'Serpent/ASSEMBLY_A/output_2020-05-13_12-24-33/ASSBLY_CASEA_mc_res.mat',
         },
         'ASSBLY_B': {
             'drag_res': 'Dragon/ASSBLY_B/output_2020-06-06_13-45-45/ASSBLY_CASEB.result',
-            'drag_pat': r'>\|\+\+\+ Burnup=(?P<burnup>.*?)\s+Keff=(?P<keff>.*?)\s+(?=\|>\d+)',
             'drag_burn': 'Dragon/ASSBLY_B/output_2020-06-06_13-45-45/ASSBLY_CASEB_BURN2.txt',
             'serp_dep': 'Serpent/ASSEMBLY_B/output_2020-05-13_22-47-03/ASSBLY_CASEB_mc_dep.mat',
             'serp_res': 'Serpent/ASSEMBLY_B/output_2020-05-13_22-47-03/ASSBLY_CASEB_mc_res.mat',
         },
         'ASSBLY_C': {
             'drag_res': 'Dragon/ASSBLY_C/output_2020-06-06_13-43-34/ASSBLY_CASEC.result',
-            'drag_pat': r'>\|\+\+\+ Burnup=(?P<burnup>.*?)\s+Keff=(?P<keff>.*?)\s+(?=\|>\d+)',
             'drag_burn': 'Dragon/ASSBLY_C/output_2020-06-06_13-43-34/ASSBLY_CASEC_BURN2.txt',
             'serp_dep': 'Serpent/ASSEMBLY_C/output_2020-05-18_15-13-07/ASSBLY_CASEC_mc_dep.mat',
             'serp_res': 'Serpent/ASSEMBLY_C/output_2020-05-18_15-13-07/ASSBLY_CASEC_mc_res.mat',
         },
         'ASSBLY_D': {
             'drag_res': 'Dragon/ASSBLY_D/output_2020-06-06_13-41-48/ASSBLY_CASED.result',
-            'drag_pat': r'>\|\+\+\+ Burnup=(?P<burnup>.*?)\s+Keff=(?P<keff>.*?)\s+(?=\|>\d+)',
             'drag_burn': 'Dragon/ASSBLY_D/output_2020-06-06_13-41-48/ASSBLY_CASED_BURN2.txt',
             'serp_dep': 'Serpent/ASSEMBLY_D/output_2020-05-21_10-05-13/ASSBLY_CASED_mc_dep.mat',
             'serp_res': 'Serpent/ASSEMBLY_D/output_2020-05-21_10-05-13/ASSBLY_CASED_mc_res.mat',
@@ -185,10 +178,9 @@ if __name__ == '__main__':
 
     for key in d.keys():
         print(key)
-        if key == 'PIN_B':
+        if key == 'PIN_B' or True:
             burnup_vs_keff = parse_burnup_vs_keff_drag_assbly(
-                s=pathlib.Path(d[key]['drag_res']).read_text(),
-                pattern=d[key]['drag_pat']
+                s=pathlib.Path(d[key]['drag_res']).read_text()
             )
             burnup_vs_keff = pd.DataFrame(burnup_vs_keff, columns=['b_step', 'k_eff'])
             serp_dep_data = scipy.io.loadmat(d[key]['serp_dep'])
