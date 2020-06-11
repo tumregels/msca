@@ -6,8 +6,8 @@ from typing import List, Dict, Optional, Union
 import pandas as pd  # type: ignore
 import scipy.io  # type: ignore
 
-from analysex.isodens.plot import plot_data
-from analysex.file_map import file_map
+from analysex.file_map import file_map  # type: ignore
+from analysex.isodens.plot import plot_data_norm, plot_data_total  # type: ignore
 from analysex.plot_assbly_keff import parse_burnup_vs_keff_drag_assbly  # type: ignore
 
 
@@ -77,8 +77,17 @@ def extract_ISOTOPESUSED(filename: str) -> Optional[List[List[Union[int, str]]]]
         assert iso_count == 3 * len(iso_names_list)
         # print(len(iso_names), iso_names)
         # print(Counter(iso_names))
-        iso_names_list = [i for i, _ in iso_names_list]  # type: ignore
-        return iso_names_list
+        iso_names = [i for i, _ in iso_names_list]  # type: ignore
+
+        # remove iso name extensions
+        # to calculate volume fractions correctly
+        for i, name in enumerate(iso_names):
+            if name.endswith('Gd'):
+                iso_names[i] = name.replace('Gd', '')
+            elif name.endswith('Gd2'):
+                iso_names[i] = name.replace('Gd2', '')
+
+        return iso_names
     else:
         print('Not found')
         return None
@@ -129,51 +138,97 @@ def total_burnup(row: pd.DataFrame) -> pd.DataFrame:
     return row
 
 
+def save_iso(df: pd.DataFrame, iso_name: str = 'U238') -> None:
+    x = df.loc[df.iso_name.isin([iso_name, iso_name + 'Gd'])].iloc[:, :6]
+    with pd.ExcelWriter(f"{iso_name}.xlsx", engine='xlsxwriter') as writer:
+        x.to_excel(writer, sheet_name=iso_name, startrow=1, startcol=1)
+
+
 if __name__ == '__main__':
     os.chdir(pathlib.Path(__file__).resolve().parent.parent.parent)
     d = file_map
 
     for key in d.keys():
+        if key != 'ASSBLY_B':
+            continue
+
         print(key)
-        if key == 'PIN_B' or True:
-            burnup_vs_keff = parse_burnup_vs_keff_drag_assbly(
-                s=pathlib.Path(d[key]['drag_res']).read_text()
+        burnup_vs_keff = parse_burnup_vs_keff_drag_assbly(
+            s=pathlib.Path(d[key]['drag_res']).read_text()
+        )
+        burnup_vs_keff = pd.DataFrame(burnup_vs_keff, columns=['b_step', 'k_eff'])
+        serp_dep_data = scipy.io.loadmat(d[key]['serp_dep'])
+
+        filename = d[key]['drag_burn']
+        volumes = extract_VOLUME_MIX(filename)
+        mix_numbers = extract_ISOTOPESMIX(filename)
+        mix_vol_map = create_mix_vol_map(mix_numbers, volumes)
+        iso_names = extract_ISOTOPESUSED(filename)
+        densities = extract_ISOTOPESDENS(filename)
+
+        data = dict(  # type: ignore
+            iso_name=iso_names,
+            mix_number=mix_numbers,
+            **densities,
+        )
+        df = pd.DataFrame(data)
+
+        df.insert(2, 'mix_volume', df.apply(lambda row: mix_vol_map[row.mix_number], axis=1))
+        iso_volumes = df.groupby('iso_name').apply(lambda x: x.mix_volume.sum())
+
+        df.insert(3, 'iso_volume', [iso_volumes[name] for name in iso_names])
+        df.insert(4, 'iso_vol_frac', df.apply(lambda row: row.mix_volume / row.iso_volume, axis=1))
+        # save_iso(df, iso_name='U238')
+        g = df.groupby('iso_name')
+        tot_burn = g.apply(lambda x: total_burnup(x))
+        df = df.append(tot_burn, ignore_index=True)
+        # df.apply(lambda row: sum(total_burn(row)), axis=1)
+        df = df.set_index('iso_name')
+        print(df.iloc[:7, 0:7].to_string())
+        # print(df.to_string())
+
+        iso_lists = [
+            (
+                'U235_total',
+                'Pu239_total',
+                'Pu241_total',
+            ),
+            (
+                'U235_total',
+                'U236_total',
+                'U238_total',
+            ),
+            (
+                'Np237_total',
+                'Pu239_total',
+                'Pu240_total',
+                'Pu241_total',
+                'Pu242_total',
+            ),
+            (
+                'Sm147_total',
+                'Sm149_total',
+                'Sm150_total',
+                'Sm151_total',
+                'Sm152_total',
+                'Eu153_total',
+            ),
+        ]
+
+        for i, tpl in enumerate(iso_lists):
+            plot_data_norm(
+                df, burnup_vs_keff, serp_dep_data,
+                filename=f'all_plots/{key}_{i}_norm_density.png',
+                iso_list=tpl,
+                title=f"$Normalized \ total \ atomic \ density \ vs \ burnup$\n {d[key]['serp_dep']}\n {d[key]['drag_burn']}\n"
             )
-            burnup_vs_keff = pd.DataFrame(burnup_vs_keff, columns=['b_step', 'k_eff'])
-            serp_dep_data = scipy.io.loadmat(d[key]['serp_dep'])
 
-            filename = d[key]['drag_burn']
-            volumes = extract_VOLUME_MIX(filename)
-            mix_numbers = extract_ISOTOPESMIX(filename)
-            mix_vol_map = create_mix_vol_map(mix_numbers, volumes)
-            iso_names = extract_ISOTOPESUSED(filename)
-            densities = extract_ISOTOPESDENS(filename)
-
-            data = dict(  # type: ignore
-                iso_name=iso_names,
-                # iso_numbers=[i for _, i in iso_names],
-                mix_number=mix_numbers,
-                # volume=[mix_vol_map[mix] for mix in mix_numbers],
-                **densities,
+            plot_data_total(
+                df, burnup_vs_keff, serp_dep_data,
+                filename=f'all_plots/{key}_{i}_total_density.png',
+                iso_list=tpl,
+                save_data=True,
+                title=f"$Total \ atomic \ density \ vs \ burnup$\n {d[key]['serp_dep']}\n {d[key]['drag_burn']}\n"
             )
-            df = pd.DataFrame(data)
-
-            df.insert(2, 'mix_volume', df.apply(lambda row: mix_vol_map[row.mix_number], axis=1))
-            iso_volumes = df.groupby('iso_name').apply(lambda x: x.mix_volume.sum())
-
-            df.insert(3, 'iso_volume', [iso_volumes[name] for name in iso_names])
-            df.insert(4, 'iso_vol_frac', df.apply(lambda row: row.mix_volume / row.iso_volume, axis=1))
-            g = df.groupby('iso_name')
-            tot_burn = g.apply(lambda x: total_burnup(x))
-            df = df.append(tot_burn, ignore_index=True)
-            # df.apply(lambda row: sum(total_burn(row)), axis=1)
-            df = df.set_index('iso_name')
-            print(df.iloc[:7, 0:7].to_string())
-            # print(df.to_string())
-
-            plot_data(df, burnup_vs_keff, serp_dep_data,
-                      filename=f'{key}_density.png',
-                      title=f"$Normalized \ Total \ Atomic \ density \ vs \ Burnup$\n {d[key]['serp_dep']}\n {d[key]['drag_burn']}\n")
-
             # with pd.ExcelWriter("burn.xlsx", engine='xlsxwriter') as writer:
             #     df.to_excel(writer, sheet_name='burn', startrow=1, startcol=1)
