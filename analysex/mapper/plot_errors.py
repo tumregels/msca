@@ -1,5 +1,7 @@
 import copy
 import io
+import os
+import pathlib
 from textwrap import dedent
 from typing import List, Dict, Any
 
@@ -140,6 +142,8 @@ def plot_table(
 
 
 if __name__ == '__main__':
+    os.chdir(pathlib.Path(__file__).resolve().parent.parent.parent)
+
     assembly_map = """
     TI C0201 C0301     TG  C0501  C0601     TG   C0801 C0901
        C0202 C0302  C0402  C0502  C0602  C0702   C0802 C0902
@@ -205,6 +209,6 @@ if __name__ == '__main__':
         # plot_heatmap(map, data, filename=f'heatmap_{key.lower()}.png')
         plot_heatmap_label(
             map, data,
-            filename=f'heatmap_{key.lower()}_label.png',
+            filename=f'all_plots/heatmap_{key.lower()}_label.png',
             title=f'${key[:-1]} \ {key[-1]}$'
         )
