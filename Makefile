@@ -81,3 +81,8 @@ pull-pin-a: ## pull PIN_A
 
 pull-pin-a-dry: ## pull dry PIN_A
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_A ./Dragon
+
+clean:  ## clean up project
+	find . -type d -name __pycache__ -exec rm -r {} \+
+	find . -type d -name .ipynb_checkpoints -exec rm -r {} \+
+	find . -type d -name .mypy_cache -exec rm -r {} \+
