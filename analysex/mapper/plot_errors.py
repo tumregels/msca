@@ -5,10 +5,10 @@ import pathlib
 from textwrap import dedent
 from typing import List, Dict, Any
 
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import seaborn as sns
+import matplotlib.pyplot as plt  # type: ignore
+import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
+import seaborn as sns  # type: ignore
 
 from analysex.mapper.convert_to_matrix import convert_to_matrix
 from analysex.mapper.plot_map import plot_geo_map
@@ -31,7 +31,7 @@ def plot_heatmap(
     vmax = max([column for row in matrix for column in row])
 
     matrix = pd.DataFrame(matrix)
-    print(matrix.to_string())
+    print(matrix.to_string())  # type: ignore
 
     mask = np.zeros_like(matrix, dtype=np.bool)
     mask[np.tril_indices_from(mask)] = True
