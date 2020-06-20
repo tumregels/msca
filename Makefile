@@ -11,7 +11,7 @@ help: ## this help
 copy_tmuxlog: ## cp tmuxlog files to remote
 	scp -r scripts/tmuxlog*.sh $(REMOTE_SERV):~/bin/Version5_ev1738/Dragon/msca/
 
-export_conda_requirements:
+export_conda_requirements: ## export/update conda requirements
 	conda env export > requirements.yml
 
 convert_m_files: ## convert serpent output files to mat files
