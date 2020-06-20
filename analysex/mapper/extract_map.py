@@ -52,8 +52,7 @@ def create_two_level_matrix(geo_n1_filename, geo_n2_filename):
 
 
 def main():
-    # filenames = list(pathlib.Path('Dragon/ASSBLY_A').glob('Geo_N?.c2m'))
-    filenames = list(pathlib.Path('Dragon/ASSEMBLY_B').glob('Geo_N?.c2m'))
+    filenames = list(pathlib.Path('Dragon/ASSBLY_B').glob('Geo_N?.c2m'))
     return create_two_level_matrix(*filenames)
 
 

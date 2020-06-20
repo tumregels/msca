@@ -12,7 +12,7 @@ def main():
         matrix = create_two_level_matrix(*filenames)
         plot_geo_map(
             matrix,
-            filename=f'{re.search("/(ASS.*?_.*?)/", str(filenames[0])).group(1).lower()}.eps'
+            filename=f'{re.search("/(ASS.*?_.*?)/", str(filenames[0])).group(1).lower()}.png'
         )
 
 
