@@ -13,9 +13,10 @@
 - [x] fix merg mix mapping
 - [x] fix Fuelpwr in ASSBLY inputs, should be 39 W/gU
 - [x] pack assembly inputs into standard format
-- [ ] plot TBH curves and email to AH
-- [ ] reread Canbakan paper
- 
+- [x] reread Canbakan paper
+- [x] add BURN2 to assembly inputs
+- [x] parse Mix_UOX.c2m and MultiBEQ.c2m
+
 # Serpent
 
 - [x] prepare initial inputs
@@ -41,4 +42,4 @@
 - [x] ask if NMIX value should be adjusted in Mix_Gad.c2m and MultLIBEQ.c2m 
 
 - [ ] got `SYBILF: EXPECTING IFTRAK=0` for `UOX_AIC_eighth_2level_g2s`
-- [ ] ask which variable is `DO` in `WHILE istep maxstep < DO`
+- [ ] how to convert int to string in cle2000
