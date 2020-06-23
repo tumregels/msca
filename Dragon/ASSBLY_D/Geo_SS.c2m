@@ -127,7 +127,7 @@ GEOSS := GEO: :: CAR2D 9 9
          MIX 102 103 104 105   7 8 1
   ;
   ::: C5 := GEO: C1
-         MIX 132 133 134 131   7 8 1
+         MIX 132 133 134 135   7 8 1
   ;
   ::: C6 := GEO: CARCEL 6
          MESHX 0.0 <<CoteL>>
