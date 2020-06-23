@@ -64,10 +64,10 @@ push-assbly-d-dry: ## push dry ASSBLY_A
 	rsync -anv ./Dragon/ASSBLY_D $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 pull-assbly-d: ## pull ASSBLY_A
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_D ./Dragon
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_D ./Dragon --exclude '_*'
 
 pull-assbly-d-dry:  ## pull dry ASSBLY_A
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_D ./Dragon
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_D ./Dragon --exclude '_*'
 
 # PIN_A
 push-pin-a: ## push PIN_A
