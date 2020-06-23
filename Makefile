@@ -56,18 +56,18 @@ pull-pin-all:
 pull-pin-all-dry:
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_? ./Dragon
 
-# ASSEMBLY_A
-push-assembly-a: ## push ASSEMBLY_A
-	rsync -avzP ./Dragon/ASSEMBLY_A $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+# ASSBLY_D
+push-assbly-d: ## push ASSBLY_D
+	rsync -avzP ./Dragon/ASSBLY_D $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-push-assembly-a-dry: ## push dry ASSEMBLY_A
-	rsync -anv ./Dragon/ASSEMBLY_A $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+push-assbly-d-dry: ## push dry ASSBLY_A
+	rsync -anv ./Dragon/ASSBLY_D $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-pull-assembly-a: ## pull ASSEMBLY_A
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_A ./Dragon
+pull-assbly-d: ## pull ASSBLY_A
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_D ./Dragon
 
-pull-assembly-a-dry:  ## pull dry ASSEMBLY_A
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/ASSEMBLY_A ./Dragon
+pull-assbly-d-dry:  ## pull dry ASSBLY_A
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_D ./Dragon
 
 # PIN_A
 push-pin-a: ## push PIN_A
