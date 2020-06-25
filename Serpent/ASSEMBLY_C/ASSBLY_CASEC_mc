@@ -372,12 +372,12 @@ clad        0.4750
 water
 
 pin TI
-water   0.5605
+water   0.5725
 clad    0.6225
 water
 
 pin TG
-water   0.5725
+water   0.5605
 clad    0.6225
 water
 
