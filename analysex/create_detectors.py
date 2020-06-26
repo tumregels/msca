@@ -132,8 +132,7 @@ det _FUEL_1G_TOT
 """.rstrip())
 
 
-if __name__ == '__main__':
-    os.chdir(pathlib.Path(__file__).resolve().parent.parent)
+def main():
     for serp_input in [
         ('CASEA', 'Serpent/ASSEMBLY_A/ASSBLY_CASEA_mc'),
         ('CASEB', 'Serpent/ASSEMBLY_B/ASSBLY_CASEB_mc'),
@@ -145,3 +144,8 @@ if __name__ == '__main__':
             sys.stdout = file
             data = parse_det_names(serp_input[1])
             create_detectors(data)
+
+
+if __name__ == '__main__':
+    os.chdir(pathlib.Path(__file__).resolve().parent.parent)
+    main()
