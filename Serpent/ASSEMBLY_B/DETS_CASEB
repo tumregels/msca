@@ -1,0 +1,547 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUEL POWER 2 GROUPS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- energy grid for the detectors (2g)
+ene 2 1 1.1E-11 6.25E-7 1.9640E+1
+
+det _C0201_2G
+    de 2
+    dt -4
+    dm UO2_1_A dm UO2_1_B dm UO2_1_C dm UO2_1_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0202_2G
+    de 2
+    dt -4
+    dm UO2_2_A dm UO2_2_B dm UO2_2_C dm UO2_2_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0301_2G
+    de 2
+    dt -4
+    dm UO2_3_A dm UO2_3_B dm UO2_3_C dm UO2_3_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0302_2G
+    de 2
+    dt -4
+    dm UO2_4_A dm UO2_4_B dm UO2_4_C dm UO2_4_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0303_2G
+    de 2
+    dt -4
+    dm UO2_5_A dm UO2_5_B dm UO2_5_C dm UO2_5_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0402_2G
+    de 2
+    dt -4
+    dm UO2_6_A dm UO2_6_B dm UO2_6_C dm UO2_6_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0403_2G
+    de 2
+    dt -4
+    dm UO2_7_A dm UO2_7_B dm UO2_7_C dm UO2_7_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0501_2G
+    de 2
+    dt -4
+    dm UO2_8_A dm UO2_8_B dm UO2_8_C dm UO2_8_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0502_2G
+    de 2
+    dt -4
+    dm UO2_9_A dm UO2_9_B dm UO2_9_C dm UO2_9_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0503_2G
+    de 2
+    dt -4
+    dm UO2_10_A dm UO2_10_B dm UO2_10_C dm UO2_10_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0504_2G
+    de 2
+    dt -4
+    dm UO2_11_A dm UO2_11_B dm UO2_11_C dm UO2_11_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0505_2G
+    de 2
+    dt -4
+    dm UO2_12_A dm UO2_12_B dm UO2_12_C dm UO2_12_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0601_2G
+    de 2
+    dt -4
+    dm UO2_13_A dm UO2_13_B dm UO2_13_C dm UO2_13_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0602_2G
+    de 2
+    dt -4
+    dm UO2_14_A dm UO2_14_B dm UO2_14_C dm UO2_14_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0603_2G
+    de 2
+    dt -4
+    dm GADO_15_A dm GADO_15_B dm GADO_15_C dm GADO_15_D dm GADO_15_E dm GADO_15_F
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0604_2G
+    de 2
+    dt -4
+    dm UO2_16_A dm UO2_16_B dm UO2_16_C dm UO2_16_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0605_2G
+    de 2
+    dt -4
+    dm UO2_17_A dm UO2_17_B dm UO2_17_C dm UO2_17_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0702_2G
+    de 2
+    dt -4
+    dm UO2_18_A dm UO2_18_B dm UO2_18_C dm UO2_18_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0703_2G
+    de 2
+    dt -4
+    dm UO2_19_A dm UO2_19_B dm UO2_19_C dm UO2_19_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0705_2G
+    de 2
+    dt -4
+    dm UO2_20_A dm UO2_20_B dm UO2_20_C dm UO2_20_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0706_2G
+    de 2
+    dt -4
+    dm UO2_21_A dm UO2_21_B dm UO2_21_C dm UO2_21_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0707_2G
+    de 2
+    dt -4
+    dm UO2_22_A dm UO2_22_B dm UO2_22_C dm UO2_22_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0801_2G
+    de 2
+    dt -4
+    dm UO2_23_A dm UO2_23_B dm UO2_23_C dm UO2_23_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0802_2G
+    de 2
+    dt -4
+    dm UO2_24_A dm UO2_24_B dm UO2_24_C dm UO2_24_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0803_2G
+    de 2
+    dt -4
+    dm UO2_25_A dm UO2_25_B dm UO2_25_C dm UO2_25_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0804_2G
+    de 2
+    dt -4
+    dm UO2_26_A dm UO2_26_B dm UO2_26_C dm UO2_26_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0805_2G
+    de 2
+    dt -4
+    dm UO2_27_A dm UO2_27_B dm UO2_27_C dm UO2_27_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0806_2G
+    de 2
+    dt -4
+    dm UO2_28_A dm UO2_28_B dm UO2_28_C dm UO2_28_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0807_2G
+    de 2
+    dt -4
+    dm UO2_29_A dm UO2_29_B dm UO2_29_C dm UO2_29_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0808_2G
+    de 2
+    dt -4
+    dm UO2_30_A dm UO2_30_B dm UO2_30_C dm UO2_30_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0901_2G
+    de 2
+    dt -4
+    dm UO2_31_A dm UO2_31_B dm UO2_31_C dm UO2_31_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0902_2G
+    de 2
+    dt -4
+    dm UO2_32_A dm UO2_32_B dm UO2_32_C dm UO2_32_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0903_2G
+    de 2
+    dt -4
+    dm UO2_33_A dm UO2_33_B dm UO2_33_C dm UO2_33_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0904_2G
+    de 2
+    dt -4
+    dm UO2_34_A dm UO2_34_B dm UO2_34_C dm UO2_34_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0905_2G
+    de 2
+    dt -4
+    dm UO2_35_A dm UO2_35_B dm UO2_35_C dm UO2_35_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0906_2G
+    de 2
+    dt -4
+    dm UO2_36_A dm UO2_36_B dm UO2_36_C dm UO2_36_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0907_2G
+    de 2
+    dt -4
+    dm UO2_37_A dm UO2_37_B dm UO2_37_C dm UO2_37_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0908_2G
+    de 2
+    dt -4
+    dm UO2_38_A dm UO2_38_B dm UO2_38_C dm UO2_38_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _C0909_2G
+    de 2
+    dt -4
+    dm UO2_39_A dm UO2_39_B dm UO2_39_C dm UO2_39_D
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+
+det _FUEL_2G
+    de 2
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+    dm UO2_1_A dm UO2_1_B dm UO2_1_C dm UO2_1_D
+    dm UO2_2_A dm UO2_2_B dm UO2_2_C dm UO2_2_D
+    dm UO2_3_A dm UO2_3_B dm UO2_3_C dm UO2_3_D
+    dm UO2_4_A dm UO2_4_B dm UO2_4_C dm UO2_4_D
+    dm UO2_5_A dm UO2_5_B dm UO2_5_C dm UO2_5_D
+    dm UO2_6_A dm UO2_6_B dm UO2_6_C dm UO2_6_D
+    dm UO2_7_A dm UO2_7_B dm UO2_7_C dm UO2_7_D
+    dm UO2_8_A dm UO2_8_B dm UO2_8_C dm UO2_8_D
+    dm UO2_9_A dm UO2_9_B dm UO2_9_C dm UO2_9_D
+    dm UO2_10_A dm UO2_10_B dm UO2_10_C dm UO2_10_D
+    dm UO2_11_A dm UO2_11_B dm UO2_11_C dm UO2_11_D
+    dm UO2_12_A dm UO2_12_B dm UO2_12_C dm UO2_12_D
+    dm UO2_13_A dm UO2_13_B dm UO2_13_C dm UO2_13_D
+    dm UO2_14_A dm UO2_14_B dm UO2_14_C dm UO2_14_D
+    dm GADO_15_A dm GADO_15_B dm GADO_15_C dm GADO_15_D dm GADO_15_E dm GADO_15_F
+    dm UO2_16_A dm UO2_16_B dm UO2_16_C dm UO2_16_D
+    dm UO2_17_A dm UO2_17_B dm UO2_17_C dm UO2_17_D
+    dm UO2_18_A dm UO2_18_B dm UO2_18_C dm UO2_18_D
+    dm UO2_19_A dm UO2_19_B dm UO2_19_C dm UO2_19_D
+    dm UO2_20_A dm UO2_20_B dm UO2_20_C dm UO2_20_D
+    dm UO2_21_A dm UO2_21_B dm UO2_21_C dm UO2_21_D
+    dm UO2_22_A dm UO2_22_B dm UO2_22_C dm UO2_22_D
+    dm UO2_23_A dm UO2_23_B dm UO2_23_C dm UO2_23_D
+    dm UO2_24_A dm UO2_24_B dm UO2_24_C dm UO2_24_D
+    dm UO2_25_A dm UO2_25_B dm UO2_25_C dm UO2_25_D
+    dm UO2_26_A dm UO2_26_B dm UO2_26_C dm UO2_26_D
+    dm UO2_27_A dm UO2_27_B dm UO2_27_C dm UO2_27_D
+    dm UO2_28_A dm UO2_28_B dm UO2_28_C dm UO2_28_D
+    dm UO2_29_A dm UO2_29_B dm UO2_29_C dm UO2_29_D
+    dm UO2_30_A dm UO2_30_B dm UO2_30_C dm UO2_30_D
+    dm UO2_31_A dm UO2_31_B dm UO2_31_C dm UO2_31_D
+    dm UO2_32_A dm UO2_32_B dm UO2_32_C dm UO2_32_D
+    dm UO2_33_A dm UO2_33_B dm UO2_33_C dm UO2_33_D
+    dm UO2_34_A dm UO2_34_B dm UO2_34_C dm UO2_34_D
+    dm UO2_35_A dm UO2_35_B dm UO2_35_C dm UO2_35_D
+    dm UO2_36_A dm UO2_36_B dm UO2_36_C dm UO2_36_D
+    dm UO2_37_A dm UO2_37_B dm UO2_37_C dm UO2_37_D
+    dm UO2_38_A dm UO2_38_B dm UO2_38_C dm UO2_38_D
+    dm UO2_39_A dm UO2_39_B dm UO2_39_C dm UO2_39_D
+
+det _FUEL_2G_TOT
+    de 2
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+    dt -4
+    dm UO2_1_A dm UO2_1_B dm UO2_1_C dm UO2_1_D
+    dm UO2_2_A dm UO2_2_B dm UO2_2_C dm UO2_2_D
+    dm UO2_3_A dm UO2_3_B dm UO2_3_C dm UO2_3_D
+    dm UO2_4_A dm UO2_4_B dm UO2_4_C dm UO2_4_D
+    dm UO2_5_A dm UO2_5_B dm UO2_5_C dm UO2_5_D
+    dm UO2_6_A dm UO2_6_B dm UO2_6_C dm UO2_6_D
+    dm UO2_7_A dm UO2_7_B dm UO2_7_C dm UO2_7_D
+    dm UO2_8_A dm UO2_8_B dm UO2_8_C dm UO2_8_D
+    dm UO2_9_A dm UO2_9_B dm UO2_9_C dm UO2_9_D
+    dm UO2_10_A dm UO2_10_B dm UO2_10_C dm UO2_10_D
+    dm UO2_11_A dm UO2_11_B dm UO2_11_C dm UO2_11_D
+    dm UO2_12_A dm UO2_12_B dm UO2_12_C dm UO2_12_D
+    dm UO2_13_A dm UO2_13_B dm UO2_13_C dm UO2_13_D
+    dm UO2_14_A dm UO2_14_B dm UO2_14_C dm UO2_14_D
+    dm GADO_15_A dm GADO_15_B dm GADO_15_C dm GADO_15_D dm GADO_15_E dm GADO_15_F
+    dm UO2_16_A dm UO2_16_B dm UO2_16_C dm UO2_16_D
+    dm UO2_17_A dm UO2_17_B dm UO2_17_C dm UO2_17_D
+    dm UO2_18_A dm UO2_18_B dm UO2_18_C dm UO2_18_D
+    dm UO2_19_A dm UO2_19_B dm UO2_19_C dm UO2_19_D
+    dm UO2_20_A dm UO2_20_B dm UO2_20_C dm UO2_20_D
+    dm UO2_21_A dm UO2_21_B dm UO2_21_C dm UO2_21_D
+    dm UO2_22_A dm UO2_22_B dm UO2_22_C dm UO2_22_D
+    dm UO2_23_A dm UO2_23_B dm UO2_23_C dm UO2_23_D
+    dm UO2_24_A dm UO2_24_B dm UO2_24_C dm UO2_24_D
+    dm UO2_25_A dm UO2_25_B dm UO2_25_C dm UO2_25_D
+    dm UO2_26_A dm UO2_26_B dm UO2_26_C dm UO2_26_D
+    dm UO2_27_A dm UO2_27_B dm UO2_27_C dm UO2_27_D
+    dm UO2_28_A dm UO2_28_B dm UO2_28_C dm UO2_28_D
+    dm UO2_29_A dm UO2_29_B dm UO2_29_C dm UO2_29_D
+    dm UO2_30_A dm UO2_30_B dm UO2_30_C dm UO2_30_D
+    dm UO2_31_A dm UO2_31_B dm UO2_31_C dm UO2_31_D
+    dm UO2_32_A dm UO2_32_B dm UO2_32_C dm UO2_32_D
+    dm UO2_33_A dm UO2_33_B dm UO2_33_C dm UO2_33_D
+    dm UO2_34_A dm UO2_34_B dm UO2_34_C dm UO2_34_D
+    dm UO2_35_A dm UO2_35_B dm UO2_35_C dm UO2_35_D
+    dm UO2_36_A dm UO2_36_B dm UO2_36_C dm UO2_36_D
+    dm UO2_37_A dm UO2_37_B dm UO2_37_C dm UO2_37_D
+    dm UO2_38_A dm UO2_38_B dm UO2_38_C dm UO2_38_D
+    dm UO2_39_A dm UO2_39_B dm UO2_39_C dm UO2_39_D
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUEL POWER 1 GROUP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- energy grid for the detectors (1g)
+ene 3 1 1.1E-11 1.9640E+1
+
+det _FUEL_1G
+    de 3
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+    dm UO2_1_A dm UO2_1_B dm UO2_1_C dm UO2_1_D
+    dm UO2_2_A dm UO2_2_B dm UO2_2_C dm UO2_2_D
+    dm UO2_3_A dm UO2_3_B dm UO2_3_C dm UO2_3_D
+    dm UO2_4_A dm UO2_4_B dm UO2_4_C dm UO2_4_D
+    dm UO2_5_A dm UO2_5_B dm UO2_5_C dm UO2_5_D
+    dm UO2_6_A dm UO2_6_B dm UO2_6_C dm UO2_6_D
+    dm UO2_7_A dm UO2_7_B dm UO2_7_C dm UO2_7_D
+    dm UO2_8_A dm UO2_8_B dm UO2_8_C dm UO2_8_D
+    dm UO2_9_A dm UO2_9_B dm UO2_9_C dm UO2_9_D
+    dm UO2_10_A dm UO2_10_B dm UO2_10_C dm UO2_10_D
+    dm UO2_11_A dm UO2_11_B dm UO2_11_C dm UO2_11_D
+    dm UO2_12_A dm UO2_12_B dm UO2_12_C dm UO2_12_D
+    dm UO2_13_A dm UO2_13_B dm UO2_13_C dm UO2_13_D
+    dm UO2_14_A dm UO2_14_B dm UO2_14_C dm UO2_14_D
+    dm GADO_15_A dm GADO_15_B dm GADO_15_C dm GADO_15_D dm GADO_15_E dm GADO_15_F
+    dm UO2_16_A dm UO2_16_B dm UO2_16_C dm UO2_16_D
+    dm UO2_17_A dm UO2_17_B dm UO2_17_C dm UO2_17_D
+    dm UO2_18_A dm UO2_18_B dm UO2_18_C dm UO2_18_D
+    dm UO2_19_A dm UO2_19_B dm UO2_19_C dm UO2_19_D
+    dm UO2_20_A dm UO2_20_B dm UO2_20_C dm UO2_20_D
+    dm UO2_21_A dm UO2_21_B dm UO2_21_C dm UO2_21_D
+    dm UO2_22_A dm UO2_22_B dm UO2_22_C dm UO2_22_D
+    dm UO2_23_A dm UO2_23_B dm UO2_23_C dm UO2_23_D
+    dm UO2_24_A dm UO2_24_B dm UO2_24_C dm UO2_24_D
+    dm UO2_25_A dm UO2_25_B dm UO2_25_C dm UO2_25_D
+    dm UO2_26_A dm UO2_26_B dm UO2_26_C dm UO2_26_D
+    dm UO2_27_A dm UO2_27_B dm UO2_27_C dm UO2_27_D
+    dm UO2_28_A dm UO2_28_B dm UO2_28_C dm UO2_28_D
+    dm UO2_29_A dm UO2_29_B dm UO2_29_C dm UO2_29_D
+    dm UO2_30_A dm UO2_30_B dm UO2_30_C dm UO2_30_D
+    dm UO2_31_A dm UO2_31_B dm UO2_31_C dm UO2_31_D
+    dm UO2_32_A dm UO2_32_B dm UO2_32_C dm UO2_32_D
+    dm UO2_33_A dm UO2_33_B dm UO2_33_C dm UO2_33_D
+    dm UO2_34_A dm UO2_34_B dm UO2_34_C dm UO2_34_D
+    dm UO2_35_A dm UO2_35_B dm UO2_35_C dm UO2_35_D
+    dm UO2_36_A dm UO2_36_B dm UO2_36_C dm UO2_36_D
+    dm UO2_37_A dm UO2_37_B dm UO2_37_C dm UO2_37_D
+    dm UO2_38_A dm UO2_38_B dm UO2_38_C dm UO2_38_D
+    dm UO2_39_A dm UO2_39_B dm UO2_39_C dm UO2_39_D
+
+det _FUEL_1G_TOT
+    de 3
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
+    dt -4
+    dm UO2_1_A dm UO2_1_B dm UO2_1_C dm UO2_1_D
+    dm UO2_2_A dm UO2_2_B dm UO2_2_C dm UO2_2_D
+    dm UO2_3_A dm UO2_3_B dm UO2_3_C dm UO2_3_D
+    dm UO2_4_A dm UO2_4_B dm UO2_4_C dm UO2_4_D
+    dm UO2_5_A dm UO2_5_B dm UO2_5_C dm UO2_5_D
+    dm UO2_6_A dm UO2_6_B dm UO2_6_C dm UO2_6_D
+    dm UO2_7_A dm UO2_7_B dm UO2_7_C dm UO2_7_D
+    dm UO2_8_A dm UO2_8_B dm UO2_8_C dm UO2_8_D
+    dm UO2_9_A dm UO2_9_B dm UO2_9_C dm UO2_9_D
+    dm UO2_10_A dm UO2_10_B dm UO2_10_C dm UO2_10_D
+    dm UO2_11_A dm UO2_11_B dm UO2_11_C dm UO2_11_D
+    dm UO2_12_A dm UO2_12_B dm UO2_12_C dm UO2_12_D
+    dm UO2_13_A dm UO2_13_B dm UO2_13_C dm UO2_13_D
+    dm UO2_14_A dm UO2_14_B dm UO2_14_C dm UO2_14_D
+    dm GADO_15_A dm GADO_15_B dm GADO_15_C dm GADO_15_D dm GADO_15_E dm GADO_15_F
+    dm UO2_16_A dm UO2_16_B dm UO2_16_C dm UO2_16_D
+    dm UO2_17_A dm UO2_17_B dm UO2_17_C dm UO2_17_D
+    dm UO2_18_A dm UO2_18_B dm UO2_18_C dm UO2_18_D
+    dm UO2_19_A dm UO2_19_B dm UO2_19_C dm UO2_19_D
+    dm UO2_20_A dm UO2_20_B dm UO2_20_C dm UO2_20_D
+    dm UO2_21_A dm UO2_21_B dm UO2_21_C dm UO2_21_D
+    dm UO2_22_A dm UO2_22_B dm UO2_22_C dm UO2_22_D
+    dm UO2_23_A dm UO2_23_B dm UO2_23_C dm UO2_23_D
+    dm UO2_24_A dm UO2_24_B dm UO2_24_C dm UO2_24_D
+    dm UO2_25_A dm UO2_25_B dm UO2_25_C dm UO2_25_D
+    dm UO2_26_A dm UO2_26_B dm UO2_26_C dm UO2_26_D
+    dm UO2_27_A dm UO2_27_B dm UO2_27_C dm UO2_27_D
+    dm UO2_28_A dm UO2_28_B dm UO2_28_C dm UO2_28_D
+    dm UO2_29_A dm UO2_29_B dm UO2_29_C dm UO2_29_D
+    dm UO2_30_A dm UO2_30_B dm UO2_30_C dm UO2_30_D
+    dm UO2_31_A dm UO2_31_B dm UO2_31_C dm UO2_31_D
+    dm UO2_32_A dm UO2_32_B dm UO2_32_C dm UO2_32_D
+    dm UO2_33_A dm UO2_33_B dm UO2_33_C dm UO2_33_D
+    dm UO2_34_A dm UO2_34_B dm UO2_34_C dm UO2_34_D
+    dm UO2_35_A dm UO2_35_B dm UO2_35_C dm UO2_35_D
+    dm UO2_36_A dm UO2_36_B dm UO2_36_C dm UO2_36_D
+    dm UO2_37_A dm UO2_37_B dm UO2_37_C dm UO2_37_D
+    dm UO2_38_A dm UO2_38_B dm UO2_38_C dm UO2_38_D
+    dm UO2_39_A dm UO2_39_B dm UO2_39_C dm UO2_39_D
