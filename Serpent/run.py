@@ -1,8 +1,9 @@
-#!/home/legha/bin/miniconda3/envs/jupyter/bin/python3
 import glob
 import json
 import os
 import os.path as op
+import pathlib
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -18,15 +19,19 @@ def init(config):
     for f in files:
         os.remove(f)
 
+    if hasattr(config, "INCLUDE_FILES"):
+        for file in config.INCLUDE_FILES:
+            shutil.copy(file, config.OUTPUT_DIR)
+
     # check all paths/files exist
-    assert op.isdir(config.XS_LIB_DIR) == True, "library directory missing"
-    assert op.isfile(config.SERPENT_INPUT_TEMPLATE_FILE) == True, "serpent input file is missing"
+    assert op.isdir(config.XS_LIB_DIR) == True, f"library directory missing {config.XS_LIB_DIR}"
+    assert op.isfile(config.INPUT) == True, "serpent input file is missing"
     assert op.isfile(op.join(config.XS_LIB_DIR, config.XS_ACELIB_FILE)) == True, "acelib library file is missing"
     assert op.isfile(op.join(config.XS_LIB_DIR, config.XS_DECLIB_FILE)) == True, "declib library file is missing"
     assert op.isfile(op.join(config.XS_LIB_DIR, config.XS_NFYLIB_FILE)) == True, "nfylib library file is missing"
     assert op.isfile(config.SERPENT_EXE) == True, "serpent exe is missing"
 
-    with open(config.SERPENT_INPUT_TEMPLATE_FILE) as template_:
+    with open(config.INPUT) as template_:
         serp_input = template_.read().format(
             ACELIB=op.join(config.XS_LIB_DIR, config.XS_ACELIB_FILE),
             DECLIB=op.join(config.XS_LIB_DIR, config.XS_DECLIB_FILE),
@@ -57,7 +62,7 @@ def execute(config, background=True):
 
     To run the script
 
-        $ python3 run.py
+        $ cd /path/to/serpent/input && python3 /path/to/run.py
 
     which will run the simulation in background
     (default behavior set by `background=True`)
@@ -72,7 +77,7 @@ def execute(config, background=True):
 
     To run in debug mode
 
-        $ DEBUG=1 python3 run.py
+        $ DEBUG=1 cd /path/to/serpent/input && python3 /path/to/run.py
 
     which will write the output of the simulation
     both to terminal and *.result file.
@@ -81,8 +86,8 @@ def execute(config, background=True):
     init(config)
 
     output_ = open(config.SERPENT_OUTPUT_FILE, 'w')
-
-    serpent_cmd = [config.SERPENT_EXE, '-mpi', str(config.MPI), op.join(config.OUTPUT_DIR, config.INPUT)]
+    mpi = ['-mpi', str(getattr(config, 'MPI'))] if hasattr(config, 'MPI') and getattr(config, 'MPI') != 1 else []
+    serpent_cmd = [config.SERPENT_EXE, *mpi, op.join(config.OUTPUT_DIR, config.INPUT)]
 
     if background and 'DEBUG' not in os.environ:
         p = subprocess.Popen(
@@ -112,16 +117,16 @@ def execute(config, background=True):
 
 
 class Config:
-    INPUT = "ASSBLY_CASEB_mc"
     CWD = os.getcwd()
-    SERPENT_INPUT_TEMPLATE_FILE = op.join(CWD, INPUT)
+    INPUT = list(pathlib.Path(CWD).glob('*_mc'))[0].stem
     OUTPUT_DIR = op.join(CWD, "output" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     XS_LIB_DIR = os.getenv("SERPENT_XS_LIB_DIR") or "/home/nucl/serpent/xs/jeff311"
     XS_ACELIB_FILE = op.join(XS_LIB_DIR, "sss_jeff311u.data")
     XS_DECLIB_FILE = op.join(XS_LIB_DIR, "sss_jeff311.dec")
     XS_NFYLIB_FILE = op.join(XS_LIB_DIR, "sss_jeff311.nfy")
     SERPENT_EXE = os.getenv("SERPENT_EXE") or "/home/legha/bin/serpent-mpi/bin/sss2"
-    MPI = 5  # number of CPU-s to use
+    INCLUDE_FILES = [str(x) for x in pathlib.Path(CWD).glob('DETS_CASE?')]
+    # MPI = 5  # number of CPU-s to use
     SERPENT_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
 
 
