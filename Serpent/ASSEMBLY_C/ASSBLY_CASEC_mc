@@ -13,6 +13,10 @@ set declib "{DECLIB}"
 
 set nfylib "{NFYLIB}"
 
+% --- Fix seed
+
+set seed 1589387074293
+
 % fuel pin -> 4 rings, radii: 0.289631cm, 0.366357cm, 0.399229cm, 0.409600cm
 % gado pin -> 6 rings, radii: 0.183179cm, 0.259054cm, 0.317275cm, 0.366357cm, 0.399229cm, 0.409600cm
 
