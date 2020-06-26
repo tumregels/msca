@@ -47,6 +47,7 @@ end
 
 convert2mat('Serpent','*_res.m')
 convert2mat('Serpent','*_dep.m')
+convert2mat('Serpent','*_det0.m')
 
 
 disp('All mat files generated')
