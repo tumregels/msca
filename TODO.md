@@ -16,7 +16,12 @@
 - [x] reread Canbakan paper
 - [x] add BURN2 to assembly inputs
 - [x] parse Mix_UOX.c2m and MultiBEQ.c2m
+- [x] fix fortran scripts for capture
+- [ ] add CLE-2000 IF statements in the dataset to produce 
+      the 3 corresponding BCOND2 files. 
+      Continuous data with burnup can be found in the Multicompo.
 
+ 
 # Serpent
 
 - [x] prepare initial inputs
