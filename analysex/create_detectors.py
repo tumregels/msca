@@ -92,22 +92,23 @@ det _FUEL_2G
 {materials}
 """.rstrip())
 
-    print(f"""
-det _FUEL_2G_TOT
-    de 2
-    dr 102 U235
-    dr 102 U238
-    dr -6 U235
-    dr -6 U238
-    dt -4
-{materials}
-""".rstrip())
-
     print("""
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUEL POWER 1 GROUP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % --- energy grid for the detectors (1g)
 ene 3 1 1.1E-11 1.9640E+1
+""".rstrip())
+
+    for k, v in data.items():
+        print(f"""
+det {k + '_1G'}
+    de 3
+    dt -4
+    {' '.join([f'dm {m}' for m in v])}
+    dr 102 U235
+    dr 102 U238
+    dr -6 U235
+    dr -6 U238
 """.rstrip())
 
     print(f"""
@@ -117,17 +118,6 @@ det _FUEL_1G
     dr 102 U238
     dr -6 U235
     dr -6 U238
-{materials}
-""".rstrip())
-
-    print(f"""
-det _FUEL_1G_TOT
-    de 3
-    dr 102 U235
-    dr 102 U238
-    dr -6 U235
-    dr -6 U238
-    dt -4
 {materials}
 """.rstrip())
 
