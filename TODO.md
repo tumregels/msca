@@ -20,8 +20,9 @@
 - [ ] add CLE-2000 IF statements in the dataset to produce 
       the 3 corresponding BCOND2 files. 
       Continuous data with burnup can be found in the Multicompo.
+- [ ] compare densities of a few pins
+- [ ] convert fortran code to matlab script
 
- 
 # Serpent
 
 - [x] prepare initial inputs
