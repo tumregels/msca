@@ -36,8 +36,8 @@ file_map = {
         'serp_res': 'Serpent/ASSEMBLY_C/output_2020-05-18_15-13-07/ASSBLY_CASEC_mc_res.mat',
     },
     'ASSBLY_D': {
-        'drag_res': 'Dragon/ASSBLY_D/output_2020-06-06_13-41-48/ASSBLY_CASED.result',
-        'drag_burn': 'Dragon/ASSBLY_D/output_2020-06-06_13-41-48/ASSBLY_CASED_BURN2.txt',
+        'drag_res': 'Dragon/ASSBLY_D/output_2020-07-06_17-12-24/ASSBLY_CASED.result',
+        'drag_burn': 'Dragon/ASSBLY_D/output_2020-07-06_17-12-24/ASSBLY_CASED_BURN2.txt',
         'serp_dep': 'Serpent/ASSEMBLY_D/output_2020-05-21_10-05-13/ASSBLY_CASED_mc_dep.mat',
         'serp_res': 'Serpent/ASSEMBLY_D/output_2020-05-21_10-05-13/ASSBLY_CASED_mc_res.mat',
     },

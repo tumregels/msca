@@ -11,6 +11,7 @@ from typing import Iterator, Tuple, List
 
 import matplotlib.pyplot as plt
 import scipy.io
+from scipy.signal import find_peaks
 
 from analysex.file_map import file_map
 
@@ -164,6 +165,13 @@ def plot_serp_dragon_burnup_vs_keff_assbly(
     plt.close(fig)
 
 
+def keff_peaks(filename: str, data: List[Tuple[float, float]]) -> None:
+    peaks = find_peaks([i[1] for i in data])[0]
+
+    for peak in peaks:
+        print(f'{peak + 1:3d}  {data[peak][0]:7.1f}  {data[peak][1]:9.7f} < {filename}')
+
+
 if __name__ == '__main__':
     os.chdir(pathlib.Path(__file__).resolve().parent.parent)
     d = file_map
@@ -176,6 +184,7 @@ if __name__ == '__main__':
         drag_file_name = d[key]['drag_res']
         dragon_result_str = pathlib.Path(drag_file_name).read_text()
         burnup_vs_keff_drag = parse_burnup_vs_keff_drag_assbly(dragon_result_str)
+        keff_peaks(drag_file_name, burnup_vs_keff_drag)
 
         print(f'plotting {serp_file_name}', end=' ')
         plot_serp_dragon_burnup_vs_keff_assbly(
