@@ -63,6 +63,11 @@ LIBRARY := LIB: ::
   MIX 3 900.0
     U235  = U235  7.04005E-4 1 IRSET PT 1
     U238  = U238  2.17205E-2 1 IRSET PT 1
+    Pu238 = Pu238 1.E-20     1 IRSET PT 1
+    Pu239 = Pu239 1.E-20     1 IRSET PT 1
+    Pu240 = Pu240 1.E-20     1 IRSET PT 1
+    Pu241 = Pu241 1.E-20     1 IRSET PT 1
+    Pu242 = Pu242 1.E-20     1 IRSET PT 1
     O16   = O16   4.48632E-2
   MIX 4
     COMB 3 1.0
@@ -91,6 +96,11 @@ LIBRARY := LIB: ::
   MIX 62 900.0
     U235Gd    = U235    1.42679E-4   3 IRSET PT 1
     U238Gd    = U238    1.97006E-2   3 IRSET PT 1
+    Pu238Gd   = Pu238   1.E-20       3 IRSET PT 1
+    Pu239Gd   = Pu239   1.E-20       3 IRSET PT 1
+    Pu240Gd   = Pu240   1.E-20       3 IRSET PT 1
+    Pu241Gd   = Pu241   1.E-20       3 IRSET PT 1
+    Pu242Gd   = Pu242   1.E-20       3 IRSET PT 1
     O16Gd2    = O16     4.40721E-2
     Gd154   = Gd154     6.37452E-5   3 IRSET PT NONE
     Gd155   = Gd155     4.32736E-4   3 IRSET PT NONE
