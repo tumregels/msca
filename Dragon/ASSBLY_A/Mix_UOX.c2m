@@ -105,7 +105,8 @@ LIBRARY := LIB: ::
 *----
 *    Cladding TG
 *----
-  MIX 25 COMB 2 1.0
+  MIX 25
+    COMB 2 1.0
 
 * C4 Cell
   MIX 94
