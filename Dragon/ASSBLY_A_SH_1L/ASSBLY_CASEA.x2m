@@ -23,7 +23,7 @@ REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
 REAL Fuelpwr Keff := 39.0 0.0 ;
 REAL BU BUautop  := 0.0 0.0 ;
 STRING Library := "DLIB_295" ;
-PROCEDURE Geo_SS Geo_N1 Geo_N2 Mix_UOX MultLIBEQ ;
+PROCEDURE Geo_SS Geo_N1 Geo_N2 Mix_UOX ;
 PROCEDURE assertS ;
 
 ************************************************************************
@@ -376,7 +376,7 @@ ENDWHILE ;
 
 BURN2 := BURNUP ;
 
-assertS FLUX2 :: K-EFFECTIVE 1 0.7436790 ;
+assertS FLUX :: K-EFFECTIVE 1 0.7436790 ;
 ************************************************************************
 *  END SECOND LEVEL FLUX CALCULATION                                   *
 ************************************************************************
