@@ -1,10 +1,10 @@
 *----
-* case ASSBLY_CASEA
-* 295-group/26group eighth assembly in DRAGON
-* Author: A. Canbakan
+* case ASSBLY_CASEA_short_1level
+* 295-group/26group eighth assembly in DRAGON -- 1-level scheme
+* Author: A. Hebert
 *----
-LINKED_LIST GEOSS GEON1 GEON2 TRACKSS TRACKN1 TRACKN2 LIBRARY LIBRARY2
-            SYS FLUX FLUX2 EDITION LIBEQ DONNEES LIBHOM BURNUP
+LINKED_LIST GEOSS GEON2 TRACKSS TRACKN2 LIBRARY LIBRARY2
+            SYS FLUX FLUX2 EDITION DONNEES LIBHOM BURNUP
 	    EDIHOM RES_F RES_L ;
 MODULE SYBILT: G2S: SALT: MCCGT: USS: ASM: FLU: EDI: SPH: UTL: DELETE:
        END: EVO: GREP: LIB: ABORT: ;
@@ -23,7 +23,7 @@ REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
 REAL Fuelpwr Keff := 39.0 0.0 ;
 REAL BU BUautop  := 0.0 0.0 ;
 STRING Library := "DLIB_295" ;
-PROCEDURE Geo_SS Geo_N1 Geo_N2 Mix_UOX ;
+PROCEDURE Geo_SS Geo_N2 Mix_UOX ;
 PROCEDURE assertS ;
 
 ************************************************************************
@@ -48,11 +48,6 @@ GEOSS := Geo_SS :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
                       <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
                       <<CoteL>> ;
-
-GEON1 := Geo_N1 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
-                      <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
-                      <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
-                      <<CoteL>> <<RmodeN1>> ;
 
 GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
@@ -90,14 +85,7 @@ TRACKSS := SYBILT: GEOSS ::
   TITLE 'TRACKING FOR ASSEMBLY SS'
   QUA2 20 3
   DP01  ;
-*TRACKN1 := SYBILT: GEON1 ::
-*  EDIT 0
-*  MAXR 500
-*  MAXZ  1000000
-*  TITLE 'TRACKING FOR ASSEMBLY N1'
-*  QUA2 20 3
-*  DP01  ;
-! Level two
+! MOC tracking for flux calculation
 TRACKN2 TF_EXC := SALT: ASSBLY_CASEA ::
   EDIT 3
   ALLG
@@ -122,24 +110,20 @@ LIBRARY := Mix_UOX :: <<Library>>  ;
 ************************************************************************
 WHILE istep maxstep < DO
 
-************************************************************************
-*  BEGIN FIRST LEVEL FLUX CALCULATION                                  *
-************************************************************************
-
- EVALUATE istep := istep 1 + ;
- ECHO "istep: " istep "/" maxstep ;
-
- EVALUATE BUbeg Tbeg := BUend Tend ;
- GREP: DONNEES :: GETVAL 'BURN' <<istep>> >>BUend<< ;
- EVALUATE Tend := BUend Fuelpwr / ;
- ECHO Tbeg ;
- ECHO Tend ;
+  EVALUATE istep := istep 1 + ;
+  ECHO "istep: " istep "/" maxstep ;
+ 
+  EVALUATE BUbeg Tbeg := BUend Tend ;
+  GREP: DONNEES :: GETVAL 'BURN' <<istep>> >>BUend<< ;
+  EVALUATE Tend := BUend Fuelpwr / ;
+  ECHO Tbeg ;
+  ECHO Tend ;
 
 *----
 * USS
 *----
   IF istep 1 = THEN
-       LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 2 ARM GRMIN 52
+    LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 2 ARM GRMIN 52
 
           CALC REGI W1 U235 ALL
 
@@ -187,8 +171,8 @@ WHILE istep maxstep < DO
   ELSE
     GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
     GREP: DONNEES :: GETVAL "BURN" <<istep>> >>BU<< ;
-        IF BUautop BU = THEN
-       LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS BURNUP :: EDIT 1 PASS 2
+    IF BUautop BU = THEN
+      LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS BURNUP :: EDIT 1 PASS 2
                    GRMIN 52
 
           CALC REGI W1 U235 ALL
@@ -234,142 +218,67 @@ WHILE istep maxstep < DO
                 REGI W4 U238 161
 
           ENDC ;
-        EVALUATE iAutop := iAutop 1 + ;
-     ENDIF ;
+      EVALUATE iAutop := iAutop 1 + ;
+    ENDIF ;
   ENDIF ;
 
 ************************************************************************
-*  BEGIN FIRST LEVEL FLUX CALCULATION                                  *
+*  BEGIN MOC FLUX CALCULATION                                          *
 ************************************************************************
-*IF istep 1 > THEN
-* homogenize from 161 mixtures to 37 mixtures and condense to 1-group
-* in order to average number densities
-*  EDIHOM := EDI: FLUX2 LIBEQ TRACKN2 ::
-*   EDIT 0
-*   MICR ALL
-*   COND
-*   MERG MIX
-*      1   2   3   4   5   6   7   8   9  10  11  12   3   4   5   6   9
-*     10  11  12   9  10  11  12  25   3   4   5   6   3   4   5   6   3
-*      4   5   6   9  10  11  12   9  10  11  12   3   4   5   6   9  10
-*     11  12   3   4   5   6   9  10  11  12   9  10  11  12   3   4   5
-*      6   3   4   5   6   3   4   5   6   3   4   5   6   3   4   5   6
-*      3   4   5   6   9  10  11  12  94  95  96  97   9  10  11  12   9
-*     10  11  12  94  95  96  97   9  10  11  12 114 115 116 117 114 115
-*    116 117 122 123 124 125 126 127 128 129 126 127 128 129 126 127 128
-*    129 126 127 128 129 126 127 128 129 126 127 128 129 126 127 128 129
-*    154 155 156 157 158 159 160 161
-*   SAVE ON HOMOGENE
-*  ;
-* LIBHOM := EDIHOM ::
-*  STEP UP HOMOGENE
-* ;
-
-* recover number densities from LIBHOM and copy them in LIBRARY2
-* EDIHOM := DELETE: EDIHOM ;
-* LIBRARY2 := LIB: LIBRARY2 LIBHOM ::
-*  EDIT 0
-*  MAXS
-*  MIX   3 MIX   4 MIX   5 MIX   6 MIX   9 MIX  10 MIX  11 MIX  12
-*  MIX  94 MIX  95 MIX  96 MIX  97 MIX 114 MIX 115 MIX 116 MIX 117
-*  MIX 122 MIX 123 MIX 124 MIX 125 MIX 126 MIX 127 MIX 128 MIX 129
-*  MIX 154 MIX 155 MIX 156 MIX 157 MIX 158 MIX 159 MIX 160 MIX 161
-*  ;
-* LIBEQ LIBHOM := DELETE: LIBEQ LIBHOM ;
-*ENDIF ;
-
-*SYS := ASM: LIBRARY2 TRACKN1 :: ARM EDIT 0 ;
-*FLUX := FLU: LIBRARY2 SYS TRACKN1 ::
-*     EDIT 1 TYPE K ;
-
-*----
-*  26 groups energy condensation
-*----
-*EDITION := EDI: FLUX LIBRARY2 TRACKN1 ::
-*    EDIT 0
-*    MICR ALL
-*    MERG MIX
-*    COND  10  14  18  26  33  40  49  56  66 84 150 210 241 244 247
-*    252 255 258 261 268 273 277 281 286 291
-*    SAVE ON COND26 ;
-*
-*LIBEQ := EDITION :: STEP UP COND26 ;
-*
-*LIBEQ := SPH: LIBEQ TRACKN1 :: EDIT 2 ;
-*
-*FLUX SYS EDITION := DELETE: FLUX SYS EDITION ;
-
-************************************************************************
-*  END FIRST LEVEL FLUX CALCULATION                                    *
-************************************************************************
-************************************************************************
-*  BEGIN SECOND LEVEL FLUX CALCULATION                                 *
-************************************************************************
-*LIBEQ := MultLIBEQ LIBEQ ;
-*SYS := ASM: LIBEQ TRACKN2 TF_EXC :: ARM EDIT 1 ;
-*
-*IF istep 1 = THEN
-*FLUX2 := FLU: LIBEQ SYS TRACKN2 TF_EXC ::
-*     EDIT 1 TYPE K ;
-*ELSE
-*   FLUX2 := FLU: FLUX2 LIBEQ SYS TRACKN2 TF_EXC ::
-*     EDIT 1 TYPE K ;
-*ENDIF ;
-
-SYS := ASM: LIBRARY2 TRACKN2 TF_EXC :: ARM EDIT 0 ;
-
-IF istep 1 = THEN
-  FLUX := FLU: LIBRARY2 SYS TRACKN2 TF_EXC ::
-   EDIT 1 TYPE K ;
-ELSE
-  FLUX := FLU: FLUX LIBRARY2 SYS TRACKN2 TF_EXC ::
-   EDIT 1 TYPE K ;
-ENDIF ;
-
-IF istep 1 = THEN
-  RES_F := EDI: FLUX LIBRARY2 TRACKN2 :: EDIT 5
-  MICR 3 U235 U238 O16
-  MERG MIX
-  COND 19
-  SAVE ON COND2
-  ;
-  BCOND2_F := RES_F :: STEP UP COND2 ;
-ENDIF ;
-
-IF istep maxstep = THEN
-  RES_L := EDI: FLUX LIBRARY2 TRACKN2 :: EDIT 5
-  MICR 3 U235 U238 O16
-  MERG MIX
-  COND 19
-  SAVE ON COND2
-  ;
-  BCOND2_L := RES_L :: STEP UP COND2 ;
-ENDIF ;
-
-GREP: FLUX :: GETVAL 'K-EFFECTIVE  ' 1 1 1 >>Keff<< ;
-ECHO "+++ Burnup=" BUend " Keff=" Keff ;
-
-IF istep maxstep < THEN
-  EVALUATE istepNext := istep 1 + ;
-  GREP: DONNEES :: GETVAL 'BURN' <<istepNext>> >>BUend<< ;
-  EVALUATE Tend := BUend Fuelpwr / ;
-
+  SYS := ASM: LIBRARY2 TRACKN2 TF_EXC :: ARM EDIT 1 ;
+  
   IF istep 1 = THEN
-     BURNUP LIBRARY2 := EVO: LIBRARY2 FLUX TRACKN2 ::
-      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
-      EXPM 1.0E15 GLOB ;
+    FLUX := FLU: LIBRARY2 SYS TRACKN2 TF_EXC ::
+     EDIT 1 TYPE K ;
   ELSE
-     BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 FLUX TRACKN2 ::
-      EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
-      EXPM 1.0E15 GLOB ;
+    FLUX := FLU: FLUX LIBRARY2 SYS TRACKN2 TF_EXC ::
+     EDIT 1 TYPE K ;
+  ENDIF ;
+  
+  IF istep 1 = THEN
+    RES_F := EDI: FLUX LIBRARY2 TRACKN2 :: EDIT 5
+    MICR 3 U235 U238 O16
+    MERG MIX
+    COND 19
+    SAVE ON COND2
+    ;
+    BCOND2_F := RES_F :: STEP UP COND2 ;
+  ENDIF ;
+  
+  IF istep maxstep = THEN
+    RES_L := EDI: FLUX LIBRARY2 TRACKN2 :: EDIT 5
+    MICR 3 U235 U238 O16
+    MERG MIX
+    COND 19
+    SAVE ON COND2
+    ;
+    BCOND2_L := RES_L :: STEP UP COND2 ;
+  ENDIF ;
+  
+  GREP: FLUX :: GETVAL 'K-EFFECTIVE  ' 1 1 1 >>Keff<< ;
+  ECHO "+++ Burnup=" BUend " Keff=" Keff ;
+  
+  IF istep maxstep < THEN
+    EVALUATE istepNext := istep 1 + ;
+    GREP: DONNEES :: GETVAL 'BURN' <<istepNext>> >>BUend<< ;
+    EVALUATE Tend := BUend Fuelpwr / ;
+  
+    IF istep 1 = THEN
+      BURNUP LIBRARY2 := EVO: LIBRARY2 FLUX TRACKN2 ::
+       EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
+       EXPM 1.0E15 GLOB ;
+    ELSE
+      BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 FLUX TRACKN2 ::
+       EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
+       EXPM 1.0E15 GLOB ;
+    ENDIF ;
+  
+    SYS := DELETE: SYS ;
+  
   ENDIF ;
 
-  SYS := DELETE: SYS ;
-
- ENDIF ;
-
 ************************************************************************
-*  END SECOND LEVEL FLUX CALCULATION                                   *
+*  END MOC FLUX CALCULATION                                            *
 ************************************************************************
 
 ENDWHILE ;
@@ -378,8 +287,8 @@ BURN2 := BURNUP ;
 
 assertS FLUX :: K-EFFECTIVE 1 0.7436790 ;
 ************************************************************************
-*  END SECOND LEVEL FLUX CALCULATION                                   *
+*  END DEPLETION CALCULATION                                           *
 ************************************************************************
 
-ECHO "test ASSBLY_CASEA completed" ;
+ECHO "test ASSBLY_CASEA_short_1level completed" ;
 END: ;
