@@ -1,20 +1,22 @@
 *----
-* case ASSBLY_CASEA
+* case ASSBLY_CASED
 * 295-group/26group eighth assembly in DRAGON -- 1-level scheme
-* Author: A. Hebert
+* Author: A. Canbakan
 *----
 LINKED_LIST GEOSS GEON2 TRACKSS TRACKN2 LIBRARY LIBRARY2
-            SYS FLUX2 EDITION DONNEES LIBHOM BURNUP
-	          EDIHOM RES_F RES_L ;
+            SYS FLUX FLUX2 EDITION DONNEES LIBHOM BURNUP
+            EDIHOM RES_F RES_P RES_L ;
 MODULE SYBILT: G2S: SALT: MCCGT: USS: ASM: FLU: EDI: SPH: UTL: DELETE:
        END: EVO: GREP: LIB: ABORT: ;
 REAL Rcomb1 Rcomb2 Rcomb3 Rcomb4 R_int_TG R_ext_TG R_int_TI R_ext_TI
      R_int_G R_ext_G Cote CoteL RmodeN1 Lame ;
-SEQ_ASCII ASSBLY_CASEA :: FILE './ASSBLY_CASEA_g2s.txt' ;
-SEQ_ASCII BCOND2_F :: FILE './ASSBLY_CASEA_R_BCOND2.txt' ;
-SEQ_ASCII BCOND2_L :: FILE './ASSBLY_CASEA_R_BCOND2_LAST.txt' ;
-SEQ_ASCII BURN2 :: FILE './ASSBLY_CASEA_BURN2.txt' ;
-SEQ_ASCII FIGASB_CASEA :: FILE './FIGASB_CASEA.ps' ;
+REAL Rcomb1Gad Rcomb2Gad Rcomb3Gad Rcomb4Gad Rcomb5Gad Rcomb6Gad ;
+SEQ_ASCII ASSBLY_CASED :: FILE './ASSBLY_CASED_g2s.txt' ;
+SEQ_ASCII BCOND2_F :: FILE './ASSBLY_CASED_R_BCOND2.txt' ;
+SEQ_ASCII BCOND2_P :: FILE './ASSBLY_CASED_R_BCOND2_PEAK.txt' ;
+SEQ_ASCII BCOND2_L :: FILE './ASSBLY_CASED_R_BCOND2_LAST.txt' ;
+SEQ_ASCII BURN2 :: FILE './ASSBLY_CASED_BURN2.txt' ;
+SEQ_ASCII FIGASB_CASED :: FILE './FIGASB_CASED.ps' ;
 SEQ_BINARY TF_EXC ;
 INTEGER an2d := 8 ;
 REAL densur := 20.0 ;
@@ -23,7 +25,7 @@ REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
 REAL Fuelpwr Keff := 39.0 0.0 ;
 REAL BU BUautop  := 0.0 0.0 ;
 STRING Library := "DLIB_295" ;
-PROCEDURE Geo_SS Geo_N2 Mix_UOX ;
+PROCEDURE Geo_SS Geo_N2 Mix_Gad ;
 PROCEDURE assertS ;
 
 ************************************************************************
@@ -33,6 +35,12 @@ EVALUATE Rcomb4 := 0.4096 ;
 EVALUATE Rcomb1 := 0.5 SQRT Rcomb4 * ;
 EVALUATE Rcomb2 := 0.8 SQRT Rcomb4 * ;
 EVALUATE Rcomb3 := 0.95 SQRT Rcomb4 * ;
+EVALUATE Rcomb6Gad := 0.4096 ;
+EVALUATE Rcomb1Gad := 0.2 SQRT Rcomb6Gad * ;
+EVALUATE Rcomb2Gad := 0.4 SQRT Rcomb6Gad * ;
+EVALUATE Rcomb3Gad := 0.6 SQRT Rcomb6Gad * ;
+EVALUATE Rcomb4Gad := 0.8 SQRT Rcomb6Gad * ;
+EVALUATE Rcomb5Gad := 0.95 SQRT Rcomb6Gad * ;
 EVALUATE R_int_TG := 0.5605 ;
 EVALUATE R_ext_TG := 0.6225 ;
 EVALUATE R_int_TI := 0.5725 ;
@@ -48,14 +56,18 @@ EVALUATE RmodeN1 := 0.670 ;
 GEOSS := Geo_SS :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
                       <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
-                      <<CoteL>> ;
+                      <<CoteL>> <<Rcomb1Gad>> <<Rcomb2Gad>>
+                      <<Rcomb3Gad>> <<Rcomb4Gad>> <<Rcomb5Gad>>
+                      <<Rcomb6Gad>> ;
 
 GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
                       <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
-                      <<Lame>> ;
+                      <<Lame>> <<Rcomb1Gad>>
+                      <<Rcomb2Gad>> <<Rcomb3Gad>> <<Rcomb4Gad>>
+                      <<Rcomb5Gad>> <<Rcomb6Gad>> ;
 
-ASSBLY_CASEA FIGASB_CASEA := G2S: GEON2 ;
+ASSBLY_CASED FIGASB_CASED := G2S: GEON2 ;
 
 ************************************************************************
 *  END GEOMETRY                                                        *
@@ -66,12 +78,12 @@ ASSBLY_CASEA FIGASB_CASEA := G2S: GEON2 ;
 DONNEES := UTL: ::
   CREA
     BURN <<maxstep>> =
-          0.0      10.0
+          0.0       7.5
 ;
 DONNEES := UTL: DONNEES ::
   CREA
-    AUTOP <<maxautop>> =
-          0.0      10.0
+        AUTOP <<maxautop>> =
+          0.0       7.5
 ;
 ************************************************************************
 *  END DECLARATION                                                     *
@@ -89,7 +101,7 @@ TRACKSS := SYBILT: GEOSS ::
   DP01  
 ;
 ! MOC tracking for flux calculation
-TRACKN2 TF_EXC := SALT: ASSBLY_CASEA ::
+TRACKN2 TF_EXC := SALT: ASSBLY_CASED ::
   EDIT 3
   ALLG
   TSPC EQW2 <<an2d>> <<densur>> REND
@@ -103,7 +115,7 @@ TRACKN2 := MCCGT: TRACKN2 TF_EXC ::
 ************************************************************************
 *  BEGIN LIBRARY READING                                               *
 ************************************************************************
-LIBRARY := Mix_UOX :: <<Library>> ;
+LIBRARY := Mix_Gad :: <<Library>> ;
 
 ************************************************************************
 *  END LIBRARY READING                                                 *
@@ -131,98 +143,50 @@ WHILE istep maxstep < DO
 *  BEGIN SELF-SHIELDING CALCULATION                                    *
 ************************************************************************
   IF istep 1 = THEN
-    LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 2 ARM GRMIN 52
-      CALC  REGI W1 U235 ALL
+    LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 GRMIN 52
+      CALC  REGI W1 U235   ALL
+            REGI W1 U236   ALL
+            REGI W1 Pu239  ALL
+            REGI W1 Pu240  ALL
+            REGI W1 Pu241  ALL
+            REGI W1 Pu242  ALL
 
-            REGI W1 U238 3
-            REGI W2 U238 4
-            REGI W3 U238 5
-            REGI W4 U238 6
+            REGI W1 U235Gd ALL
+            REGI W1 U236Gd ALL
 
-            REGI W1 U238 9
-            REGI W2 U238 10
-            REGI W3 U238 11
-            REGI W4 U238 12
+            REGI W1 Gd154  ALL
+            REGI W1 Gd155  ALL
+            REGI W1 Gd156  ALL
+            REGI W1 Gd157  ALL
+            REGI W1 Gd158  ALL
 
-            REGI W1 U238 94
-            REGI W2 U238 95
-            REGI W3 U238 96
-            REGI W4 U238 97
-
-            REGI W1 U238 114
-            REGI W2 U238 115
-            REGI W3 U238 116
-            REGI W4 U238 117
-
-            REGI W1 U238 122
-            REGI W2 U238 123
-            REGI W3 U238 124
-            REGI W4 U238 125
-
-            REGI W1 U238 126
-            REGI W2 U238 127
-            REGI W3 U238 128
-            REGI W4 U238 129
-
-            REGI W1 U238 154
-            REGI W2 U238 155
-            REGI W3 U238 156
-            REGI W4 U238 157
-
-            REGI W1 U238 158
-            REGI W2 U238 159
-            REGI W3 U238 160
-            REGI W4 U238 161
-
+            REGI W1 Zr90g  ALL
+            REGI W1 Zr91g  ALL
       ENDC ;
   ELSE
     GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
     GREP: DONNEES :: GETVAL "BURN" <<istep>> >>BU<< ;
     IF BUautop BU = THEN
-      LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS BURNUP :: EDIT 1 PASS 2
+      LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 3
         GRMIN 52
-        CALC  REGI W1 U235 ALL
+        CALC  REGI W1 U235   ALL
+              REGI W1 U236   ALL
+              REGI W1 Pu239  ALL
+              REGI W1 Pu240  ALL
+              REGI W1 Pu241  ALL
+              REGI W1 Pu242  ALL
 
-              REGI W1 U238 3
-              REGI W2 U238 4
-              REGI W3 U238 5
-              REGI W4 U238 6
+              REGI W1 U235Gd ALL
+              REGI W1 U236Gd ALL
 
-              REGI W1 U238 9
-              REGI W2 U238 10
-              REGI W3 U238 11
-              REGI W4 U238 12
+              REGI W1 Gd154  ALL
+              REGI W1 Gd155  ALL
+              REGI W1 Gd156  ALL
+              REGI W1 Gd157  ALL
+              REGI W1 Gd158  ALL
 
-              REGI W1 U238 94
-              REGI W2 U238 95
-              REGI W3 U238 96
-              REGI W4 U238 97
-
-              REGI W1 U238 114
-              REGI W2 U238 115
-              REGI W3 U238 116
-              REGI W4 U238 117
-
-              REGI W1 U238 122
-              REGI W2 U238 123
-              REGI W3 U238 124
-              REGI W4 U238 125
-
-              REGI W1 U238 126
-              REGI W2 U238 127
-              REGI W3 U238 128
-              REGI W4 U238 129
-
-              REGI W1 U238 154
-              REGI W2 U238 155
-              REGI W3 U238 156
-              REGI W4 U238 157
-
-              REGI W1 U238 158
-              REGI W2 U238 159
-              REGI W3 U238 160
-              REGI W4 U238 161
-
+              REGI W1 Zr90g  ALL
+              REGI W1 Zr91g  ALL
         ENDC ;
       EVALUATE iAutop := iAutop 1 + ;
     ENDIF ;
@@ -246,7 +210,8 @@ WHILE istep maxstep < DO
 
   IF istep 1 = THEN
     RES_F := EDI: FLUX2 LIBRARY2 TRACKN2 :: EDIT 5
-      MICR 3 U235 U238 O16
+      MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
+              Gd156 Gd157 Gd158
       MERG MIX
       COND 19
       SAVE ON COND2
@@ -254,9 +219,22 @@ WHILE istep maxstep < DO
     BCOND2_F := RES_F :: STEP UP COND2 ;
   ENDIF ;
 
+  * PEAK is at step 75 burnup 16000.0
+  IF istep 75 = THEN
+    RES_P := EDI: FLUX2 LIBRARY2 TRACKN2 :: EDIT 5
+      MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
+              Gd156 Gd157 Gd158
+      MERG MIX
+      COND 19
+      SAVE ON COND2
+    ;
+    BCOND2_P := RES_P :: STEP UP COND2 ;
+  ENDIF ;
+
   IF istep maxstep = THEN
     RES_L := EDI: FLUX2 LIBRARY2 TRACKN2 :: EDIT 5
-      MICR 3 U235 U238 O16
+      MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
+              Gd156 Gd157 Gd158
       MERG MIX
       COND 19
       SAVE ON COND2
@@ -275,11 +253,17 @@ WHILE istep maxstep < DO
     IF istep 1 = THEN
       BURNUP LIBRARY2 := EVO: LIBRARY2 FLUX2 TRACKN2 ::
         EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
-        EXPM 1.0E15 GLOB ;
+        NOEX ;
     ELSE
-      BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 FLUX2 TRACKN2 ::
-        EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
-        EXPM 1.0E15 GLOB ;
+      IF istep 5 < THEN
+        BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 FLUX2 TRACKN2 ::
+          EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
+          NOEX ;
+      ELSE
+        BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 FLUX2 TRACKN2 ::
+          EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
+        ;
+      ENDIF ;
     ENDIF ;
 
     SYS := DELETE: SYS ;
@@ -294,10 +278,10 @@ ENDWHILE ;
 
 BURN2 := BURNUP ;
 
-assertS FLUX2 :: K-EFFECTIVE 1 0.7436790 ;
+assertS FLUX2 :: K-EFFECTIVE 1 0.7869933 ;
 ************************************************************************
 *  END DEPLETION CALCULATION                                           *
 ************************************************************************
 
-ECHO "test ASSBLY_CASEA_short_1level completed" ;
+ECHO "test ASSBLY_CASED completed" ;
 END: ;
