@@ -1,0 +1,534 @@
+*DECK Mix_Gad
+*----
+*  Name          : Mix_Gad.c2m
+*  Type          : DRAGON procedure
+*  Use           : Microlib generation with Draglibs for
+*                  UOX/GD calculation with 34 fuel regions
+*  Author        : A. Canbakan
+*
+*  Procedure called as:
+*
+*  LIBRARY := Mix_Gad :: <<Library>> ;
+*
+*  Output data  :
+*    LIBRARY    : Microlib with table of probabilities
+
+
+PARAMETER  LIBRARY  ::
+       EDIT 0
+           ::: LINKED_LIST LIBRARY  ;
+   ;
+
+*----
+*  Input data recovery
+*----
+STRING Library ;
+:: >>Library<< ;
+
+*----
+*  Modules used in this procedure
+*----
+MODULE  LIB: UTL: DELETE: END: ABORT: ;
+
+LIBRARY := LIB: ::
+  EDIT 1
+  DEPL LIB: DRAGON FIL: <<Library>>
+  NMIX 163 CTRA APOL ANIS 2
+  PT
+  MIXS LIB: DRAGON FIL: <<Library>>
+
+*----
+*    Moderator
+*----
+  MIX 1 600.0 NOEV
+    H1        = H1_H2O   4.69585E-2
+    O16       = O16      2.34793E-2
+    B10       = B10      5.53089E-6
+    B11       = B11      2.18498E-5
+
+*----
+*    Cladding TI
+*----
+  MIX 2 600.0 NOEV
+    Zr90     = Zr90     2.16576E-2 2 IRSET PT 1
+    Zr91     = Zr91     4.72300E-3 2 IRSET PT 1
+    Zr92     = Zr92     7.21921E-3 2 IRSET PT 1
+    Zr94     = Zr94     7.31603E-3
+    Zr96     = Zr96     1.17864E-3
+
+*----
+*    Fuel -> 8 * 4 evolving mixes
+*----
+* C1 Cell
+  MIX 3 900.0
+    U235  = U235  5.45042E-4 1 IRSET PT 1
+    U238  = U238  2.18795E-2 1 IRSET PT 1
+    Pu238 = Pu238 1.E-20     1 IRSET PT 1
+    Pu239 = Pu239 1.E-20     1 IRSET PT 1
+    Pu240 = Pu240 1.E-20     1 IRSET PT 1
+    Pu241 = Pu241 1.E-20     1 IRSET PT 1
+    Pu242 = Pu242 1.E-20     1 IRSET PT 1
+    O16   = O16   4.48596E-2
+  MIX 4
+    COMB 3 1.0
+  MIX 5
+    COMB 3 1.0
+  MIX 6
+    COMB 3 1.0
+
+*----
+*    Gap
+*----
+  MIX 7 600.0 NOEV
+    O16     = O16    3.76439E-6
+
+*----
+*    Cladding fuel
+*----
+  MIX 8 600.0 NOEV
+    Zr90     = Zr90     2.16576E-2 2 IRSET PT 1
+    Zr91     = Zr91     4.72300E-3 2 IRSET PT 1
+    Zr92     = Zr92     7.21921E-3 2 IRSET PT 1
+    Zr94     = Zr94     7.31603E-3
+    Zr96     = Zr96     1.17864E-3
+
+* G1 Cell /w Gado
+  MIX 62 900.0
+    U235Gd    = U235    1.42679E-4   3 IRSET PT 1
+    U238Gd    = U238    1.97006E-2   3 IRSET PT 1
+    Pu238Gd   = Pu238   1.E-20       3 IRSET PT 1
+    Pu239Gd   = Pu239   1.E-20       3 IRSET PT 1
+    Pu240Gd   = Pu240   1.E-20       3 IRSET PT 1
+    Pu241Gd   = Pu241   1.E-20       3 IRSET PT 1
+    Pu242Gd   = Pu242   1.E-20       3 IRSET PT 1
+    O16Gd2    = O16     4.40721E-2
+    Gd154   = Gd154     6.37452E-5   3 IRSET PT NONE
+    Gd155   = Gd155     4.32736E-4   3 IRSET PT NONE
+    Gd156   = Gd156     5.98515E-4   3 IRSET PT NONE
+    Gd157   = Gd157     4.57602E-4   3 IRSET PT NONE
+    Gd158   = Gd158     7.26282E-4   3 IRSET PT NONE
+
+  MIX 63
+    COMB 62 1.0
+  MIX 64
+    COMB 62 1.0
+  MIX 65
+    COMB 62 1.0
+  MIX 66
+    COMB 62 1.0
+  MIX 67
+    COMB 62 1.0
+
+*----
+*    Cladding TG
+*----
+  MIX 25 COMB 2 1.0
+
+* C2 Cell
+  MIX 9
+    COMB 3 1.0
+  MIX 10
+    COMB 3 1.0
+  MIX 11
+    COMB 3 1.0
+  MIX 12
+    COMB 3 1.0
+
+* C4 Cell
+  MIX 96
+    COMB 3 1.0
+  MIX 97
+    COMB 3 1.0
+  MIX 98
+    COMB 3 1.0
+  MIX 99
+    COMB 3 1.0
+
+* C3 Cell
+  MIX 116
+    COMB 3 1.0
+  MIX 117
+    COMB 3 1.0
+  MIX 118
+    COMB 3 1.0
+  MIX 119
+    COMB 3 1.0
+
+* C5 Cell
+  MIX 124
+    COMB 3 1.0
+  MIX 125
+    COMB 3 1.0
+  MIX 126
+    COMB 3 1.0
+  MIX 127
+    COMB 3 1.0
+
+* C6 Cell
+  MIX 128
+    COMB 3 1.0
+  MIX 129
+    COMB 3 1.0
+  MIX 130
+    COMB 3 1.0
+  MIX 131
+    COMB 3 1.0
+
+* C7 Cell
+  MIX 156
+    COMB 3 1.0
+  MIX 157
+    COMB 3 1.0
+  MIX 158
+    COMB 3 1.0
+  MIX 159
+    COMB 3 1.0
+
+* C8 Cell
+  MIX 160
+    COMB 3 1.0
+  MIX 161
+    COMB 3 1.0
+  MIX 162
+    COMB 3 1.0
+  MIX 163
+    COMB 3 1.0
+
+
+*******
+*C0301*  *C1
+*******
+MIX 13
+	COMB 3 1.0
+MIX 14
+	COMB 4 1.0
+MIX 15
+	COMB 5 1.0
+MIX 16
+	COMB 6 1.0
+*******
+*C0302*  *C2
+*******
+MIX 17
+	COMB 9 1.0
+MIX 18
+	COMB 10 1.0
+MIX 19
+	COMB 11 1.0
+MIX 20
+	COMB 12 1.0
+*******
+*C0303*  *C2
+*******
+MIX 21
+	COMB 9 1.0
+MIX 22
+	COMB 10 1.0
+MIX 23
+	COMB 11 1.0
+MIX 24
+	COMB 12 1.0
+*******
+*C0402*  *C1
+*******
+MIX 26
+	COMB 3 1.0
+MIX 27
+	COMB 4 1.0
+MIX 28
+	COMB 5 1.0
+MIX 29
+	COMB 6 1.0
+*******
+*C0403*  *C1
+*******
+MIX 30
+	COMB 3 1.0
+MIX 31
+	COMB 4 1.0
+MIX 32
+	COMB 5 1.0
+MIX 33
+	COMB 6 1.0
+*******
+*C0501*  *C1
+*******
+MIX 34
+	COMB 3 1.0
+MIX 35
+	COMB 4 1.0
+MIX 36
+	COMB 5 1.0
+MIX 37
+	COMB 6 1.0
+*******
+*C0502*  *C2
+*******
+MIX 38
+	COMB 9 1.0
+MIX 39
+	COMB 10 1.0
+MIX 40
+	COMB 11 1.0
+MIX 41
+	COMB 12 1.0
+*******
+*C0503*  *C2
+*******
+MIX 42
+	COMB 9 1.0
+MIX 43
+	COMB 10 1.0
+MIX 44
+	COMB 11 1.0
+MIX 45
+	COMB 12 1.0
+*******
+*C0504*  *C1
+*******
+MIX 46
+	COMB 3 1.0
+MIX 47
+	COMB 4 1.0
+MIX 48
+	COMB 5 1.0
+MIX 49
+	COMB 6 1.0
+*******
+*C0505*  *C2
+*******
+MIX 50
+	COMB 9 1.0
+MIX 51
+	COMB 10 1.0
+MIX 52
+	COMB 11 1.0
+MIX 53
+	COMB 12 1.0
+*******
+*C0601*  *C1
+*******
+MIX 54
+	COMB 3 1.0
+MIX 55
+	COMB 4 1.0
+MIX 56
+	COMB 5 1.0
+MIX 57
+	COMB 6 1.0
+*******
+*C0602*  *C2
+*******
+MIX 58
+	COMB 9 1.0
+MIX 59
+	COMB 10 1.0
+MIX 60
+	COMB 11 1.0
+MIX 61
+	COMB 12 1.0
+*******
+*C0604*  *C1
+*******
+MIX 68
+	COMB 3 1.0
+MIX 69
+	COMB 4 1.0
+MIX 70
+	COMB 5 1.0
+MIX 71
+	COMB 6 1.0
+*******
+*C0605*  *C1
+*******
+MIX 72
+	COMB 3 1.0
+MIX 73
+	COMB 4 1.0
+MIX 74
+	COMB 5 1.0
+MIX 75
+	COMB 6 1.0
+*******
+*C0702*  *C1
+*******
+MIX 76
+	COMB 3 1.0
+MIX 77
+	COMB 4 1.0
+MIX 78
+	COMB 5 1.0
+MIX 79
+	COMB 6 1.0
+*******
+*C0703*  *C1
+*******
+MIX 80
+	COMB 3 1.0
+MIX 81
+	COMB 4 1.0
+MIX 82
+	COMB 5 1.0
+MIX 83
+	COMB 6 1.0
+*******
+*C0705*  *C1
+*******
+MIX 84
+	COMB 3 1.0
+MIX 85
+	COMB 4 1.0
+MIX 86
+	COMB 5 1.0
+MIX 87
+	COMB 6 1.0
+*******
+*C0706*  *C1
+*******
+MIX 88
+	COMB 3 1.0
+MIX 89
+	COMB 4 1.0
+MIX 90
+	COMB 5 1.0
+MIX 91
+	COMB 6 1.0
+*******
+*C0707*  *C2
+*******
+MIX 92
+	COMB 9 1.0
+MIX 93
+	COMB 10 1.0
+MIX 94
+	COMB 11 1.0
+MIX 95
+	COMB 12 1.0
+*******
+*C0801*  *C4
+*******
+*******
+*C0802*  *C2
+*******
+MIX 100
+	COMB 9 1.0
+MIX 101
+	COMB 10 1.0
+MIX 102
+	COMB 11 1.0
+MIX 103
+	COMB 12 1.0
+*******
+*C0803*  *C2
+*******
+MIX 104
+	COMB 9 1.0
+MIX 105
+	COMB 10 1.0
+MIX 106
+	COMB 11 1.0
+MIX 107
+	COMB 12 1.0
+*******
+*C0804*   *C4
+*******
+MIX 108
+	COMB 96 1.0
+MIX 109
+	COMB 97 1.0
+MIX 110
+	COMB 98 1.0
+MIX 111
+	COMB 99 1.0
+*******
+*C0805*  *C2
+*******
+MIX 112
+	COMB 9 1.0
+MIX 113
+	COMB 10 1.0
+MIX 114
+	COMB 11 1.0
+MIX 115
+	COMB 12 1.0
+*******
+*C0807*  *C3
+*******
+MIX 120
+	COMB 116 1.0
+MIX 121
+	COMB 117 1.0
+MIX 122
+	COMB 118 1.0
+MIX 123
+	COMB 119 1.0
+*******
+*C0902*  *C6
+*******
+MIX 132
+	COMB 128 1.0
+MIX 133
+	COMB 129 1.0
+MIX 134
+	COMB 130 1.0
+MIX 135
+	COMB 131 1.0
+*******
+*C0903*  *C6
+*******
+MIX 136
+	COMB 128 1.0
+MIX 137
+	COMB 129 1.0
+MIX 138
+	COMB 130 1.0
+MIX 139
+	COMB 131 1.0
+*******
+*C0904*  *C6
+*******
+MIX 140
+	COMB 128 1.0
+MIX 141
+	COMB 129 1.0
+MIX 142
+	COMB 130 1.0
+MIX 143
+	COMB 131 1.0
+*******
+*C0905*  *C6
+*******
+MIX 144
+	COMB 128 1.0
+MIX 145
+	COMB 129 1.0
+MIX 146
+	COMB 130 1.0
+MIX 147
+	COMB 131 1.0
+*******
+*C0906*  *C6
+*******
+MIX 148
+	COMB 128 1.0
+MIX 149
+	COMB 129 1.0
+MIX 150
+	COMB 130 1.0
+MIX 151
+	COMB 131 1.0
+*******
+*C0907*  *C6
+*******
+MIX 152
+	COMB 128 1.0
+MIX 153
+	COMB 129 1.0
+MIX 154
+	COMB 130 1.0
+MIX 155
+	COMB 131 1.0
+;
+
+END: ;
+QUIT .
