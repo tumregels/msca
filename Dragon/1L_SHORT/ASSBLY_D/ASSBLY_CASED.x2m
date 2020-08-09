@@ -213,7 +213,7 @@ WHILE istep maxstep < DO
       MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
               Gd156 Gd157 Gd158
       MERG MIX
-      COND 19
+      COND 0.625
       SAVE ON COND2
     ;
     BCOND2_F := RES_F :: STEP UP COND2 ;
@@ -225,7 +225,7 @@ WHILE istep maxstep < DO
       MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
               Gd156 Gd157 Gd158
       MERG MIX
-      COND 19
+      COND 0.625
       SAVE ON COND2
     ;
     BCOND2_P := RES_P :: STEP UP COND2 ;
@@ -236,7 +236,7 @@ WHILE istep maxstep < DO
       MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
               Gd156 Gd157 Gd158
       MERG MIX
-      COND 19
+      COND 0.625
       SAVE ON COND2
     ;
     BCOND2_L := RES_L :: STEP UP COND2 ;

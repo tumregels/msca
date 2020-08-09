@@ -261,7 +261,7 @@ WHILE istep maxstep < DO
     RES_F := EDI: FLUX2 LIBRARY2 TRACKN2 :: EDIT 5
       MICR 3 U235 U238 O16
       MERG MIX
-      COND 19
+      COND 0.625
       SAVE ON COND2
     ;
     BCOND2_F := RES_F :: STEP UP COND2 ;
@@ -271,7 +271,7 @@ WHILE istep maxstep < DO
     RES_L := EDI: FLUX2 LIBRARY2 TRACKN2 :: EDIT 5
       MICR 3 U235 U238 O16
       MERG MIX
-      COND 19
+      COND 0.625
       SAVE ON COND2
     ;
     BCOND2_L := RES_L :: STEP UP COND2 ;
