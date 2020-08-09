@@ -1,5 +1,6 @@
-# Makefile for rsync
 SHELL := /bin/bash
+.DEFAULT_GOAL := help
+
 SYNC_DIR = /tmp/
 # SYNC_DIR=~/bin/msca/
 REMOTE_SERV = doppler
