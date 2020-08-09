@@ -6,7 +6,7 @@ REMOTE_SERV = doppler
 # REMOTE_SERV = boltzmann
 
 help: ## this help
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-0-9]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 copy_tmuxlog: ## cp tmuxlog files to remote
 	rsync -avzP ./scripts $(REMOTE_SERV):~/bin/
