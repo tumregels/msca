@@ -9,7 +9,7 @@ help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 copy_tmuxlog: ## cp tmuxlog files to remote
-	scp -r scripts/tmuxlog*.sh $(REMOTE_SERV):~/bin/Version5_ev1738/Dragon/msca/
+	rsync -avzP ./scripts $(REMOTE_SERV):~/bin/
 
 export_conda_requirements: ## export/update conda requirements
 	conda env export > requirements.yml
@@ -81,6 +81,35 @@ pull-pin-a: ## pull PIN_A
 
 pull-pin-a-dry: ## pull dry PIN_A
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_A ./Dragon
+
+
+# 1L_SHORT
+push-1L_SHORT: ## push 1L_SHORT inputs
+	rsync -avzP ./Dragon/1L_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+
+push-1L_SHORT-dry: ## push 1L_SHORT inputs dry
+	rsync -anv ./Dragon/1L_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+
+pull-1L_SHORT: ## pull 1L_SHORT data
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/1L_SHORT ./Dragon
+
+pull-1L_SHORT-dry: ## pull dry 1L_SHORT data
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/1L_SHORT ./Dragon
+
+
+# 1L_LONG
+push-1L_LONG: ## push 1L_LONG inputs
+	rsync -avzP ./Dragon/1L_LONG $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+
+push-1L_LONG-dry: ## push 1L_LONG inputs dry
+	rsync -anv ./Dragon/1L_LONG $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+
+pull-1L_LONG: ## pull 1L_LONG data
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/1L_LONG ./Dragon
+
+pull-1L_LONG-dry: ## pull dry 1L_LONG data
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/1L_LONG ./Dragon
+
 
 clean:  ## clean up project
 	find . -type d -name __pycache__ -exec rm -r {} \+
