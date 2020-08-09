@@ -1,13 +1,11 @@
 # Dragon
 
 - [x] check isotopes
-- [ ] prepare input maps for assemblies in excel sheet
 - [x] create short calculation inputs with 2 burnup steps for assemblies
 - [x] check pin materials
 - [x] rm U234 from the list
 - [x] fix assembly A and D
 - [x] check low keff for assembly D
-- [ ] launch full calculation for all assemblies
 - [ ] rm unused variables i and iNext
 - [x] organise CALC rows in x2m files
 - [x] fix merg mix mapping
@@ -17,11 +15,12 @@
 - [x] add BURN2 to assembly inputs
 - [x] parse Mix_UOX.c2m and MultiBEQ.c2m
 - [x] fix fortran scripts for capture
-- [ ] add CLE-2000 IF statements in the dataset to produce 
+- [x] add CLE-2000 IF statements in the dataset to produce 
       the 3 corresponding BCOND2 files. 
       Continuous data with burnup can be found in the Multicompo.
 - [ ] compare densities of a few pins
-- [ ] convert fortran code to matlab script
+- [x] convert fortran code to matlab script
+- [ ] rename CP to SYS CALC to FLUX in PIN inputs
 
 # Serpent
 
@@ -48,4 +47,4 @@
 - [x] ask if NMIX value should be adjusted in Mix_Gad.c2m and MultLIBEQ.c2m 
 
 - [ ] got `SYBILF: EXPECTING IFTRAK=0` for `UOX_AIC_eighth_2level_g2s`
-- [ ] how to convert int to string in cle2000
+- [x] how to convert int to string in cle2000. Answer, use I_TO_S
