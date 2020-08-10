@@ -201,7 +201,7 @@ WHILE istep maxstep < DO
     GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
     GREP: DONNEES :: GETVAL "BURN" <<istep>> >>BU<< ;
         IF BUautop BU = THEN
-       LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS BURNUP :: EDIT 1 PASS 2
+       LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 2
                    GRMIN 52
 
           CALC REGI W1 U235 ALL
