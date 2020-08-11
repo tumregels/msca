@@ -7,7 +7,7 @@ import csv
 import os
 import pathlib
 import re
-from typing import Iterator, Tuple, List
+from typing import Iterator, List, Tuple
 
 import matplotlib.pyplot as plt
 import scipy.io
@@ -165,6 +165,52 @@ def plot_serp_dragon_burnup_vs_keff_assbly(
     plt.close(fig)
 
 
+def plot_serp_dragon_1l_2l_burnup_vs_keff_assbly(
+        data_serp: List[Tuple[float, float]],
+        data_drag_1l: List[Tuple[float, float]],
+        data_drag: List[Tuple[float, float]],
+        filename: str = 'keff_vs_burnup_assbly.png',
+        title: str = '$k_{eff} \ vs \ Burnup$'
+) -> None:
+    xd = [x[0] / 1000 for x in data_drag]
+    yd = [x[1] for x in data_drag]
+
+    xd1 = [x[0] / 1000 for x in data_drag_1l]
+    yd1 = [x[1] for x in data_drag_1l]
+
+    xs = [x[0] for x in data_serp]
+    ys = [x[1] for x in data_serp]
+
+    # remove any burnup point missing in xs or xd
+    for item in list(set(xs) - set(xd)):
+        index = xs.index(item)
+        print(f'removing xs[{index}]={item}')
+        xs.pop(index)
+        ys.pop(index)
+    for item in list(set(xd) - set(xs)):
+        index = xd.index(item)
+        print(f'removing xd[{index}]={item}')
+        xd.pop(index)
+        xd1.pop(index)
+        yd.pop(index)
+        yd1.pop(index)
+
+    assert xd == xd1 == xs
+
+    fig = plt.figure()
+    plt.grid()
+    plt.plot(xd, yd, 'or', label='dragon 2l')
+    plt.plot(xd1, yd1, 'xg', label='dragon 1l')
+    plt.plot(xs, ys, '+b', label='serpent')
+    plt.suptitle(title, fontsize=12, y=1.02)
+    plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
+    plt.ylabel(r'$Multiplication \ factor \ k_{eff}$', fontsize=12)
+    plt.legend(loc="upper right")
+    plt.savefig(filename, dpi=300, bbox_inches="tight")
+    plt.show()
+    plt.close(fig)
+
+
 def keff_peaks(filename: str, data: List[Tuple[float, float]]) -> None:
     peaks = find_peaks([i[1] for i in data])[0]
 
@@ -193,4 +239,18 @@ if __name__ == '__main__':
             title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
             filename=f'all_plots/keff_vs_burnup_{key}.png'
         )
+
+        if 'ASSBLY' in key:
+            drag_file_name_1l = d[key]['drag_res_1level']
+            dragon_result_str_1l = pathlib.Path(drag_file_name_1l).read_text()
+            burnup_vs_keff_drag_1l = parse_burnup_vs_keff_drag_assbly(dragon_result_str_1l)
+
+            plot_serp_dragon_1l_2l_burnup_vs_keff_assbly(
+                data_serp=burnup_vs_keff_serp,
+                data_drag_1l=burnup_vs_keff_drag_1l,
+                data_drag=burnup_vs_keff_drag,
+                title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
+                filename=f'all_plots/keff_vs_burnup_1l_2l_{key}.png'
+            )
+
         print('\u2713')
