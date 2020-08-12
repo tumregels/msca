@@ -26,7 +26,7 @@ def plot_data_norm(
 ) -> None:
     line_cycler = itertools.cycle(cycler(linestyle=['--', ':', '-.', ':']))
 
-    xdata = (burnup_vs_keff['b_step'] / 1000)
+    xdata = burnup_vs_keff['b_step']
 
     fig = plt.figure()
     for iso in iso_list:
@@ -94,7 +94,7 @@ def plot_data_total(
 
     line_cycler = itertools.cycle(cycler(linestyle=['--', ':', '-.', ':']))
 
-    xdata = (burnup_vs_keff['b_step'] / 1000)
+    xdata = burnup_vs_keff['b_step']
 
     fig, axs = plt.subplots(
         nrows=len(iso_list),

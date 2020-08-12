@@ -8,7 +8,7 @@ import scipy.io  # type: ignore
 
 from analysex.file_map import file_map  # type: ignore
 from analysex.isodens.plot import plot_data_norm, plot_data_total  # type: ignore
-from analysex.plot_assbly_keff import parse_burnup_vs_keff_drag_assbly  # type: ignore
+from analysex.plot_keff import parse_drag_burnup_vs_keff  # type: ignore
 
 
 def extract_VOLUME_MIX(filename: str) -> Optional[List[float]]:
@@ -153,7 +153,7 @@ if __name__ == '__main__':
             continue
 
         print(key)
-        burnup_vs_keff = parse_burnup_vs_keff_drag_assbly(
+        burnup_vs_keff = parse_drag_burnup_vs_keff(
             s=pathlib.Path(d[key]['drag_res']).read_text()
         )
         burnup_vs_keff = pd.DataFrame(burnup_vs_keff, columns=['b_step', 'k_eff'])
