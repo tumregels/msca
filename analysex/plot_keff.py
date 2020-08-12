@@ -143,11 +143,11 @@ def create_drag_keff_plots(path: pathlib.Path) -> None:
         save_as_csv(burnup_vs_keff, filename=f'assbly_plots/burnup_vs_keff_{name}.csv')
         plot_drag_burnup_vs_keff(
             data=burnup_vs_keff,
-            filename=f'assbly_plots/burnup_vs_keff_{name}.png',
+            filename=f'all_plots/burnup_vs_keff_{name}.png',
             title=f'$k_{{eff}} \ vs \ Burnup$\n {str(path)}')
         plot_drag_burnup_vs_keff(
             data=burnup_vs_keff[:10],
-            filename=f'assbly_plots/burnup_vs_keff_cut_{name}.png',
+            filename=f'all_plots/burnup_vs_keff_cut_{name}.png',
             title=f'$k_{{eff}} \ vs \ Burnup$\n {str(path)} cut')
         print('\u2713')
 
@@ -348,7 +348,7 @@ if __name__ == '__main__':
             data_serp=burnup_vs_keff_serp,
             data_drag=burnup_vs_keff_drag,
             title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
-            filename=f'all_plots/keff_vs_burnup_comparison_{key}.png'
+            filename=f'all_plots/keff_vs_burnup_error_{key}.png'
         )
 
         if 'ASSBLY' in key:
@@ -374,7 +374,7 @@ if __name__ == '__main__':
                 data_drag_1l=burnup_vs_keff_drag_1l,
                 data_drag=burnup_vs_keff_drag,
                 title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n {drag_file_name_1l}',
-                filename=f'all_plots/keff_vs_burnup_1l_2l_comparison_{key}.png'
+                filename=f'all_plots/keff_vs_burnup_1l_2l_error_{key}.png'
             )
 
         print('\u2713')
