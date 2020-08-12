@@ -164,14 +164,15 @@ def plot_serp_drag_burnup_vs_keff(
     assert xd == xs
 
     fig = plt.figure()
+    plt.gca().set_title(title, fontsize=12)
     plt.grid()
-    # plt.plot(xd,yd)
     plt.plot(xd, yd, 'or', label='dragon')
     plt.plot(xs, ys, '+b', label='serpent')
-    plt.suptitle(title, fontsize=12, y=1.02)
+    #plt.suptitle(title, fontsize=12, y=1.02)
     plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
     plt.ylabel(r'$Multiplication \ factor \ k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
+    plt.tight_layout()
     plt.savefig(filename, dpi=300, bbox_inches="tight")
     plt.show()
     plt.close(fig)
@@ -191,14 +192,15 @@ def plot_serp_drag_1l_2l_burnup_vs_keff(
     assert xd == xd1 == xs
 
     fig = plt.figure()
+    plt.gca().set_title(title, fontsize=12)
     plt.grid()
     plt.plot(xd, yd, 'or', label='dragon 2l')
     plt.plot(xd1, yd1, 'xg', label='dragon 1l')
     plt.plot(xs, ys, '+b', label='serpent')
-    plt.suptitle(title, fontsize=12, y=1.02)
     plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
     plt.ylabel(r'$Multiplication \ factor \ k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
+    plt.tight_layout()
     plt.savefig(filename, dpi=300, bbox_inches="tight")
     plt.show()
     plt.close(fig)
@@ -225,9 +227,8 @@ def plot_serp_drag_burnup_vs_keff_error(
     ybottom, ytop = ax.get_ylim()
     ax.set_aspect(abs((xright - xleft) / (ybottom - ytop)) * ratio)
 
-    p1 = plt.subplot(2, 1, 1)
-    p1.set_title(title, fontsize=12)
-
+    plt.subplot(2, 1, 1)
+    plt.gca().set_title(title, fontsize=12)
     plt.grid()
     plt.plot(xd, yd, '.r', label='Dragon 5')
     plt.plot(xs, ys, '+b', label='Serpent 2')
@@ -235,7 +236,7 @@ def plot_serp_drag_burnup_vs_keff_error(
     plt.ylabel(r'$k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
 
-    p2 = plt.subplot(2, 1, 2)
+    plt.subplot(2, 1, 2)
     plt.grid()
 
     rho_s = [(ys[i] - 1) * 10 ** 5 / ys[i] for i in range(len(ys))]
@@ -277,9 +278,8 @@ def plot_serp_drag_1l_2l_burnup_vs_keff_error(
     ybottom, ytop = ax.get_ylim()
     ax.set_aspect(abs((xright - xleft) / (ybottom - ytop)) * ratio)
 
-    p1 = plt.subplot(2, 1, 1)
-    p1.set_title(title, fontsize=12)
-
+    plt.subplot(2, 1, 1)
+    plt.gca().set_title(title, fontsize=12)
     plt.grid()
     plt.plot(xd, yd, '.r', label='Dragon 5 2l')
     plt.plot(xd1, yd1, 'xg', label='Dragon 5 1l')
@@ -288,7 +288,7 @@ def plot_serp_drag_1l_2l_burnup_vs_keff_error(
     plt.ylabel(r'$k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
 
-    p2 = plt.subplot(2, 1, 2)
+    plt.subplot(2, 1, 2)
     plt.grid()
 
     rho_s = [(ys[i] - 1) * 10 ** 5 / ys[i] for i in range(len(ys))]
