@@ -68,6 +68,7 @@ def parse_burnup_vs_keff_drag_assbly(
         ) if debug else None
         burn_vs_keff.append((burnup, keff))
 
+    burn_vs_keff = [(step / 1000, burnup) for step, burnup in burn_vs_keff]
     return burn_vs_keff
 
 
@@ -82,7 +83,7 @@ def plot_burnup_vs_keff(
         filename: str = 'keff_vs_burnup.png',
         title: str = '$k_{eff} \ vs \ Burnup$'
 ) -> None:
-    x_val = [x[0] / 1000 for x in data]
+    x_val = [x[0] for x in data]
     y_val = [x[1] for x in data]
 
     fig = plt.figure()
@@ -131,7 +132,7 @@ def plot_serp_dragon_burnup_vs_keff_assbly(
         filename: str = 'keff_vs_burnup_assbly.png',
         title: str = '$k_{eff} \ vs \ Burnup$'
 ) -> None:
-    xd = [x[0] / 1000 for x in data_drag]
+    xd = [x[0] for x in data_drag]
     yd = [x[1] for x in data_drag]
 
     xs = [x[0] for x in data_serp]
@@ -172,10 +173,10 @@ def plot_serp_dragon_1l_2l_burnup_vs_keff_assbly(
         filename: str = 'keff_vs_burnup_assbly.png',
         title: str = '$k_{eff} \ vs \ Burnup$'
 ) -> None:
-    xd = [x[0] / 1000 for x in data_drag]
+    xd = [x[0] for x in data_drag]
     yd = [x[1] for x in data_drag]
 
-    xd1 = [x[0] / 1000 for x in data_drag_1l]
+    xd1 = [x[0] for x in data_drag_1l]
     yd1 = [x[1] for x in data_drag_1l]
 
     xs = [x[0] for x in data_serp]
@@ -249,7 +250,7 @@ if __name__ == '__main__':
                 data_serp=burnup_vs_keff_serp,
                 data_drag_1l=burnup_vs_keff_drag_1l,
                 data_drag=burnup_vs_keff_drag,
-                title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
+                title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n {drag_file_name_1l}\n',
                 filename=f'all_plots/keff_vs_burnup_1l_2l_{key}.png'
             )
 
