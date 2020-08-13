@@ -2,6 +2,7 @@ import os
 import pathlib
 import re
 
+import jinja2
 import pandas as pd
 
 
@@ -50,15 +51,33 @@ def get_name_mix_dict(filename, debug=False):
     return dict_
 
 
+def export_map_to_matlab_struct(filename, data):
+    s = """\
+{{ name }} = struct( ...
+{%- for i in data %}
+    '{{ i['name'] }}', [ {{ i['mix'] }} ]{{ "," if not loop.last }} ...
+{%- endfor %}
+    );
+"""
+
+    template = jinja2.Template(s)
+    output = template.render(data=data, name=str(filename.stem))
+    (filename.parent / 'map').mkdir(parents=True, exist_ok=True)
+    save_filename = filename.parent / 'map' / (str(filename.stem) + '.map')
+    with open(save_filename, 'w') as f:
+        output = '\n'.join([line.rstrip(' ') for line in output.splitlines()])
+        f.write(output)
+
+
 def main():
-    for p in pathlib.Path('Dragon').glob('ASS*/Geo_N?.c2m'):
+    for p in pathlib.Path('Dragon').glob('ASS*/Geo_??.c2m'):
         print(p)
         data = parse_mix_map(p, debug=True)
         data = clean_mix_map(data, debug=True)
+        export_map_to_matlab_struct(p, data)
         get_name_mix_dict(p, debug=True)
 
 
 if __name__ == '__main__':
     os.chdir(pathlib.Path(__file__).resolve().parent.parent.parent)
     main()
-
