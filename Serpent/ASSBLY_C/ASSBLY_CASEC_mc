@@ -1308,6 +1308,8 @@ set bc 3
 
 mat U235  1.0 tmp 900.0 92235.09c 1.0
 mat U238  1.0 tmp 900.0 92238.09c 1.0
+mat Pu239 1.0 tmp 900.0 94239.09c 1.0
+mat Pu241 1.0 tmp 900.0 94241.09c 1.0
 mat O16f  1.0 tmp 900.0 8016.09c  1.0
 mat O16m  1.0 tmp 600.0 8016.06c  1.0
 mat H1    1.0 tmp 600.0 1001.06c  1.0
@@ -1337,919 +1339,1559 @@ det pinPower dr -8 void dx -10.71 10.71 17 dy -10.71 10.71 17
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUEL POWER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 det _C0201_A   de 1   dm UO2_1_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0201_B   de 1   dm UO2_1_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0201_C   de 1   dm UO2_1_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0201_D   de 1   dm UO2_1_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0202_A   de 1   dm UO2_2_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0202_B   de 1   dm UO2_2_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0202_C   de 1   dm UO2_2_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0202_D   de 1   dm UO2_2_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0301_A   de 1   dm UO2_3_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0301_B   de 1   dm UO2_3_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0301_C   de 1   dm UO2_3_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0301_D   de 1   dm UO2_3_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0302_A   de 1   dm UO2_4_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0302_B   de 1   dm UO2_4_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0302_C   de 1   dm UO2_4_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0302_D   de 1   dm UO2_4_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0303_A   de 1   dm UO2_5_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0303_B   de 1   dm UO2_5_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0303_C   de 1   dm UO2_5_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0303_D   de 1   dm UO2_5_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0402_A   de 1   dm UO2_6_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0402_B   de 1   dm UO2_6_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0402_C   de 1   dm UO2_6_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0402_D   de 1   dm UO2_6_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0403_A   de 1   dm UO2_7_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0403_B   de 1   dm UO2_7_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0403_C   de 1   dm UO2_7_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0403_D   de 1   dm UO2_7_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0501_A   de 1   dm UO2_8_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0501_B   de 1   dm UO2_8_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0501_C   de 1   dm UO2_8_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0501_D   de 1   dm UO2_8_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0502_A   de 1   dm UO2_9_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0502_B   de 1   dm UO2_9_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0502_C   de 1   dm UO2_9_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0502_D   de 1   dm UO2_9_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0503_A   de 1   dm UO2_10_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0503_B   de 1   dm UO2_10_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0503_C   de 1   dm UO2_10_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0503_D   de 1   dm UO2_10_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0504_A   de 1   dm UO2_11_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0504_B   de 1   dm UO2_11_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0504_C   de 1   dm UO2_11_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0504_D   de 1   dm UO2_11_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0505_A   de 1   dm UO2_12_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0505_B   de 1   dm UO2_12_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0505_C   de 1   dm UO2_12_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0505_D   de 1   dm UO2_12_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0601_A   de 1   dm UO2_13_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0601_B   de 1   dm UO2_13_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0601_C   de 1   dm UO2_13_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0601_D   de 1   dm UO2_13_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0602_A   de 1   dm UO2_14_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0602_B   de 1   dm UO2_14_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0602_C   de 1   dm UO2_14_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0602_D   de 1   dm UO2_14_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0603_A   de 1   dm GADO_15_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0603_B   de 1   dm GADO_15_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0603_C   de 1   dm GADO_15_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0603_D   de 1   dm GADO_15_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0603_E   de 1   dm GADO_15_E
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0603_F   de 1   dm GADO_15_F
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0604_A   de 1   dm UO2_16_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0604_B   de 1   dm UO2_16_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0604_C   de 1   dm UO2_16_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0604_D   de 1   dm UO2_16_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0605_A   de 1   dm UO2_17_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0605_B   de 1   dm UO2_17_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0605_C   de 1   dm UO2_17_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0605_D   de 1   dm UO2_17_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0702_A   de 1   dm UO2_18_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0702_B   de 1   dm UO2_18_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0702_C   de 1   dm UO2_18_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0702_D   de 1   dm UO2_18_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0703_A   de 1   dm UO2_19_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0703_B   de 1   dm UO2_19_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0703_C   de 1   dm UO2_19_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0703_D   de 1   dm UO2_19_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0705_A   de 1   dm UO2_20_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0705_B   de 1   dm UO2_20_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0705_C   de 1   dm UO2_20_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0705_D   de 1   dm UO2_20_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0706_A   de 1   dm UO2_21_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0706_B   de 1   dm UO2_21_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0706_C   de 1   dm UO2_21_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0706_D   de 1   dm UO2_21_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0707_A   de 1   dm GADO_22_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0707_B   de 1   dm GADO_22_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0707_C   de 1   dm GADO_22_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0707_D   de 1   dm GADO_22_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0707_E   de 1   dm GADO_22_E
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0707_F   de 1   dm GADO_22_F
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0801_A   de 1   dm UO2_23_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0801_B   de 1   dm UO2_23_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0801_C   de 1   dm UO2_23_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0801_D   de 1   dm UO2_23_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0802_A   de 1   dm UO2_24_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0802_B   de 1   dm UO2_24_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0802_C   de 1   dm UO2_24_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0802_D   de 1   dm UO2_24_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0803_A   de 1   dm UO2_25_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0803_B   de 1   dm UO2_25_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0803_C   de 1   dm UO2_25_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0803_D   de 1   dm UO2_25_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0804_A   de 1   dm UO2_26_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0804_B   de 1   dm UO2_26_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0804_C   de 1   dm UO2_26_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0804_D   de 1   dm UO2_26_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0805_A   de 1   dm UO2_27_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0805_B   de 1   dm UO2_27_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0805_C   de 1   dm UO2_27_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0805_D   de 1   dm UO2_27_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0806_A   de 1   dm UO2_28_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0806_B   de 1   dm UO2_28_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0806_C   de 1   dm UO2_28_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0806_D   de 1   dm UO2_28_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0807_A   de 1   dm UO2_29_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0807_B   de 1   dm UO2_29_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0807_C   de 1   dm UO2_29_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0807_D   de 1   dm UO2_29_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0808_A   de 1   dm UO2_30_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0808_B   de 1   dm UO2_30_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0808_C   de 1   dm UO2_30_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0808_D   de 1   dm UO2_30_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0901_A   de 1   dm UO2_31_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0901_B   de 1   dm UO2_31_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0901_C   de 1   dm UO2_31_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0901_D   de 1   dm UO2_31_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0902_A   de 1   dm UO2_32_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0902_B   de 1   dm UO2_32_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0902_C   de 1   dm UO2_32_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0902_D   de 1   dm UO2_32_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0903_A   de 1   dm UO2_33_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0903_B   de 1   dm UO2_33_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0903_C   de 1   dm UO2_33_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0903_D   de 1   dm UO2_33_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0904_A   de 1   dm UO2_34_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0904_B   de 1   dm UO2_34_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0904_C   de 1   dm UO2_34_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0904_D   de 1   dm UO2_34_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0905_A   de 1   dm UO2_35_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0905_B   de 1   dm UO2_35_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0905_C   de 1   dm UO2_35_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0905_D   de 1   dm UO2_35_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0906_A   de 1   dm UO2_36_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0906_B   de 1   dm UO2_36_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0906_C   de 1   dm UO2_36_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0906_D   de 1   dm UO2_36_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0907_A   de 1   dm UO2_37_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0907_B   de 1   dm UO2_37_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0907_C   de 1   dm UO2_37_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0907_D   de 1   dm UO2_37_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0908_A   de 1   dm UO2_38_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0908_B   de 1   dm UO2_38_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0908_C   de 1   dm UO2_38_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0908_D   de 1   dm UO2_38_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 %%
 
 det _C0909_A   de 1   dm UO2_39_A
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0909_B   de 1   dm UO2_39_B
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0909_C   de 1   dm UO2_39_C
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _C0909_D   de 1   dm UO2_39_D
-   dr 102 U235
-   dr 102 U238
-   dr -6 U235
-   dr -6 U238
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 % --- include 1 and 2 energy group detectors
 

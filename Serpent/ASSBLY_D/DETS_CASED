@@ -4,6 +4,8 @@
 % --- energy grid for the detectors (2g)
 ene 2 1 1.1E-11 6.25E-7 1.9640E+1
 
+det _FLUX_2G         de 2
+
 det _C0201_2G
     de 2
     dt -4
@@ -565,6 +567,8 @@ det _FUEL_2G
 
 % --- energy grid for the detectors (1g)
 ene 3 1 1.1E-11 1.9640E+1
+
+det _FLUX_1G         de 3
 
 det _FUEL_1G
     de 3
