@@ -82,6 +82,8 @@ set bc 2
 
 mat U235  1.0 tmp 900.0 92235.09c 1.0
 mat U238  1.0 tmp 900.0 92238.09c 1.0
+mat Pu239 1.0 tmp 900.0 94239.09c 1.0
+mat Pu241 1.0 tmp 900.0 94241.09c 1.0
 mat O16f  1.0 tmp 900.0 8016.09c  1.0
 mat O16m  1.0 tmp 600.0 8016.06c  1.0
 mat H1    1.0 tmp 600.0 1001.06c  1.0
@@ -102,17 +104,41 @@ set ures no
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FUEL POWER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 det _PIN_A   de 1   dm UO2_A
-   dr -6 U235  
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _PIN_B   de 1   dm UO2_B
-   dr -6 U235  
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _PIN_C   de 1   dm UO2_C
-   dr -6 U235  
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 det _PIN_D   de 1   dm UO2_D
-   dr -6 U235  
-   dr -6 U238 
+    dr 102 U235
+    dr 102 U238
+    dr 102 Pu239
+    dr 102 Pu241
+    dr -6 U235
+    dr -6 U238
+    dr -6 Pu239
+    dr -6 Pu241
 
 % end of detectors definition
 
