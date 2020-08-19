@@ -1,12 +1,10 @@
 import copy
-import io
 import os
 import pathlib
-from textwrap import dedent
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
-import matplotlib.pyplot as plt  # type: ignore
 import numpy as np  # type: ignore
+import matplotlib.pyplot as plt  # type: ignore
 import pandas as pd  # type: ignore
 import seaborn as sns  # type: ignore
 
@@ -159,56 +157,16 @@ if __name__ == '__main__':
 
     map = convert_to_matrix(assembly_map, debug=True)
 
-    error_csv = """
-    ,caseA,caseB,caseC,caseD
-    C0201,0.23,0.43,-0.05,0.54
-    C0202,0.29,-0.27,-0.28,-0.11
-    C0301,0.03,0.21,-0.17,-1.14
-    C0302,0.17,0.04,-0.05,-0.01
-    C0303,-0.15,-0.18,-0.15,0.42
-    C0402,0.05,-0.03,0.08,-0.24
-    C0403,0.07,-0.1,-0.07,0.42
-    C0501,0.0,-0.12,-0.49,0.12
-    C0502,-0.08,0.08,0.01,-0.08
-    C0503,-0.0,0.22,0.26,-0.04
-    C0504,-0.31,-0.01,-0.04,-0.18
-    C0505,-0.16,-0.16,-0.18,-1.49
-    C0601,0.34,-0.19,-0.07,-1.17
-    C0602,-0.1,-0.04,-0.1,0.1
-    C0603,0.09,-1.67,-1.61,-0.15
-    C0604,0.25,-0.17,-0.35,0.08
-    C0605,-0.01,-0.36,-0.12,0.0
-    C0702,0.09,-0.17,0.08,-0.08
-    C0703,-0.21,0.4,0.55,-0.03
-    C0705,0.04,-0.19,-0.23,0.01
-    C0706,0.29,0.02,-0.0,0.05
-    C0707,0.1,-0.06,-0.88,-1.31
-    C0801,0.24,-0.04,0.34,0.24
-    C0802,-0.01,-0.21,-0.15,0.09
-    C0803,-0.17,0.08,0.15,0.12
-    C0804,-0.03,-0.09,0.03,-1.27
-    C0805,-0.12,-0.1,-0.05,0.32
-    C0806,-0.27,-0.13,-0.27,-0.1
-    C0807,-0.11,0.29,-0.03,0.32
-    C0808,-0.09,0.35,0.22,29.19
-    C0901,0.09,-0.41,0.15,0.36
-    C0902,-0.07,-0.03,0.16,-15.43
-    C0903,0.1,0.18,0.25,0.01
-    C0904,0.01,0.01,0.14,0.27
-    C0905,-0.22,0.0,-0.01,0.13
-    C0906,-0.1,0.16,-0.08,-0.14
-    C0907,0.27,0.37,0.29,0.15
-    C0908,-0.02,0.11,0.05,0.5
-    C0909,-0.13,0.25,0.27,0.34
-    """
-
-    df = pd.read_csv(io.StringIO(dedent(error_csv)), index_col=0)
-    datas = df.to_dict()
-    for key, data in datas.items():
-        # plot_table(map, data, f'table_{key.lower()}.png')
-        # plot_heatmap(map, data, filename=f'heatmap_{key.lower()}.png')
-        plot_heatmap_label(
-            map, data,
-            filename=f'all_plots/heatmap_{key.lower()}_label.png',
-            title=f'${key[:-1]} \ {key[-1]}$'
-        )
+    for location in ['first', 'peak', 'last']:
+        for type in [('fission', 'f'), ('capture', 'c')]:
+            with open(f'comp_error_{location}_{type[0]}.csv') as file:
+                df = pd.read_csv(file, index_col=0)
+                datas = df.to_dict()
+                for key, data in datas.items():
+                    # plot_table(map, data, f'table_{key.lower()}.png')
+                    # plot_heatmap(map, data, filename=f'heatmap_{key.lower()}.png')
+                    plot_heatmap_label(
+                        map, data,
+                        filename=f'hmap_assbly_{key.lower()}_{location}_{type[0]}.png',
+                        title=f'$Assembly \ {key.upper()} \ {location.capitalize()} \ {type[0].capitalize()}$'
+                    )
