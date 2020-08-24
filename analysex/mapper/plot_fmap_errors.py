@@ -121,10 +121,80 @@ def plot_heatmap_label(
         plt.show()
 
 
+def plot_heatmap_label_2l_1l(
+        assembly_map: List[List[Any]],
+        data: Dict[str, float],
+        data_1l: Dict[str, float],
+        title: str = '',
+        filename: str = 'heatmap_label.png'
+) -> None:
+    matrix = copy.deepcopy(assembly_map)
+    dmatrix = np.zeros_like(matrix, dtype=np.float)
+    lmatrix = np.zeros_like(matrix, dtype=np.object)
+
+    for i, row in enumerate(matrix):
+        for j, column in enumerate(row):
+            if matrix[i][j] in data:
+                lmatrix[i][j] = f'{matrix[i][j]}\n{data[matrix[i][j]]:.2f}\n{data_1l[matrix[i][j]]:.2f}'
+            else:
+                lmatrix[i][j] = matrix[i][j]
+    lmatrix[7][1] = 'CELL\n2L RE\n1L RE'  # for legend
+
+    for i, row in enumerate(matrix):
+        for j, column in enumerate(row):
+            dmatrix[i][j] = data[matrix[i][j]] if matrix[i][j] in data else 0.0
+
+    vmin = min([column for row in dmatrix for column in row])
+    vmax = max([column for row in dmatrix for column in row])
+
+    dmatrix = pd.DataFrame(dmatrix)
+    print(dmatrix.to_string())
+    lmatrix = pd.DataFrame(lmatrix)
+    print(lmatrix.to_string())
+
+    mask = np.zeros_like(matrix, dtype=np.bool)
+    mask[np.tril_indices_from(mask)] = True
+    mask[np.diag_indices_from(mask)] = False
+    mask[7][1] = False  # for legend
+
+    with sns.axes_style("white"):
+        f, ax = plt.subplots(figsize=(7, 5))
+        sns.heatmap(
+            dmatrix,
+            vmin=vmin, vmax=vmax,
+            center=0,
+            mask=mask,
+            cmap=sns.diverging_palette(220, 10, as_cmap=True),
+            # square=True,
+            annot=lmatrix,
+            annot_kws={"fontsize": 8},
+            fmt='',
+            linewidths=.5,
+            xticklabels=False,
+            yticklabels=False,
+        )
+        ax.set_title(
+            '\n'.join([
+                title,
+                r'$Relative \ error \ 100\%\cdot\frac{Dragon5_{NFTOT}-Serpent2_{NFTOT}}{Serpent2_{NFTOT}}$'
+            ]).strip(),
+            pad=20
+        )
+        ax.invert_yaxis()
+
+        plt.savefig(filename, dpi=300, bbox_inches="tight")
+
+        plt.gcf().set_size_inches(11.69, 8.27)
+        plt.savefig(filename.replace('.png', '.pdf'), bbox_inches="tight")
+        plt.show()
+
+
 def plot_table(
         assembly_map: List[List[Any]],
         data: Dict[str, float],
-        filename: str = 'table.png'
+        filename: str = 'table.png',
+        label: str = '',
+        title: str = ''
 ) -> None:
     map = copy.deepcopy(assembly_map)
     matrix = np.zeros_like(map, dtype=object)
@@ -136,7 +206,28 @@ def plot_table(
             else:
                 matrix[i][j] = map[i][j]
 
-    plot_geo_map(matrix, filename=filename)
+    plot_geo_map(matrix, filename=filename, label=label, title=title)
+
+
+def plot_table_2l_1l(
+        assembly_map: List[List[Any]],
+        data_2l: Dict[str, float],
+        data_1l: Dict[str, float],
+        filename: str = 'table.png',
+        label: str = '',
+        title: str = ''
+) -> None:
+    map = copy.deepcopy(assembly_map)
+    matrix = np.zeros_like(map, dtype=object)
+
+    for i, row in enumerate(map):
+        for j, column in enumerate(row):
+            if map[i][j] in data_2l:
+                matrix[i][j] = (map[i][j], str(data_2l[map[i][j]]), str(data_1l[map[i][j]]))
+            else:
+                matrix[i][j] = map[i][j]
+
+    plot_geo_map(matrix, filename=filename, label=label, title=title)
 
 
 if __name__ == '__main__':
@@ -156,17 +247,32 @@ if __name__ == '__main__':
     """
 
     map = convert_to_matrix(assembly_map, debug=True)
-
-    for location in ['first', 'peak', 'last']:
+    for location in [('first', 'Zero'), ('peak', 'Peak'), ('last', 'Max')]:
         for type in [('fission', 'f'), ('capture', 'c')]:
-            with open(f'comp_error_{location}_{type[0]}.csv') as file:
+            with open(f'comp_error_{location[0]}_{type[0]}_2L.csv') as file:
                 df = pd.read_csv(file, index_col=0)
-                datas = df.to_dict()
-                for key, data in datas.items():
-                    # plot_table(map, data, f'table_{key.lower()}.png')
-                    # plot_heatmap(map, data, filename=f'heatmap_{key.lower()}.png')
+                datas_2l = df.to_dict()
+            with open(f'comp_error_{location[0]}_{type[0]}_1L.csv') as file:
+                df = pd.read_csv(file, index_col=0)
+                datas_1l = df.to_dict()
+                for key in datas_2l.keys():
+                    data_2l = datas_2l[key]
+                    data_1l = datas_1l[key]
+                    plot_table_2l_1l(map, data_2l, data_1l,
+                                     filename=f'table_{key.lower()}_{location[0]}_{type[0]}.png',
+                                     title=f'Assembly {key.upper()}\n {location[1]} Burnup\n {type[0].capitalize()} Reaction Map',
+                                     label='''\
+                            Cell Name
+                            2L Relative Error
+                            1L Relative Error''')
+                    # plot_heatmap(map, data_2l, filename=f'hmap_{key.lower()}_{location[0]}_{type[0]}_2l.png)
                     plot_heatmap_label(
-                        map, data,
-                        filename=f'hmap_assbly_{key.lower()}_{location}_{type[0]}.png',
-                        title=f'$Assembly \ {key.upper()} \ {location.capitalize()} \ {type[0].capitalize()}$'
+                        map, data_2l,
+                        filename=f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l.png',
+                        title=f'$Assembly \ {key.upper()} \ {location[0].capitalize()} \ {type[0].capitalize()}$'
+                    )
+                    plot_heatmap_label_2l_1l(
+                        map, data_2l, data_1l,
+                        filename=f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l.png',
+                        title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
                     )
