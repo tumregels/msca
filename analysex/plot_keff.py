@@ -110,6 +110,8 @@ def plot_drag_burnup_vs_keff(
         filename: str = 'keff_vs_burnup.png',
         title: str = '$k_{eff} \ vs \ Burnup$'
 ) -> None:
+    pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
+
     x_val, y_val = zip(*data)
 
     fig = plt.figure()
@@ -117,7 +119,7 @@ def plot_drag_burnup_vs_keff(
     plt.plot(x_val, y_val)
     plt.plot(x_val, y_val, 'or')
     plt.suptitle(title, fontsize=12)
-    plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
+    plt.xlabel(r'$Burnup \ \frac{MWd}{tU}$', fontsize=12)
     plt.ylabel(r'$Multiplication \ factor \ k_{eff}$', fontsize=12)
     plt.savefig(filename, dpi=300, bbox_inches="tight")
     # plt.show()
@@ -143,11 +145,11 @@ def create_drag_keff_plots(path: pathlib.Path) -> None:
         save_as_csv(burnup_vs_keff, filename=f'assbly_plots/burnup_vs_keff_{name}.csv')
         plot_drag_burnup_vs_keff(
             data=burnup_vs_keff,
-            filename=f'all_plots/burnup_vs_keff_{name}.png',
+            filename=f'data/plots/burnup_vs_keff_{name}.png',
             title=f'$k_{{eff}} \ vs \ Burnup$\n {str(path)}')
         plot_drag_burnup_vs_keff(
             data=burnup_vs_keff[:10],
-            filename=f'all_plots/burnup_vs_keff_cut_{name}.png',
+            filename=f'data/plots/burnup_vs_keff_cut_{name}.png',
             title=f'$k_{{eff}} \ vs \ Burnup$\n {str(path)} cut')
         print('\u2713')
 
@@ -158,6 +160,8 @@ def plot_serp_drag_burnup_vs_keff(
         filename: str = 'keff_vs_burnup_assbly.png',
         title: str = '$k_{eff} \ vs \ Burnup$'
 ) -> None:
+    pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
+
     xd, yd = zip(*data_drag)
     xs, ys = zip(*data_serp)
 
@@ -169,7 +173,7 @@ def plot_serp_drag_burnup_vs_keff(
     plt.plot(xd, yd, 'or', label='dragon')
     plt.plot(xs, ys, '+b', label='serpent')
     #plt.suptitle(title, fontsize=12, y=1.02)
-    plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
+    plt.xlabel(r'$Burnup \ \frac{MWd}{tU}$', fontsize=12)
     plt.ylabel(r'$Multiplication \ factor \ k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
     plt.tight_layout()
@@ -197,7 +201,7 @@ def plot_serp_drag_1l_2l_burnup_vs_keff(
     plt.plot(xd, yd, 'or', label='dragon 2l')
     plt.plot(xd1, yd1, 'xg', label='dragon 1l')
     plt.plot(xs, ys, '+b', label='serpent')
-    plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
+    plt.xlabel(r'$Burnup \ \frac{MWd}{tU}$', fontsize=12)
     plt.ylabel(r'$Multiplication \ factor \ k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
     plt.tight_layout()
@@ -245,7 +249,7 @@ def plot_serp_drag_burnup_vs_keff_error(
     diff = [rho_s[i] - rho_d[i] for i in range(len(ys))]
 
     plt.plot(xd, diff, '-', label=r'$\rho_{Serpent}-\rho_{Dragon}$')
-    plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
+    plt.xlabel(r'$Burnup \ \frac{MWd}{tU}$', fontsize=12)
     plt.ylabel(r'$Discrepancy, \ pcm$', fontsize=10)
 
     plt.legend()  # plt.legend(loc=(1.04, 0), fontsize=12)
@@ -264,26 +268,20 @@ def plot_serp_drag_1l_2l_burnup_vs_keff_error(
 ):
     pathlib.Path(filename).parent.mkdir(exist_ok=True, parents=True)
 
-    xd, yd = [list(t) for t in zip(*data_drag)]
-    xd1, yd1 = [list(t) for t in zip(*data_drag_1l)]
+    xd, yd = [list(t) for t in zip(*data_drag)] # data from 2 level scheme
+    xd1, yd1 = [list(t) for t in zip(*data_drag_1l)] # data from 1 level scheme
     xs, ys = [list(t) for t in zip(*data_serp)]
 
     assert xd == xd1 == xs
 
-    fig = plt.figure()
-
-    ratio = 0.7
-    ax = plt.gca()
-    xleft, xright = ax.get_xlim()
-    ybottom, ytop = ax.get_ylim()
-    ax.set_aspect(abs((xright - xleft) / (ybottom - ytop)) * ratio)
+    fig = plt.figure(figsize=(10,7))
 
     plt.subplot(2, 1, 1)
-    plt.gca().set_title(title, fontsize=12)
+    plt.gca().set_title(title, fontsize=10)
     plt.grid()
-    plt.plot(xd, yd, '.r', label='Dragon 5 2l')
-    plt.plot(xd1, yd1, 'xg', label='Dragon 5 1l')
-    plt.plot(xs, ys, '+b', label='Serpent 2')
+    plt.plot(xd, yd, '.r', label='$D5 \ 2L$')
+    plt.plot(xd1, yd1, 'xg', label='$D5 \ 1L$')
+    plt.plot(xs, ys, '+b', label='$S2$')
 
     plt.ylabel(r'$k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
@@ -298,14 +296,15 @@ def plot_serp_drag_1l_2l_burnup_vs_keff_error(
     diff = [rho_s[i] - rho_d[i] for i in range(len(ys))]
     diff1 = [rho_s[i] - rho_d1[i] for i in range(len(ys))]
 
-    plt.plot(xd, diff, '-', label=r'$\rho_{Serpent}-\rho_{Dragon 2l}$')
-    plt.plot(xd, diff1, '--', label=r'$\rho_{Serpent}-\rho_{Dragon 1l}$')
-    plt.xlabel(r'$Burnup \ \frac{MWd}{kgU}$', fontsize=12)
-    plt.ylabel(r'$Discrepancy, \ pcm$', fontsize=10)
+    plt.plot(xd, diff, '-r', label=r'$\rho_{S2}-\rho_{D5 \ 2L}$')
+    plt.plot(xd, diff1, '-g', label=r'$\rho_{S2}-\rho_{D5 \ 1L}$')
+    plt.xlabel(r'$Burnup \ MWd/tU$', fontsize=12)
+    plt.ylabel(r'$Discrepancy \ pcm$', fontsize=12)
 
-    plt.legend()  # plt.legend(loc=(1.04, 0), fontsize=12)
+    plt.legend()
     plt.tight_layout()
     plt.savefig(filename, dpi=300, bbox_inches="tight")
+    plt.savefig(filename.replace('.png', '.pdf'), bbox_inches="tight")
     plt.show()
     plt.close(fig)
 
@@ -366,15 +365,15 @@ if __name__ == '__main__':
                 data_drag_1l=burnup_vs_keff_drag_1l,
                 data_drag=burnup_vs_keff_drag,
                 title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n {drag_file_name_1l}\n',
-                filename=f'all_plots/keff_vs_burnup_1l_2l_{key}.png'
+                filename=f'data/plots/keff_vs_burnup_1l_2l_{key}.png'
             )
 
             plot_serp_drag_1l_2l_burnup_vs_keff_error(
                 data_serp=burnup_vs_keff_serp,
                 data_drag_1l=burnup_vs_keff_drag_1l,
                 data_drag=burnup_vs_keff_drag,
-                title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n {drag_file_name_1l}',
-                filename=f'all_plots/keff_vs_burnup_1l_2l_error_{key}.png'
+                title=f"$k_{{eff}} \ vs \ Burnup \ ASSBLY \ {key.split('_')[-1]}$",
+                filename=f'data/plots/keff_vs_burnup_1l_2l_error_{key}.png'
             )
 
         print('\u2713')
