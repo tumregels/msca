@@ -73,36 +73,38 @@ def parse_error(filename):
     # pprint(data)
     return data
 
+
 def extract_errors():
     d = file_map
+    for level in ['2L', '1L']:
+        error_data = defaultdict(dict)
+        for key in d.keys():
+            if 'ASSBLY' in key:
+                drag_path = pathlib.Path(d[key]['drag_res']).resolve().parent if level == '2L' else \
+                    pathlib.Path(d[key]['drag_res_1level']).resolve().parent
+                for files in [
+                    list(drag_path.glob('process_?fm_first.result')),
+                    list(drag_path.glob('process_?cm_first.result')),
+                    list(drag_path.glob('process_?fm_peak.result')),
+                    list(drag_path.glob('process_?cm_peak.result')),
+                    list(drag_path.glob('process_?fm_last.result')),
+                    list(drag_path.glob('process_?cm_last.result'))
+                ]:
+                    for file in files:
+                        print(file.stem)
+                        data = parse_error(file)
+                        location = file.stem.split('_')[-1]
+                        case = file.stem.split('_')[1][0]
+                        type = file.stem.split('_')[1][1]
+                        if type not in error_data[location]:
+                            error_data[location][type] = {}
+                        error_data[location][type][case] = data
 
-    error_data = defaultdict(dict)
-    for key in d.keys():
-        if 'ASSBLY' in key:
-            drag_path = pathlib.Path(d[key]['drag_res']).resolve().parent
-            for files in [
-                list(drag_path.glob('process_?fm_first.result')),
-                list(drag_path.glob('process_?cm_first.result')),
-                list(drag_path.glob('process_?fm_peak.result')),
-                list(drag_path.glob('process_?cm_peak.result')),
-                list(drag_path.glob('process_?fm_last.result')),
-                list(drag_path.glob('process_?cm_last.result'))
-            ]:
-                for file in files:
-                    print(file.stem)
-                    data = parse_error(file)
-                    location = file.stem.split('_')[-1]
-                    case = file.stem.split('_')[1][0]
-                    type = file.stem.split('_')[1][1]
-                    if type not in error_data[location]:
-                        error_data[location][type] = {}
-                    error_data[location][type][case] = data
-
-    for location in ['first', 'peak', 'last']:
-        for type in [('fission', 'f'), ('capture', 'c')]:
-            df = pd.DataFrame(error_data[location][type[1]])
-            print(df.to_string())
-            df.to_csv(f'comp_error_{location}_{type[0]}.csv')
+        for location in ['first', 'peak', 'last']:
+            for type in [('fission', 'f'), ('capture', 'c')]:
+                df = pd.DataFrame(error_data[location][type[1]])
+                print(df.to_string())
+                df.to_csv(f'comp_error_{location}_{type[0]}_{level}.csv')
 
 
 if __name__ == '__main__':
