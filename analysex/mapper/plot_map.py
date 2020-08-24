@@ -19,7 +19,7 @@ def parse_tuple(string):
         return
 
 
-def plot_geo_map(matrix, filename='table.eps'):
+def plot_geo_map(matrix, filename='table.eps', label='', title=''):
     matrix = matrix[::-1]  # rotate along x axes
 
     data = np.asarray(matrix)
@@ -27,6 +27,9 @@ def plot_geo_map(matrix, filename='table.eps'):
     # p.set_size_inches(28, 16)
     ax = plt.gca()
     ax.axis("off")  # disable picture frame
+
+    if title:
+        plt.suptitle(title, size=68, y=3.8)
 
     tb = plt.table(cellText=data, loc=(0, 0), cellLoc='center')
     # tb.scale(2,8)
@@ -57,13 +60,16 @@ def plot_geo_map(matrix, filename='table.eps'):
         if t:
             cell.get_text().set_text('\n'.join(t))
 
+        if not label:
+            label = '''\
+                Level 1 cell name
+                Level 1 cell mixtures
+                Level 2 cell name
+                Level 2 cell mixtures'''
+
         if rc == (0, 0):
             cell.set_visible(True)
-            cell.get_text().set_text(dedent('''\
-            Level 1 cell name
-            Level 1 cell mixtures
-            Level 2 cell name
-            Level 2 cell mixtures'''))
+            cell.get_text().set_text(dedent(label))
             cell.set_facecolor("#FFFFFF")
 
         if rc == (1, 0):
@@ -84,6 +90,7 @@ def plot_geo_map(matrix, filename='table.eps'):
     #            ncol=2)
 
     p.savefig(filename, bbox_inches='tight')
+    p.savefig(filename.replace('.png', '.pdf'), bbox_inches='tight')
 
 
 def main():
