@@ -126,7 +126,8 @@ def plot_heatmap_label_2l_1l(
         data: Dict[str, float],
         data_1l: Dict[str, float],
         title: str = '',
-        filename: str = 'heatmap_label.png'
+        filename: str = 'heatmap_label.png',
+        ax: Any = None
 ) -> None:
     matrix = copy.deepcopy(assembly_map)
     dmatrix = np.zeros_like(matrix, dtype=np.float)
@@ -157,15 +158,18 @@ def plot_heatmap_label_2l_1l(
     mask[np.diag_indices_from(mask)] = False
     mask[7][1] = False  # for legend
 
+    fig = None
+    if not ax:
+        fig, ax = plt.subplots(figsize=(7, 5))
+
     with sns.axes_style("white"):
-        f, ax = plt.subplots(figsize=(7, 5))
         sns.heatmap(
             dmatrix,
+            ax=ax,
             vmin=vmin, vmax=vmax,
             center=0,
             mask=mask,
             cmap=sns.diverging_palette(220, 10, as_cmap=True),
-            # square=True,
             annot=lmatrix,
             annot_kws={"fontsize": 8},
             fmt='',
@@ -182,11 +186,11 @@ def plot_heatmap_label_2l_1l(
         )
         ax.invert_yaxis()
 
-        plt.savefig(filename, dpi=300, bbox_inches="tight")
-
-        plt.gcf().set_size_inches(11.69, 8.27)
-        plt.savefig(filename.replace('.png', '.pdf'), bbox_inches="tight")
-        plt.show()
+        if fig:
+            fig.savefig(filename, dpi=300, bbox_inches="tight")
+            fig.set_size_inches(11.69, 8.27)
+            fig.savefig(filename.replace('.png', '.pdf'), bbox_inches="tight")
+            fig.show()
 
 
 def plot_table(
@@ -230,6 +234,70 @@ def plot_table_2l_1l(
     plot_geo_map(matrix, filename=filename, label=label, title=title)
 
 
+def plot_hist_2l_1l(
+        data_2l: Dict[str, float],
+        data_1l: Dict[str, float],
+        filename: str = 'hist_2l_1l.png',
+        title: str = '',
+        ax: Any = None
+):
+    x_2l, y_2l = zip(*data_2l.items())
+    x_1l, y_1l = zip(*data_1l.items())
+
+    assert x_2l == x_1l
+
+    fig = None
+
+    if not ax:
+        fig, ax = plt.subplots()
+
+    ind = np.arange(len(x_2l))
+    width = 0.35
+
+    ax.bar(ind, [abs(v) for v in y_2l], width, label='2L')
+    ax.bar(ind + width, [abs(v) for v in y_1l], width, color='red', label='1L')
+
+    ax.set_ylabel('Absolute Relative Error')
+    ax.set_title(title)
+
+    ax.set_xticks(ind + width / 2)
+    ax.set_xticklabels(x_2l, rotation='vertical', fontsize=7)
+    ax.legend(loc='best')
+    ax.grid()
+
+    if fig:
+        fig.tight_layout()
+        fig.savefig(filename, dpi=300)
+        fig.show()
+        plt.close(fig)
+
+
+def plot_hist_hmap_2l_1l(
+        assembly_map: List[List[Any]],
+        data_2l: Dict[str, float],
+        data_1l: Dict[str, float],
+        title: str = '',
+        filename: str = 'heatmap_label.png',
+
+):
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    fig.suptitle(title)
+
+    plot_heatmap_label_2l_1l(
+        assembly_map, data_2l, data_1l,
+        ax=ax1
+    )
+    plot_hist_2l_1l(
+        data_2l, data_1l,
+        ax=ax2
+    )
+
+    fig.tight_layout()
+    fig.savefig(filename, dpi=300)
+    fig.savefig(filename.replace('.png', '.pdf'))
+    fig.show()
+
+
 if __name__ == '__main__':
     os.chdir(pathlib.Path(__file__).resolve().parent.parent.parent)
 
@@ -265,7 +333,6 @@ if __name__ == '__main__':
                             Cell Name
                             2L Relative Error
                             1L Relative Error''')
-                    # plot_heatmap(map, data_2l, filename=f'hmap_{key.lower()}_{location[0]}_{type[0]}_2l.png)
                     plot_heatmap_label(
                         map, data_2l,
                         filename=f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l.png',
@@ -274,5 +341,16 @@ if __name__ == '__main__':
                     plot_heatmap_label_2l_1l(
                         map, data_2l, data_1l,
                         filename=f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l.png',
+                        title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
+                    )
+                    plot_hist_2l_1l(
+                        data_2l, data_1l,
+                        title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$',
+                        filename=f'hist_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l.png'
+                    )
+
+                    plot_hist_hmap_2l_1l(
+                        map, data_2l, data_1l,
+                        filename=f'hist_hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l.png',
                         title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
                     )

@@ -13,6 +13,8 @@ run_short.py
 CGN_PIN_A_short.x2m
 *.png
 *.eps
+*.csv
+*.pdf
 *.pickle
 *.mat
 other/*
