@@ -16,7 +16,7 @@ def extract_geo_map(filename):
     pat = re.compile(r'''
     ^\s+CELL\s+\n?
     (?P<map>TI.*?)
-    (?:MESHX|MERGE)
+    (?:MESHX|MERGE|\:\:\:)
     ''', flags=re.MULTILINE | re.DOTALL | re.X)
 
     for m in pat.finditer(s):
