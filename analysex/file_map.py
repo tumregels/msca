@@ -1,19 +1,19 @@
 file_map = {
     'PIN_A': {
-        'drag_res': 'Dragon/PIN_A/output_2020-06-09_17-14-57/CGN_PIN_A.result',
-        'drag_burn': 'Dragon/PIN_A/output_2020-06-09_17-14-57/_BURN_rowland.txt',
+        'drag_res': 'Dragon/PIN_A/output_2020-08-09_02-11-45/PIN_A.result',
+        'drag_burn': 'Dragon/PIN_A/output_2020-08-09_02-11-45/_BURN_rowland.txt',
         'serp_dep': 'Serpent/PIN_A/output_2020-05-11_22-39-35/PIN_CASEA_mc_dep.mat',
         'serp_res': 'Serpent/PIN_A/output_2020-05-11_22-39-35/PIN_CASEA_mc_res.mat',
     },
     'PIN_B': {
-        'drag_res': 'Dragon/PIN_B/output_2020-06-09_17-16-38/CGN_PIN_B.result',
-        'drag_burn': 'Dragon/PIN_B/output_2020-06-09_17-16-38/_BURN_rowland.txt',
+        'drag_res': 'Dragon/PIN_B/output_2020-07-26_22-34-20/PIN_B.result',
+        'drag_burn': 'Dragon/PIN_B/output_2020-07-26_22-34-20/_BURN_rowland.txt',
         'serp_dep': 'Serpent/PIN_B/output_2020-05-11_22-39-42/PIN_CASEB_mc_dep.mat',
         'serp_res': 'Serpent/PIN_B/output_2020-05-11_22-39-42/PIN_CASEB_mc_res.mat',
     },
     'PIN_C': {
-        'drag_res': 'Dragon/PIN_C/output_2020-06-09_17-18-27/CGN_PIN_C.result',
-        'drag_burn': 'Dragon/PIN_C/output_2020-06-09_17-18-27/_BURN_rowland.txt',
+        'drag_res': 'Dragon/PIN_C/output_2020-07-26_22-34-46/PIN_C.result',
+        'drag_burn': 'Dragon/PIN_C/output_2020-07-26_22-34-46/_BURN_rowland.txt',
         'serp_dep': 'Serpent/PIN_C/output_2020-05-11_22-39-48/PIN_CASEC_mc_dep.mat',
         'serp_res': 'Serpent/PIN_C/output_2020-05-11_22-39-48/PIN_CASEC_mc_res.mat',
     },
