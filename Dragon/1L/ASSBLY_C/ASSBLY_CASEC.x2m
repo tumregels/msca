@@ -294,10 +294,10 @@ ENDWHILE ;
 
 BURN2 := BURNUP ;
 
-assertS FLUX2 :: K-EFFECTIVE 1 0.7532252 ;
+assertS FLUX2 :: K-EFFECTIVE 1 0.7534477 ;
 ************************************************************************
 *  END DEPLETION CALCULATION                                           *
 ************************************************************************
 
-ECHO "test ASSBLY_CASEC completed" ;
+ECHO "test ASSBLY_CASEC_1level completed" ;
 END: ;

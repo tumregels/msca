@@ -15,6 +15,7 @@ CGN_PIN_A_short.x2m
 *.eps
 *.csv
 *.pdf
+*.txt
 *.pickle
 *.mat
 other/*

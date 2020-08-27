@@ -307,10 +307,10 @@ ENDWHILE ;
 
 BURN2 := BURNUP ;
 
-assertS FLUX2 :: K-EFFECTIVE 1 0.7436790 ;
+assertS FLUX2 :: K-EFFECTIVE 1 0.7442713 ;
 ************************************************************************
 *  END DEPLETION CALCULATION                                           *
 ************************************************************************
 
-ECHO "test ASSBLY_CASEA_short_1level completed" ;
+ECHO "test ASSBLY_CASEA_1level completed" ;
 END: ;
