@@ -34,6 +34,7 @@
 
 - [x] generate plots for pin dragon/serpent calculations
 - [x] create analysex package for data analyses scripts
+- [ ] fix MWd/tU to GWd/t
 
 ## Questions
 
