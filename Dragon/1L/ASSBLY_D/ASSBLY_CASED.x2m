@@ -1,8 +1,12 @@
-*----
-* case ASSBLY_CASED
-* 295-group/26group eighth assembly in DRAGON -- 1-level scheme
-* Author: A. Canbakan
-*----
+************************************************************************
+*  case ASSBLY_CASED                                                   *
+*  295-group/26-group 1/8-th assembly in DRAGON -- 1-level scheme      *
+*  Author: A. Canbakan                                                 *
+************************************************************************
+
+************************************************************************
+*  BEGIN STRUCTURES and MODULES                                        *
+************************************************************************
 LINKED_LIST GEOSS GEON2 TRACKSS TRACKN2 LIBRARY LIBRARY2
             SYS FLUX FLUX2 EDITION DONNEES LIBHOM BURNUP
             EDIHOM RES_F RES_P RES_L ;
@@ -28,6 +32,9 @@ STRING Library := "DLIB_295" ;
 PROCEDURE Geo_SS Geo_N2 Mix_Gad ;
 PROCEDURE assertS ;
 
+************************************************************************
+*  END STRUCTURES AND MODULES                                          *
+************************************************************************
 ************************************************************************
 *  BEGIN GEOMETRY                                                      *
 ************************************************************************
