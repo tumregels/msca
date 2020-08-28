@@ -40,9 +40,9 @@ if __name__ == '__main__':
     zip_dir(zip_name, 'a', nb_name.replace('.ipynb', '.html'))
 
     drag_output_files = [
-        'Dragon/PIN_A/output_2020-05-01_23-02-16/CGN_PIN_A.result',
-        'Dragon/PIN_B/output_2020-05-02_00-15-18/CGN_PIN_B.result',
-        'Dragon/PIN_C/output_2020-05-02_00-16-03/CGN_PIN_C.result',
+        'Dragon/PIN_A/output_2020-05-01_23-02-16/PIN_A.result',
+        'Dragon/PIN_B/output_2020-05-02_00-15-18/PIN_B.result',
+        'Dragon/PIN_C/output_2020-05-02_00-16-03/PIN_C.result',
 
     ]
 
