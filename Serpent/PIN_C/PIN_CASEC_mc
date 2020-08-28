@@ -1,5 +1,5 @@
 % --- Problem title:
-set title "CGN-CASEC Pin cell benchmark"
+set title "CASEC Pin cell benchmark"
 
 % --- Cross section library file path:
 
