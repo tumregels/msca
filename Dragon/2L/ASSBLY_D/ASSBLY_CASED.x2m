@@ -308,8 +308,8 @@ WHILE istep maxstep < DO
 
   IF istep 1 = THEN
     RES_F := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5
-      MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
-              Gd156 Gd157 Gd158
+      MICR 15 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
+              Gd156 Gd157 Gd158 Pu239 Pu241 Pu239Gd Pu241Gd
       MERG MIX
       COND 19
       SAVE ON COND2
@@ -320,8 +320,8 @@ WHILE istep maxstep < DO
   * PEAK is at step 75 burnup 16000.0
   IF istep 75 = THEN
     RES_P := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5
-      MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
-              Gd156 Gd157 Gd158
+      MICR 15 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
+              Gd156 Gd157 Gd158 Pu239 Pu241 Pu239Gd Pu241Gd
       MERG MIX
       COND 19
       SAVE ON COND2
@@ -331,8 +331,8 @@ WHILE istep maxstep < DO
   
   IF istep maxstep = THEN
     RES_L := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5
-      MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
-              Gd156 Gd157 Gd158
+      MICR 15 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
+              Gd156 Gd157 Gd158 Pu239 Pu241 Pu239Gd Pu241Gd
       MERG MIX
       COND 19
       SAVE ON COND2
