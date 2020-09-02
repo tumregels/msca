@@ -1,8 +1,10 @@
-*----
-* case ASSBLY_CASED
-* 295-group/26group eighth assembly in DRAGON
-* Author: A. Canbakan
-*----
+************************************************************************
+*  case ASSBLY_CASED                                                   *
+*  295-group/26-group 1/8-th assembly in DRAGON -- 2-level scheme      *
+*  Author: A. Canbakan                                                 *
+************************************************************************
+
+! BEGIN STRUCTURES and MODULES
 LINKED_LIST GEOSS GEON1 GEON2 TRACKSS TRACKN1 TRACKN2 LIBRARY LIBRARY2
             SYS FLUX FLUX2 EDITION LIBEQ DONNEES LIBHOM BURNUP
             EDIHOM RES_F RES_P RES_L ;
@@ -27,10 +29,9 @@ REAL BU BUautop  := 0.0 0.0 ;
 STRING Library := "DLIB_295" ;
 PROCEDURE Geo_SS Geo_N1 Geo_N2 Mix_Gad MultLIBEQ ;
 PROCEDURE assertS ;
+! END STRUCTURES AND MODULES
 
-************************************************************************
-*  BEGIN GEOMETRY                                                      *
-************************************************************************
+! BEGIN GEOMETRY
 EVALUATE Rcomb4 := 0.4096 ;
 EVALUATE Rcomb1 := 0.5 SQRT Rcomb4 * ;
 EVALUATE Rcomb2 := 0.8 SQRT Rcomb4 * ;
@@ -74,13 +75,9 @@ GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<Rcomb5Gad>> <<Rcomb6Gad>> ;
 
 ASSBLY_CASED FIGASB_CASED := G2S: GEON2 ;
-************************************************************************
-*  END GEOMETRY                                                        *
-************************************************************************
+! END GEOMETRY
 
-************************************************************************
-*  BEGIN DECLARATION                                                   *
-************************************************************************
+! BEGIN DECLARATION
 DONNEES := UTL: ::
   CREA
     BURN <<maxstep>> =
@@ -104,15 +101,12 @@ DONNEES := UTL: ::
 DONNEES := UTL: DONNEES ::
   CREA
         AUTOP <<maxautop>> =
-       1000.0    4000.0    8000.0   12000.0   16000.0  24000.0  36000.0  
-      48000.0   60000.0   70000.0
+      1000.0    4000.0    8000.0   12000.0   16000.0   24000.0   36000.0
+     48000.0   60000.0   70000.0
   ;
-************************************************************************
-*  END DECLARATION                                                     *
-************************************************************************
-************************************************************************
-*  BEGIN TRACKING                                                      *
-************************************************************************
+! END DECLARATION
+
+! BEGIN TRACKING
 ! Level One
 TRACKSS := SYBILT: GEOSS ::
   EDIT 0
@@ -137,27 +131,16 @@ TRACKN2 TF_EXC := SALT: ASSBLY_CASED ::
 ;
 TRACKN2 := MCCGT: TRACKN2 TF_EXC ::
   CACB 4 AAC 80 TMT EPSI 1E-5 MCU 10000 ;
+! END TRACKING
 
-************************************************************************
-*  END TRACKING                                                        *
-************************************************************************
-************************************************************************
-*  BEGIN LIBRARY READING                                               *
-************************************************************************
+! BEGIN LIBRARY READING
 LIBRARY := Mix_Gad :: <<Library>> ;
+! END LIBRARY READING
 
-************************************************************************
-*  END LIBRARY READING                                                 *
-************************************************************************
-************************************************************************
-*  BEGIN DEPLETION                                                     *
-************************************************************************
+! BEGIN DEPLETION
 WHILE istep maxstep < DO
 
-************************************************************************
-*  BEGIN FIRST LEVEL FLUX CALCULATION                                  *
-************************************************************************
-
+ ! BEGIN FIRST LEVEL FLUX CALCULATION
   EVALUATE istep := istep 1 + ;
   ECHO "istep: " istep "/" maxstep ;
  
@@ -167,30 +150,28 @@ WHILE istep maxstep < DO
   ECHO Tbeg ;
   ECHO Tend ;
 
-*----
-* USS
-*----
+ ! BEGIN SELF-SHIELDING CALCULATION
   IF istep 1 = THEN
-      LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 GRMIN 52
-        CALC  REGI W1 U235   ALL
-              REGI W1 U236   ALL
-              REGI W1 Pu239  ALL
-              REGI W1 Pu240  ALL
-              REGI W1 Pu241  ALL
-              REGI W1 Pu242  ALL
+    LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 GRMIN 52
+      CALC  REGI W1 U235   ALL
+            REGI W1 U236   ALL
+            REGI W1 Pu239  ALL
+            REGI W1 Pu240  ALL
+            REGI W1 Pu241  ALL
+            REGI W1 Pu242  ALL
 
-              REGI W1 U235Gd ALL
-              REGI W1 U236Gd ALL
+            REGI W1 U235Gd ALL
+            REGI W1 U236Gd ALL
 
-              REGI W1 Gd154  ALL
-              REGI W1 Gd155  ALL
-              REGI W1 Gd156  ALL
-              REGI W1 Gd157  ALL
-              REGI W1 Gd158  ALL
+            REGI W1 Gd154  ALL
+            REGI W1 Gd155  ALL
+            REGI W1 Gd156  ALL
+            REGI W1 Gd157  ALL
+            REGI W1 Gd158  ALL
 
-              REGI W1 Zr90g  ALL
-              REGI W1 Zr91g  ALL
-        ENDC ;
+            REGI W1 Zr90g  ALL
+            REGI W1 Zr91g  ALL
+      ENDC ;
   ELSE
     GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
     GREP: DONNEES :: GETVAL "BURN" <<istep>> >>BU<< ;
@@ -219,13 +200,12 @@ WHILE istep maxstep < DO
       EVALUATE iAutop := iAutop 1 + ;
     ENDIF ;
   ENDIF ;
+  ! END SELF-SHIELDING CALCULATION
 
-************************************************************************
-*  BEGIN FIRST LEVEL FLUX CALCULATION                                  *
-************************************************************************
+  ! BEGIN FIRST LEVEL FLUX CALCULATION
   IF istep 1 > THEN
-* homogenize from 171 mixtures to 47 mixtures and condense to 1-group
-* in order to average number densities
+    ! homogenize from 171 mixtures to 47 mixtures and
+    ! condense to 1-group in order to average number densities
     EDIHOM := EDI: FLUX2 LIBEQ TRACKN2 ::
       EDIT 0
       MICR ALL
@@ -251,7 +231,7 @@ WHILE istep maxstep < DO
     ;
     EDIHOM := DELETE: EDIHOM ;
 
-* recover number densities from LIBHOM and copy them in LIBRARY2
+    ! recover number densities from LIBHOM and copy them in LIBRARY2
     LIBRARY2 := LIB: LIBRARY2 LIBHOM ::
       EDIT 0
       MAXS
@@ -273,9 +253,7 @@ WHILE istep maxstep < DO
   FLUX := FLU: LIBRARY2 SYS TRACKN1 ::
     EDIT 1 TYPE K ;
 
-*----
-*  26 groups energy condensation
-*----
+ ! 26 groups energy condensation
   EDITION := EDI: FLUX LIBRARY2 TRACKN1 ::
     EDIT 0
     MICR ALL
@@ -289,12 +267,9 @@ WHILE istep maxstep < DO
   LIBEQ := SPH: LIBEQ TRACKN1 :: EDIT 2 GRMAX 22 ;
 
   FLUX SYS EDITION := DELETE: FLUX SYS EDITION ;
-************************************************************************
-*  END FIRST LEVEL FLUX CALCULATION                                    *
-************************************************************************
-************************************************************************
-*  BEGIN SECOND LEVEL FLUX CALCULATION                                 *
-************************************************************************
+  ! END FIRST LEVEL FLUX CALCULATION
+
+  ! BEGIN SECOND LEVEL FLUX CALCULATION
   LIBEQ := MultLIBEQ LIBEQ ;
   SYS := ASM: LIBEQ TRACKN2 TF_EXC :: ARM EDIT 1 ;
 
@@ -367,19 +342,13 @@ WHILE istep maxstep < DO
     SYS := DELETE: SYS ;
   
   ENDIF ;
-
-************************************************************************
-*  END SECOND LEVEL FLUX CALCULATION                                   *
-************************************************************************
+  ! END SECOND LEVEL FLUX CALCULATION
 
 ENDWHILE ;
-
+! END DEPLETION CALCULATION
 BURN2 := BURNUP ;
 
 assertS FLUX2 :: K-EFFECTIVE 1 0.7869933 ;
-************************************************************************
-*  END SECOND LEVEL FLUX CALCULATION                                   *
-************************************************************************
 
 ECHO "test ASSBLY_CASED completed" ;
 END: ;
