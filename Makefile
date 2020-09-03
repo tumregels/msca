@@ -33,84 +33,61 @@ pull-serpent-dry: ## pull dry serpent data
 
 
 # Dragon
-push-assembly-all:
-	rsync -avzP ./Dragon/ASSBLY_? $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+push-dragon:
+	rsync -avzP ./Dragon $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-push-assembly-all-dry:
-	rsync -anv ./Dragon/ASSBLY_? $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+push-dragon-dry:
+	rsync -anv ./Dragon $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-pull-assembly-all:
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_* ./Dragon
+pull-dragon:
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR) ./Dragon
 
-pull-assembly-all-dry:
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_* ./Dragon
+pull-dragon-dry:
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR) ./Dragon
 
-push-pin-all:
+push-pins:
 	rsync -avzP ./Dragon/PIN_? $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-push-pin-all-dry:
+push-pins-dry:
 	rsync -anv ./Dragon/PIN_? $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-pull-pin-all:
+pull-pins:
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/PIN_? ./Dragon
 
-pull-pin-all-dry:
+pull-pins-dry:
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_? ./Dragon
 
-# ASSBLY_D
-push-assbly-d: ## push ASSBLY_D
-	rsync -avzP ./Dragon/ASSBLY_D $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+# 1L
+push-1L: ## push 1L_SHORT inputs
+	rsync -avzP ./Dragon/1L $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-push-assbly-d-dry: ## push dry ASSBLY_A
-	rsync -anv ./Dragon/ASSBLY_D $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+push-1L-dry: ## push 1L_SHORT inputs dry
+	rsync -anv ./Dragon/1L $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-pull-assbly-d: ## pull ASSBLY_A
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_D ./Dragon --exclude '_*'
+pull-1L: ## pull 1L_SHORT data
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/1L ./Dragon
 
-pull-assbly-d-dry:  ## pull dry ASSBLY_A
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/ASSBLY_D ./Dragon --exclude '_*'
+pull-1L-dry: ## pull dry 1L_SHORT data
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/1L ./Dragon
 
-# PIN_A
-push-pin-a: ## push PIN_A
-	rsync -avzP ./Dragon/PIN_A $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+# 2L
+push-2L: ## push 2L inputs
+	rsync -avzP ./Dragon/2L $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-push-pin-a-dry: ## push dry PIN_A
-	rsync -anv ./Dragon/PIN_A $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
+push-2L-dry: ## push 2L inputs dry
+	rsync -anv ./Dragon/2L $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-pull-pin-a: ## pull PIN_A
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/PIN_A ./Dragon
+pull-2L: ## pull 2L data
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/2L ./Dragon
 
-pull-pin-a-dry: ## pull dry PIN_A
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_A ./Dragon
+pull-2L-dry: ## pull dry 1L_LONG data
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/2L ./Dragon
 
+keff: ## extract keff data from *.result files using ripgrep
+	rg -u -o -I '\|\+.*?(\d+\.\d+e.\d+)\s+Keff=\s+(\d+\.\d+e.\d+).*?$' -r '$1 $2' | cat > keff.txt
 
-# 1L_SHORT
-push-1L_SHORT: ## push 1L_SHORT inputs
-	rsync -avzP ./Dragon/1L_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
-
-push-1L_SHORT-dry: ## push 1L_SHORT inputs dry
-	rsync -anv ./Dragon/1L_SHORT $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
-
-pull-1L_SHORT: ## pull 1L_SHORT data
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/1L_SHORT ./Dragon
-
-pull-1L_SHORT-dry: ## pull dry 1L_SHORT data
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/1L_SHORT ./Dragon
-
-
-# 1L_LONG
-push-1L_LONG: ## push 1L_LONG inputs
-	rsync -avzP ./Dragon/1L_LONG $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
-
-push-1L_LONG-dry: ## push 1L_LONG inputs dry
-	rsync -anv ./Dragon/1L_LONG $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
-
-pull-1L_LONG: ## pull 1L_LONG data
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/1L_LONG ./Dragon
-
-pull-1L_LONG-dry: ## pull dry 1L_LONG data
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/1L_LONG ./Dragon
-
+clean-data: ## replace string using ripgrep and sed
+	rg -u 'ABC' -g '!Makefile' -l | xargs sed -i 's/ABC//g'
 
 clean:  ## clean up project
 	find . -type d -name __pycache__ -exec rm -r {} \+
