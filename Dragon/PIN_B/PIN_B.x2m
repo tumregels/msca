@@ -41,7 +41,7 @@ EVALUATE RCOMB6 := 0.95 SQRT RCOMB7 * ;
 
 REAL Kinf1 Keff1 ;
 
-! GEOMETRIE
+! GEOMETRY
 
 GEOM := GEO: :: CARCEL 6
       X- REFL X+ REFL
@@ -123,7 +123,7 @@ EDIOBJ := EDI: FLUX LIBRARY2 TRACK ::
 
 ! BURN UP
 
-REAL Norm_f2 := 39.0 ; ! power norm 39W/gU
+REAL Norm_f2 := 39.0 ; ! POWER NORM 39W/g
 INTEGER istep :=  1 ;
 INTEGER nstep := 60 ;
 INTEGER nauto := 60 ;
