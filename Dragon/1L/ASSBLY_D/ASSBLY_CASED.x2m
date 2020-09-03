@@ -1,6 +1,6 @@
 ************************************************************************
 *  case ASSBLY_CASED                                                   *
-*  295-group 1/8-th assembly in DRAGON -- 1-level scheme      *
+*  295-group 1/8-th assembly in DRAGON -- 1-level scheme               *
 *  Author: A. Canbakan                                                 *
 ************************************************************************
 
@@ -104,7 +104,7 @@ DONNEES := UTL: ::
 ;
 DONNEES := UTL: DONNEES ::
   CREA
-        AUTOP <<maxautop>> =
+    AUTOP <<maxautop>> =
       1000.0    4000.0    8000.0   12000.0   16000.0   24000.0   36000.0
      48000.0   60000.0   70000.0
 ;
@@ -242,7 +242,7 @@ WHILE istep maxstep < DO
     BCOND2_F := RES_F :: STEP UP COND2 ;
   ENDIF ;
 
-  * PEAK is at step 75 burnup 16000.0
+  ! PEAK is at step 75 burnup 16000.0
   IF istep 75 = THEN
     RES_P := EDI: FLUX2 LIBRARY2 TRACKN2 :: EDIT 5
       MICR 11 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
