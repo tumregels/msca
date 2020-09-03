@@ -100,7 +100,7 @@ DONNEES := UTL: ::
   ;
 DONNEES := UTL: DONNEES ::
   CREA
-        AUTOP <<maxautop>> =
+    AUTOP <<maxautop>> =
       1000.0    4000.0    8000.0   12000.0   16000.0   24000.0   36000.0
      48000.0   60000.0   70000.0
   ;
@@ -143,14 +143,14 @@ WHILE istep maxstep < DO
  ! BEGIN FIRST LEVEL FLUX CALCULATION
   EVALUATE istep := istep 1 + ;
   ECHO "istep: " istep "/" maxstep ;
- 
+
   EVALUATE BUbeg Tbeg := BUend Tend ;
   GREP: DONNEES :: GETVAL 'BURN' <<istep>> >>BUend<< ;
   EVALUATE Tend := BUend Fuelpwr / ;
   ECHO Tbeg ;
   ECHO Tend ;
 
- ! BEGIN SELF-SHIELDING CALCULATION
+  ! BEGIN SELF-SHIELDING CALCULATION
   IF istep 1 = THEN
     LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 GRMIN 52
       CALC  REGI W1 U235   ALL
@@ -225,7 +225,7 @@ WHILE istep maxstep < DO
       166 167 168 169 170 171
       SAVE ON HOMOGENE
     ;
-  
+
     LIBHOM := EDIHOM ::
       STEP UP HOMOGENE
     ;
@@ -244,7 +244,7 @@ WHILE istep maxstep < DO
       MIX 134 MIX 135 MIX 136 MIX 137 MIX 138 MIX 139 MIX 164 MIX 165
       MIX 166 MIX 167 MIX 168 MIX 169 MIX 170 MIX 171
     ;
-   
+
     LIBEQ LIBHOM := DELETE: LIBEQ LIBHOM ;
   ENDIF ;
 
@@ -253,7 +253,7 @@ WHILE istep maxstep < DO
   FLUX := FLU: LIBRARY2 SYS TRACKN1 ::
     EDIT 1 TYPE K ;
 
- ! 26 groups energy condensation
+  ! 26 groups energy condensation
   EDITION := EDI: FLUX LIBRARY2 TRACKN1 ::
     EDIT 0
     MICR ALL
@@ -291,7 +291,7 @@ WHILE istep maxstep < DO
     ;
     BCOND2_F := RES_F :: STEP UP COND2 ;
   ENDIF ;
-  
+
   ! PEAK is at step 74 burnup 16000.0
   IF istep 74 = THEN
     RES_P := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5
@@ -303,7 +303,7 @@ WHILE istep maxstep < DO
     ;
     BCOND2_P := RES_P :: STEP UP COND2 ;
   ENDIF ;
-  
+
   IF istep maxstep = THEN
     RES_L := EDI: FLUX2 LIBEQ TRACKN2 :: EDIT 5
       MICR 15 U235 U238 O16 U235Gd U238Gd O16Gd2 Gd154 Gd155
@@ -314,15 +314,15 @@ WHILE istep maxstep < DO
     ;
     BCOND2_L := RES_L :: STEP UP COND2 ;
   ENDIF ;
-  
+
   GREP: FLUX2 :: GETVAL 'K-EFFECTIVE  ' 1 1 1 >>Keff<< ;
   ECHO "+++ Burnup=" BUend " Keff=" Keff ;
-  
+
   IF istep maxstep < THEN
     EVALUATE istepNext := istep 1 + ;
     GREP: DONNEES :: GETVAL 'BURN' <<istepNext>> >>BUend<< ;
     EVALUATE Tend := BUend Fuelpwr / ;
-  
+
     IF istep 1 = THEN
       BURNUP LIBEQ := EVO: LIBEQ FLUX2 TRACKN2 ::
         EDIT 3 DEPL <<Tbeg>> <<Tend>> DAY POWR <<Fuelpwr>>
@@ -338,9 +338,9 @@ WHILE istep maxstep < DO
         ;
       ENDIF ;
     ENDIF ;
-  
+
     SYS := DELETE: SYS ;
-  
+
   ENDIF ;
   ! END SECOND LEVEL FLUX CALCULATION
 
