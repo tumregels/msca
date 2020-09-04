@@ -259,7 +259,7 @@ WHILE istep maxstep < DO
 
   IF istep 1 = THEN
     RES_F := EDI: FLUX2 LIBRARY2 TRACKN2 :: EDIT 5
-      MICR 3 U235 U238 O16
+      MICR 5 U235 U238 O16 Pu239 Pu241
       MERG MIX
       COND 0.625
       SAVE ON COND2
@@ -269,7 +269,7 @@ WHILE istep maxstep < DO
 
   IF istep maxstep = THEN
     RES_L := EDI: FLUX2 LIBRARY2 TRACKN2 :: EDIT 5
-      MICR 3 U235 U238 O16
+      MICR 5 U235 U238 O16 Pu239 Pu241
       MERG MIX
       COND 0.625
       SAVE ON COND2
