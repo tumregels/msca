@@ -59,6 +59,7 @@ GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
                       <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
                       <<Lame>> ;
+
 ASSBLY_CASEA FIGASB_CASEA := G2S: GEON2 ;
 ! END GEOMETRY
 
@@ -79,13 +80,13 @@ DONNEES := UTL: ::
         38000.0   40000.0   42000.0   44000.0   46000.0   48000.0
         50000.0   52000.0   54000.0   56000.0   58000.0   60000.0
         62000.0   64000.0   66000.0   68000.0   70000.0
-    ;
+;
 DONNEES := UTL: DONNEES ::
   CREA
     AUTOP <<maxautop>> =
          4000.0    8000.0   12000.0   24000.0   36000.0   48000.0
         60000.0   70000.0
-    ;
+;
 ! END DECLARATION
 
 ! BEGIN TRACKING
@@ -135,6 +136,7 @@ WHILE istep maxstep < DO
   IF istep 1 = THEN
     LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 2 ARM GRMIN 52
       CALC REGI W1 U235 ALL
+
            REGI W1 U238 3
            REGI W2 U238 4
            REGI W3 U238 5
@@ -182,6 +184,7 @@ WHILE istep maxstep < DO
       LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 2
         GRMIN 52
         CALC  REGI W1 U235 ALL
+
               REGI W1 U238 3
               REGI W2 U238 4
               REGI W3 U238 5

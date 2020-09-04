@@ -45,7 +45,6 @@ EVALUATE CoteL := 1.302 ;
 EVALUATE Lame := CoteL Cote - ;
 EVALUATE RmodeN1 := 0.670 ;
 
-
 GEOSS := Geo_SS :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
                       <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
@@ -126,48 +125,47 @@ WHILE istep maxstep < DO
   ! BEGIN SELF-SHIELDING CALCULATION
   IF istep 1 = THEN
     LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 2 ARM GRMIN 52
-      CALC  REGI W1 U235 ALL
+      CALC REGI W1 U235 ALL
 
-            REGI W1 U238 3
-            REGI W2 U238 4
-            REGI W3 U238 5
-            REGI W4 U238 6
+           REGI W1 U238 3
+           REGI W2 U238 4
+           REGI W3 U238 5
+           REGI W4 U238 6
 
-            REGI W1 U238 9
-            REGI W2 U238 10
-            REGI W3 U238 11
-            REGI W4 U238 12
+           REGI W1 U238 9
+           REGI W2 U238 10
+           REGI W3 U238 11
+           REGI W4 U238 12
 
-            REGI W1 U238 94
-            REGI W2 U238 95
-            REGI W3 U238 96
-            REGI W4 U238 97
+           REGI W1 U238 94
+           REGI W2 U238 95
+           REGI W3 U238 96
+           REGI W4 U238 97
 
-            REGI W1 U238 114
-            REGI W2 U238 115
-            REGI W3 U238 116
-            REGI W4 U238 117
+           REGI W1 U238 114
+           REGI W2 U238 115
+           REGI W3 U238 116
+           REGI W4 U238 117
 
-            REGI W1 U238 122
-            REGI W2 U238 123
-            REGI W3 U238 124
-            REGI W4 U238 125
+           REGI W1 U238 122
+           REGI W2 U238 123
+           REGI W3 U238 124
+           REGI W4 U238 125
 
-            REGI W1 U238 126
-            REGI W2 U238 127
-            REGI W3 U238 128
-            REGI W4 U238 129
+           REGI W1 U238 126
+           REGI W2 U238 127
+           REGI W3 U238 128
+           REGI W4 U238 129
 
-            REGI W1 U238 154
-            REGI W2 U238 155
-            REGI W3 U238 156
-            REGI W4 U238 157
+           REGI W1 U238 154
+           REGI W2 U238 155
+           REGI W3 U238 156
+           REGI W4 U238 157
 
-            REGI W1 U238 158
-            REGI W2 U238 159
-            REGI W3 U238 160
-            REGI W4 U238 161
-
+           REGI W1 U238 158
+           REGI W2 U238 159
+           REGI W3 U238 160
+           REGI W4 U238 161
       ENDC ;
   ELSE
     GREP: DONNEES :: GETVAL "AUTOP" <<iAutop>> >>BUautop<< ;
@@ -175,54 +173,52 @@ WHILE istep maxstep < DO
     IF BUautop BU = THEN
       LIBRARY2 := USS: LIBRARY LIBRARY2 TRACKSS :: EDIT 1 PASS 2
         GRMIN 52
-        CALC  REGI W1 U235 ALL
+        CALC REGI W1 U235 ALL
 
-              REGI W1 U238 3
-              REGI W2 U238 4
-              REGI W3 U238 5
-              REGI W4 U238 6
+             REGI W1 U238 3
+             REGI W2 U238 4
+             REGI W3 U238 5
+             REGI W4 U238 6
 
-              REGI W1 U238 9
-              REGI W2 U238 10
-              REGI W3 U238 11
-              REGI W4 U238 12
+             REGI W1 U238 9
+             REGI W2 U238 10
+             REGI W3 U238 11
+             REGI W4 U238 12
 
-              REGI W1 U238 94
-              REGI W2 U238 95
-              REGI W3 U238 96
-              REGI W4 U238 97
+             REGI W1 U238 94
+             REGI W2 U238 95
+             REGI W3 U238 96
+             REGI W4 U238 97
 
-              REGI W1 U238 114
-              REGI W2 U238 115
-              REGI W3 U238 116
-              REGI W4 U238 117
+             REGI W1 U238 114
+             REGI W2 U238 115
+             REGI W3 U238 116
+             REGI W4 U238 117
 
-              REGI W1 U238 122
-              REGI W2 U238 123
-              REGI W3 U238 124
-              REGI W4 U238 125
+             REGI W1 U238 122
+             REGI W2 U238 123
+             REGI W3 U238 124
+             REGI W4 U238 125
 
-              REGI W1 U238 126
-              REGI W2 U238 127
-              REGI W3 U238 128
-              REGI W4 U238 129
+             REGI W1 U238 126
+             REGI W2 U238 127
+             REGI W3 U238 128
+             REGI W4 U238 129
 
-              REGI W1 U238 154
-              REGI W2 U238 155
-              REGI W3 U238 156
-              REGI W4 U238 157
+             REGI W1 U238 154
+             REGI W2 U238 155
+             REGI W3 U238 156
+             REGI W4 U238 157
 
-              REGI W1 U238 158
-              REGI W2 U238 159
-              REGI W3 U238 160
-              REGI W4 U238 161
-
+             REGI W1 U238 158
+             REGI W2 U238 159
+             REGI W3 U238 160
+             REGI W4 U238 161
         ENDC ;
       EVALUATE iAutop := iAutop 1 + ;
     ENDIF ;
   ENDIF ;
   ! END SELF-SHIELDING CALCULATION
-
 
   ! BEGIN MOC FLUX CALCULATION
   SYS := ASM: LIBRARY2 TRACKN2 TF_EXC :: ARM EDIT 1 ;

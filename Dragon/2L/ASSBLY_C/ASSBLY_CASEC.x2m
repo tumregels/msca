@@ -22,7 +22,7 @@ SEQ_ASCII FIGASB_CASEC :: FILE './FIGASB_CASEC.ps' ;
 SEQ_BINARY TF_EXC ;
 INTEGER an2d := 8 ;
 REAL densur := 20.0 ;
-INTEGER istep maxstep istepNext maxautop iAutop := 0 108 0 10 1 ;
+INTEGER istep maxstep istepNext maxautop iAutop := 0 109 0 10 1 ;
 REAL delr BUbeg BUend Tbeg Tend := 0.01 0.0 0.0 0.0 0.0 ;
 REAL Fuelpwr Keff := 39.0 0.0 ;
 REAL BU BUautop  := 0.0 0.0 ;
@@ -81,7 +81,7 @@ ASSBLY_CASEC FIGASB_CASEC := G2S: GEON2 ;
 DONNEES := UTL: ::
   CREA
     BURN <<maxstep>> =
-           0.0       7.5      15.0      30.0      50.0     70.0    112.5
+           0.0       7.5      15.0      30.0      50.0     75.0    112.5
          150.0     200.0     250.0     375.0     500.0    625.0    750.0
          875.0    1000.0    1250.0    1500.0    1750.0   2000.0   2250.0
         2500.0    2750.0    3000.0    3250.0    3500.0   3750.0   4000.0
@@ -97,13 +97,13 @@ DONNEES := UTL: ::
        36000.0   38000.0   40000.0   42000.0   44000.0  46000.0  48000.0
        50000.0   52000.0   54000.0   56000.0   58000.0  60000.0  62000.0
        64000.0   66000.0   68000.0   70000.0
-  ;
+;
 DONNEES := UTL: DONNEES ::
   CREA
     AUTOP <<maxautop>> =
         1000.0    4000.0    8000.0   12000.0   16000.0  24000.0  36000.0
        48000.0   60000.0   70000.0
-  ;
+;
 ! END DECLARATION
 
 ! BEGIN TRACKING
