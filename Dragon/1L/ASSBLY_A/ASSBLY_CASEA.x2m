@@ -1,11 +1,13 @@
-*----
-* case ASSBLY_CASEA
-* 295-group/26group eighth assembly in DRAGON -- 1-level scheme
-* Author: A. Hebert
-*----
+************************************************************************
+*  case ASSBLY_CASEA                                                   *
+*  295-group 1/8-th assembly in DRAGON -- 1-level scheme               *
+*  Author: A. Canbakan                                                 *
+************************************************************************
+
+! BEGIN STRUCTURES and MODULES
 LINKED_LIST GEOSS GEON2 TRACKSS TRACKN2 LIBRARY LIBRARY2
             SYS FLUX2 EDITION DONNEES LIBHOM BURNUP
-	          EDIHOM RES_F RES_L ;
+            EDIHOM RES_F RES_L ;
 MODULE SYBILT: G2S: SALT: MCCGT: USS: ASM: FLU: EDI: SPH: UTL: DELETE:
        END: EVO: GREP: LIB: ABORT: ;
 REAL Rcomb1 Rcomb2 Rcomb3 Rcomb4 R_int_TG R_ext_TG R_int_TI R_ext_TI
@@ -25,10 +27,9 @@ REAL BU BUautop  := 0.0 0.0 ;
 STRING Library := "DLIB_295" ;
 PROCEDURE Geo_SS Geo_N2 Mix_UOX ;
 PROCEDURE assertS ;
+! END STRUCTURES AND MODULES
 
-************************************************************************
-*  BEGIN GEOMETRY                                                      *
-************************************************************************
+! BEGIN GEOMETRY
 EVALUATE Rcomb4 := 0.4096 ;
 EVALUATE Rcomb1 := 0.5 SQRT Rcomb4 * ;
 EVALUATE Rcomb2 := 0.8 SQRT Rcomb4 * ;
@@ -56,13 +57,9 @@ GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<Lame>> ;
 
 ASSBLY_CASEA FIGASB_CASEA := G2S: GEON2 ;
+! END GEOMETRY
 
-************************************************************************
-*  END GEOMETRY                                                        *
-************************************************************************
-************************************************************************
-*  BEGIN DECLARATION                                                   *
-************************************************************************
+! BEGIN DECLARATION
 DONNEES := UTL: ::
   CREA
     BURN <<maxstep>> =
@@ -86,12 +83,9 @@ DONNEES := UTL: DONNEES ::
          4000.0    8000.0   12000.0   24000.0   36000.0   48000.0
         60000.0   70000.0
 ;
-************************************************************************
-*  END DECLARATION                                                     *
-************************************************************************
-************************************************************************
-*  BEGIN TRACKING                                                      *
-************************************************************************
+! END DECLARATION
+
+! BEGIN TRACKING
 ! Level One
 TRACKSS := SYBILT: GEOSS ::
   EDIT 0
@@ -110,27 +104,16 @@ TRACKN2 TF_EXC := SALT: ASSBLY_CASEA ::
 TRACKN2 := MCCGT: TRACKN2 TF_EXC ::
   CACB 4 AAC 80 TMT EPSI 1E-5 MCU 10000
 ;
-************************************************************************
-*  END TRACKING                                                        *
-************************************************************************
-************************************************************************
-*  BEGIN LIBRARY READING                                               *
-************************************************************************
-LIBRARY := Mix_UOX :: <<Library>> ;
+! END TRACKING
 
-************************************************************************
-*  END LIBRARY READING                                                 *
-************************************************************************
-************************************************************************
-*  BEGIN DEPLETION                                                     *
-************************************************************************
+! BEGIN LIBRARY READING
+LIBRARY := Mix_UOX :: <<Library>> ;
+! END LIBRARY READING
+
+! BEGIN DEPLETION
 WHILE istep maxstep < DO
 
-************************************************************************
-*  BEGIN FIRST LEVEL FLUX CALCULATION                                  *
-************************************************************************
-
-
+  ! BEGIN FIRST LEVEL FLUX CALCULATION
   EVALUATE istep := istep 1 + ;
   ECHO "istep: " istep "/" maxstep ;
  
@@ -140,9 +123,7 @@ WHILE istep maxstep < DO
   ECHO Tbeg ;
   ECHO Tend ;
 
-************************************************************************
-*  BEGIN SELF-SHIELDING CALCULATION                                    *
-************************************************************************
+  ! BEGIN SELF-SHIELDING CALCULATION
   IF istep 1 = THEN
     LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 2 ARM GRMIN 52
       CALC  REGI W1 U235 ALL
@@ -240,13 +221,10 @@ WHILE istep maxstep < DO
       EVALUATE iAutop := iAutop 1 + ;
     ENDIF ;
   ENDIF ;
+  ! END SELF-SHIELDING CALCULATION
 
-************************************************************************
-*  END SELF-SHIELDING CALCULATION                                      *
-************************************************************************
-************************************************************************
-*  BEGIN MOC FLUX CALCULATION                                          *
-************************************************************************
+
+  ! BEGIN MOC FLUX CALCULATION
   SYS := ASM: LIBRARY2 TRACKN2 TF_EXC :: ARM EDIT 1 ;
 
   IF istep 1 = THEN
@@ -298,19 +276,14 @@ WHILE istep maxstep < DO
     SYS := DELETE: SYS ;
 
   ENDIF ;
-
-************************************************************************
-*  END MOC FLUX CALCULATION                                            *
-************************************************************************
+  ! END MOC FLUX CALCULATION
 
 ENDWHILE ;
+! END DEPLETION CALCULATION
 
 BURN2 := BURNUP ;
 
 assertS FLUX2 :: K-EFFECTIVE 1 0.7442713 ;
-************************************************************************
-*  END DEPLETION CALCULATION                                           *
-************************************************************************
 
 ECHO "test ASSBLY_CASEA_1level completed" ;
 END: ;

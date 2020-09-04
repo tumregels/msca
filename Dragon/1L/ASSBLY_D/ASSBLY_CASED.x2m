@@ -4,9 +4,7 @@
 *  Author: A. Canbakan                                                 *
 ************************************************************************
 
-************************************************************************
-*  BEGIN STRUCTURES and MODULES                                        *
-************************************************************************
+! BEGIN STRUCTURES and MODULES
 LINKED_LIST GEOSS GEON2 TRACKSS TRACKN2 LIBRARY LIBRARY2
             SYS FLUX FLUX2 EDITION DONNEES LIBHOM BURNUP
             EDIHOM RES_F RES_P RES_L ;
@@ -31,13 +29,9 @@ REAL BU BUautop  := 0.0 0.0 ;
 STRING Library := "DLIB_295" ;
 PROCEDURE Geo_SS Geo_N2 Mix_Gad ;
 PROCEDURE assertS ;
+! END STRUCTURES AND MODULES
 
-************************************************************************
-*  END STRUCTURES AND MODULES                                          *
-************************************************************************
-************************************************************************
-*  BEGIN GEOMETRY                                                      *
-************************************************************************
+! BEGIN GEOMETRY
 EVALUATE Rcomb4 := 0.4096 ;
 EVALUATE Rcomb1 := 0.5 SQRT Rcomb4 * ;
 EVALUATE Rcomb2 := 0.8 SQRT Rcomb4 * ;
@@ -75,13 +69,9 @@ GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
                       <<Rcomb5Gad>> <<Rcomb6Gad>> ;
 
 ASSBLY_CASED FIGASB_CASED := G2S: GEON2 ;
+! END GEOMETRY
 
-************************************************************************
-*  END GEOMETRY                                                        *
-************************************************************************
-************************************************************************
-*  BEGIN DECLARATION                                                   *
-************************************************************************
+! BEGIN DECLARATION
 DONNEES := UTL: ::
   CREA
     BURN <<maxstep>> =
@@ -108,12 +98,9 @@ DONNEES := UTL: DONNEES ::
       1000.0    4000.0    8000.0   12000.0   16000.0   24000.0   36000.0
      48000.0   60000.0   70000.0
 ;
-************************************************************************
-*  END DECLARATION                                                     *
-************************************************************************
-************************************************************************
-*  BEGIN TRACKING                                                      *
-************************************************************************
+! END DECLARATION
+
+! BEGIN TRACKING
 ! Level One
 TRACKSS := SYBILT: GEOSS ::
   EDIT 0
@@ -132,27 +119,16 @@ TRACKN2 TF_EXC := SALT: ASSBLY_CASED ::
 TRACKN2 := MCCGT: TRACKN2 TF_EXC ::
   CACB 4 AAC 80 TMT EPSI 1E-5 MCU 10000
 ;
-************************************************************************
-*  END TRACKING                                                        *
-************************************************************************
-************************************************************************
-*  BEGIN LIBRARY READING                                               *
-************************************************************************
-LIBRARY := Mix_Gad :: <<Library>> ;
+! END TRACKING
 
-************************************************************************
-*  END LIBRARY READING                                                 *
-************************************************************************
-************************************************************************
-*  BEGIN DEPLETION                                                     *
-************************************************************************
+! BEGIN LIBRARY READING
+LIBRARY := Mix_Gad :: <<Library>> ;
+! END LIBRARY READING
+
+! BEGIN DEPLETION
 WHILE istep maxstep < DO
 
-************************************************************************
-*  BEGIN FIRST LEVEL FLUX CALCULATION                                  *
-************************************************************************
-
-
+  ! BEGIN FIRST LEVEL FLUX CALCULATION
   EVALUATE istep := istep 1 + ;
   ECHO "istep: " istep "/" maxstep ;
  
@@ -162,9 +138,7 @@ WHILE istep maxstep < DO
   ECHO Tbeg ;
   ECHO Tend ;
 
-************************************************************************
-*  BEGIN SELF-SHIELDING CALCULATION                                    *
-************************************************************************
+  ! BEGIN SELF-SHIELDING CALCULATION
   IF istep 1 = THEN
     LIBRARY2 := USS: LIBRARY TRACKSS :: EDIT 1 PASS 3 GRMIN 52
       CALC  REGI W1 U235   ALL
@@ -214,13 +188,9 @@ WHILE istep maxstep < DO
       EVALUATE iAutop := iAutop 1 + ;
     ENDIF ;
   ENDIF ;
+  ! END SELF-SHIELDING CALCULATION
 
-************************************************************************
-*  END SELF-SHIELDING CALCULATION                                      *
-************************************************************************
-************************************************************************
-*  BEGIN MOC FLUX CALCULATION                                          *
-************************************************************************
+  ! BEGIN MOC FLUX CALCULATION
   SYS := ASM: LIBRARY2 TRACKN2 TF_EXC :: ARM EDIT 1 ;
 
   IF istep 1 = THEN
@@ -292,19 +262,14 @@ WHILE istep maxstep < DO
     SYS := DELETE: SYS ;
 
   ENDIF ;
-
-************************************************************************
-*  END MOC FLUX CALCULATION                                            *
-************************************************************************
+  ! END MOC FLUX CALCULATION
 
 ENDWHILE ;
+! END DEPLETION CALCULATION
 
 BURN2 := BURNUP ;
 
 assertS FLUX2 :: K-EFFECTIVE 1 0.7892528 ;
-************************************************************************
-*  END DEPLETION CALCULATION                                           *
-************************************************************************
 
 ECHO "test ASSBLY_CASED_1level completed" ;
 END: ;
