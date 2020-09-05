@@ -40,22 +40,10 @@ push-dragon-dry:
 	rsync -anv ./Dragon $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 pull-dragon:
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR) ./Dragon
+	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/Dragon .
 
 pull-dragon-dry:
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR) ./Dragon
-
-push-pins:
-	rsync -avzP ./Dragon/PIN_? $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
-
-push-pins-dry:
-	rsync -anv ./Dragon/PIN_? $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
-
-pull-pins:
-	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/PIN_? ./Dragon
-
-pull-pins-dry:
-	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/PIN_? ./Dragon
+	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/Dragon .
 
 # 1L
 push-1L: ## push 1L_SHORT inputs
@@ -86,7 +74,7 @@ pull-2L-dry: ## pull dry 1L_LONG data
 keff: ## extract keff data from *.result files using ripgrep
 	rg -u -o -I '\|\+.*?(\d+\.\d+e.\d+)\s+Keff=\s+(\d+\.\d+e.\d+).*?$' -r '$1 $2' | cat > keff.txt
 
-clean-data: ## replace string using ripgrep and sed
+replace: ## replace string using ripgrep and sed
 	rg -u 'ABC' -g '!Makefile' -l | xargs sed -i 's/ABC//g'
 
 clean:  ## clean up project
