@@ -1,48 +1,49 @@
-*DECK Geo_SS
-*----
-*  Name          : Geo_SS.c2m
-*  Type          : DRAGON procedure
-*  Use           : Geometry generation for Self-Shielding Calculation
-*                  of the CASEA assembly
-*  Author        : A. Canbakan
-*
-*  Procedure called as:
-*
-*GEOSS := Geo_SS :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
-*                   <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
-*                   <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
-*                   <<CoteL>> ;
-*
-*  Input data   :
-*    Rcomb1     :  50/100 of outer radius of fuel (cm)
-*    Rcomb2     :  80/100 of outer radius of fuel (cm)
-*    Rcomb3     :  95/100 of outer radius of fuel (cm)
-*    Rcomb4     : 100/100 of outer radius of fuel (cm)
-*    R_int_TG   : Inner radius of cladding of guide tube (cm)
-*    R_ext_TG   : Outer radius of cladding of guide tube (cm)
-*    R_int_TI   : Inner radius of cladding of guide tube (cm)
-*    R_ext_TI   : Outer radius of cladding of guide tube (cm)
-*    R_int_G    : Inner radius of cladding of fuel tube (cm)
-*    R_ext_G    : Outer radius of cladding of fuel tube (cm)
-*    Cote       : Lattice pitch (cm)
-*    CoteL      : Lattice pitch + Water space (cm)
-*
-*  Output data  :
-*    GEOSS      : Geometry for Self-Shielding Calculation
+************************************************************************
+*  DECK Geo_SS                                                         *
+*                                                                      *
+*  Name          : Geo_SS.c2m                                          *
+*  Type          : DRAGON procedure                                    *
+*  Use           : Geometry generation for Self-Shielding Calculation  *
+*                  of the CASEA assembly                               *
+*  Author        : A. Canbakan                                         *
+*                                                                      *
+*  Procedure called as:                                                *
+*                                                                      *
+*GEOSS := Geo_SS :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>        *
+*                   <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>             *
+*                   <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>      *
+*                   <<CoteL>> ;                                        *
+*                                                                      *
+*  Input data   :                                                      *
+*    Rcomb1     :  50/100 of outer radius of fuel (cm)                 *
+*    Rcomb2     :  80/100 of outer radius of fuel (cm)                 *
+*    Rcomb3     :  95/100 of outer radius of fuel (cm)                 *
+*    Rcomb4     : 100/100 of outer radius of fuel (cm)                 *
+*    R_int_TG   : Inner radius of cladding of guide tube (cm)          *
+*    R_ext_TG   : Outer radius of cladding of guide tube (cm)          *
+*    R_int_TI   : Inner radius of cladding of guide tube (cm)          *
+*    R_ext_TI   : Outer radius of cladding of guide tube (cm)          *
+*    R_int_G    : Inner radius of cladding of fuel tube (cm)           *
+*    R_ext_G    : Outer radius of cladding of fuel tube (cm)           *
+*    Cote       : Lattice pitch (cm)                                   *
+*    CoteL      : Lattice pitch + Water space (cm)                     *
+*                                                                      *
+*  Output data  :                                                      *
+*    GEOSS      : Geometry for Self-Shielding Calculation              *
+************************************************************************
 
 PARAMETER  GEOSS  ::
        EDIT 0
            ::: LINKED_LIST GEOSS  ;
    ;
-*----
-*  Modules used in this procedure
-*----
+
+! Modules used in this procedure
+
 MODULE  GEO: END: ;
 
-*----
-*  Input data recovery
-*----
-*                                                                      ;
+
+! Input data recovery
+
 REAL Rcomb1       Rcomb2       Rcomb3       Rcomb4     ;
 :: >>Rcomb1<<   >>Rcomb2<<   >>Rcomb3<<   >>Rcomb4<<   ;
 REAL R_int_TG     R_ext_TG     R_int_TI     R_ext_TI   ;

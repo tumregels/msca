@@ -1,48 +1,49 @@
-*DECK Geo_N2
-*----
-*  Name          : Geo_N2.c2m
-*  Type          : DRAGON procedure
-*  Use           : Geometry generation for 2nd Level Flux Calculation
-*                  of the CASEA assembly
-*  Author        : A. Hebert
-*
-*  Procedure called as:
-*
-*GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>
-*                   <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>
-*                   <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>
-*                   <<Lame>> ;
-*
-*  Input data   :
-*    Rcomb1     :  50/100 of outer radius of fuel (cm)
-*    Rcomb2     :  80/100 of outer radius of fuel (cm)
-*    Rcomb3     :  95/100 of outer radius of fuel (cm)
-*    Rcomb4     : 100/100 of outer radius of fuel (cm)
-*    R_int_TG   : Inner radius of cladding of guide tube (cm)
-*    R_ext_TG   : Outer radius of cladding of guide tube (cm)
-*    R_int_TI   : Inner radius of cladding of guide tube (cm)
-*    R_ext_TI   : Outer radius of cladding of guide tube (cm)
-*    R_int_G    : Inner radius of cladding of fuel tube (cm)
-*    R_ext_G    : Outer radius of cladding of fuel tube (cm)
-*    Cote       : Lattice pitch (cm)
-*    Lame       : Water space (cm)
-*
-*  Output data  :
-*    GEON2      : Geometry for 2nd Level Flux Calculation
+************************************************************************
+*  DECK Geo_N2                                                         *
+*                                                                      *
+*  Name          : Geo_N2.c2m                                          *
+*  Type          : DRAGON procedure                                    *
+*  Use           : Geometry generation for 2nd Level Flux Calculation  *
+*                  of the CASEA assembly                               *
+*  Author        : A. Hebert                                           *
+*                                                                      *
+*  Procedure called as:                                                *
+*                                                                      *
+*GEON2 := Geo_N2 :: <<Rcomb1>> <<Rcomb2>> <<Rcomb3>> <<Rcomb4>>        *
+*                   <<R_int_TG>> <<R_ext_TG>> <<R_int_TI>>             *
+*                   <<R_ext_TI>> <<R_int_G>> <<R_ext_G>> <<Cote>>      *
+*                   <<Lame>> ;                                         *
+*                                                                      *
+*  Input data   :                                                      *
+*    Rcomb1     :  50/100 of outer radius of fuel (cm)                 *
+*    Rcomb2     :  80/100 of outer radius of fuel (cm)                 *
+*    Rcomb3     :  95/100 of outer radius of fuel (cm)                 *
+*    Rcomb4     : 100/100 of outer radius of fuel (cm)                 *
+*    R_int_TG   : Inner radius of cladding of guide tube (cm)          *
+*    R_ext_TG   : Outer radius of cladding of guide tube (cm)          *
+*    R_int_TI   : Inner radius of cladding of guide tube (cm)          *
+*    R_ext_TI   : Outer radius of cladding of guide tube (cm)          *
+*    R_int_G    : Inner radius of cladding of fuel tube (cm)           *
+*    R_ext_G    : Outer radius of cladding of fuel tube (cm)           *
+*    Cote       : Lattice pitch (cm)                                   *
+*    Lame       : Water space (cm)                                     *
+*                                                                      *
+*  Output data  :                                                      *
+*    GEON2      : Geometry for 2nd Level Flux Calculation              *
+************************************************************************
 
 PARAMETER  GEON2  ::
        EDIT 0
            ::: LINKED_LIST GEON2  ;
    ;
-*----
-*  Modules used in this procedure
-*----
+
+! Modules used in this procedure
+
 MODULE  GEO: END: ;
 
-*----
-*  Input data recovery
-*----
-*                                                                      ;
+
+! Input data recovery
+
 REAL Rcomb1       Rcomb2       Rcomb3       Rcomb4     ;
 :: >>Rcomb1<<   >>Rcomb2<<   >>Rcomb3<<   >>Rcomb4<<   ;
 REAL R_int_TG     R_ext_TG     R_int_TI     R_ext_TI   ;
@@ -65,7 +66,7 @@ REAL Rtub1_TG := R_int_TG 3.0 / ;
 REAL Rtub2_TG := R_int_TG 1.5 / ;
 REAL Rtub1_TI := R_int_TI 3.0 / ;
 REAL Rtub2_TI := R_int_TI 1.5 / ;
-*
+
 GEON2 := GEO: :: CAR2D 10 10
   EDIT 0
   X- DIAG X+ REFL
