@@ -33,16 +33,16 @@ pull-serpent-dry: ## pull dry serpent data
 
 
 # Dragon
-push-dragon:
+push-dragon: ## push all dragon inputs
 	rsync -avzP ./Dragon $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-push-dragon-dry:
+push-dragon-dry: ## push all dragon inputs dry
 	rsync -anv ./Dragon $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
-pull-dragon:
+pull-dragon: ## pull all dragon inputs
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/Dragon .
 
-pull-dragon-dry:
+pull-dragon-dry: ## pull all dragon inputs dry
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/Dragon .
 
 # 1L
