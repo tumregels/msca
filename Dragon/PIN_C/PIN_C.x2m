@@ -20,8 +20,8 @@ SEQ_ASCII _LIBR :: FILE './_LIB_rowland.txt' ;
 SEQ_ASCII _EDIT :: FILE './_EDIT_rowland.txt' ;
 
 MODULE LIB: GEO: SYBILT: G2S: SALT: MAC: USS:
-   TONE: ASM: FLU: DELETE: UTL: EVO: GREP:
-    EDI: END: ;
+  ASM: FLU: DELETE: UTL: EVO: GREP:
+  EDI: END: ;
 
 INTEGER COMB0101 COMB0105 COMB0106 COMB0107 GAP2 GAIN3 MODE4 :=
         1 5 6 7 2 3 4 ; !  DISTRIBUTED SELF-SHIELDING 
@@ -44,20 +44,20 @@ REAL Kinf1 Keff1 ;
 ! GEOMETRY
 
 GEOM := GEO: :: CARCEL 6
-      X- REFL X+ REFL
-      Y- REFL Y+ REFL
-      RADIUS 0.0 <<RCOMB1>> <<RCOMB5>>
-                 <<RCOMB6>> <<RCOMB7>> 0.4180 0.4750
-      MIX <<COMB0101>>  <<COMB0105>>
-          <<COMB0106>> <<COMB0107>> <<GAP2>> <<GAIN3>> <<MODE4>>
-      MESHX 0.0 1.2600 MESHY 0.0 1.2600
-          ;
+  X- REFL X+ REFL
+  Y- REFL Y+ REFL
+  RADIUS 0.0 <<RCOMB1>> <<RCOMB5>>
+             <<RCOMB6>> <<RCOMB7>> 0.4180 0.4750
+  MIX <<COMB0101>>  <<COMB0105>>
+      <<COMB0106>> <<COMB0107>> <<GAP2>> <<GAIN3>> <<MODE4>>
+  MESHX 0.0 1.2600 MESHY 0.0 1.2600
+;
 
 ! TRACKING
 
 TRACK_SS := SYBILT: GEOM ::
-     TITLE 'PIN_C BENCHMARK'
-     MAXR 20 QUA2 20 3 DP01 MAXZ 200000 ;
+  TITLE 'PIN_C BENCHMARK'
+  MAXR 20 QUA2 20 3 DP01 MAXZ 200000 ;
 
 UOX_TBH FIG.ps := G2S: GEOM :: DRAWNOD ;
 
@@ -70,38 +70,39 @@ TRACK TF_EXC := SALT: UOX_TBH ::
 ! LIBRARY
 
 LIBRARY := LIB: ::
- EDIT 1
- NMIX 7    ! MAXIMUM OF MATERIAL MIXTURES
- PT
- CTRA APOL ! APOLLO TYPE TRANSPORT CORRECTION
- ANIS 2
- ADED 4 NELAS N4N N2N N3N
- CALENDF 3 PT      ! CALENDF TYPE PROBABILITY TABLES
+  EDIT 1
+  NMIX 7    ! MAXIMUM OF MATERIAL MIXTURES
+  PT
+  CTRA APOL ! APOLLO TYPE TRANSPORT CORRECTION
+  ANIS 2
+  ADED 4 NELAS N4N N2N N3N
+  CALENDF 3 PT      ! CALENDF TYPE PROBABILITY TABLES
 
- DEPL LIB: DRAGON FIL: DLIB_295
+  DEPL LIB: DRAGON FIL: DLIB_295
 
- MIXS LIB: DRAGON FIL: DLIB_295
- MIX <<COMB0101>> 900.0
+  MIXS LIB: DRAGON FIL: DLIB_295
+
+  MIX <<COMB0101>> 900.0
     O16     = O16    4.48701E-2
     U235    = U235   1.01057E-3 1 IRSET PT 1
     U238    = U238   2.14140E-2 1 IRSET PT 1
- MIX <<COMB0105>> COMB <<COMB0101>> 1.0
- MIX <<COMB0106>> COMB <<COMB0101>> 1.0
- MIX <<COMB0107>> COMB <<COMB0101>> 1.0
- MIX <<GAP2>> 600.0 NOEV
+  MIX <<COMB0105>> COMB <<COMB0101>> 1.0
+  MIX <<COMB0106>> COMB <<COMB0101>> 1.0
+  MIX <<COMB0107>> COMB <<COMB0101>> 1.0
+  MIX <<GAP2>> 600.0 NOEV
     O16     = O16    3.76439E-6
- MIX <<GAIN3>> 600.0 NOEV
+  MIX <<GAIN3>> 600.0 NOEV
     Zr90    = Zr90   <<N_Zr90>> 2 IRSET PT 1
     Zr91    = Zr91   <<N_Zr91>> 2 IRSET PT 1
     Zr92    = Zr92   <<N_Zr92>> 2 IRSET PT 1
     Zr94    = Zr94   <<N_Zr94>>
     Zr96    = Zr96   <<N_Zr96>>
- MIX <<MODE4>> 600.0 NOEV
+  MIX <<MODE4>> 600.0 NOEV
     H1      = H1_H2O 4.69585E-2
     O16     = O16    2.34793E-2
     B10     = B10    5.53089E-6
     B11     = B11    2.18498E-5
- ;
+;
 
 ! SELF-SHIELDING & FLUX
 
@@ -114,8 +115,8 @@ FLUX := FLU: SYS LIBRARY2 TRACK :: EDIT 1 TYPE K ;
 EDIOBJ := EDI: FLUX LIBRARY2 TRACK ::
   EDIT 5
   MICR 11 U235 U238 Pu238 Pu239
-   Pu240 Pu241 Pu242 Am241 Am243
-   Cm242 Cm244
+    Pu240 Pu241 Pu242 Am241 Am243
+    Cm242 Cm244
   TAKE MIX 1 0 0 0 1 1 1
   COND
   SAVE ON FUEL
@@ -123,12 +124,12 @@ EDIOBJ := EDI: FLUX LIBRARY2 TRACK ::
 
 ! BURN UP
 
-REAL Norm_f2 := 39.0 ; ! POWER NORM 39W/g
+REAL    Norm_f2 := 39.0 ; ! POWER NORM 39W/g
 INTEGER istep :=  1 ;
 INTEGER nstep := 60 ;
 INTEGER nauto := 60 ;
 INTEGER iauto :=  1 ;
-INTEGER  valstep valauto ;
+INTEGER valstep valauto ;
 REAL    evobeg evoend step2 stepauto ;
 
 StepList := UTL: :: CREA 'ListBU' <<nstep>> =
@@ -144,7 +145,7 @@ StepList := UTL: :: CREA 'ListBU' <<nstep>> =
  42000.00  44000.00  46000.00  48000.00  50000.00
  52000.00  54000.00  56000.00  58000.00  60000.00
  62000.00  64000.00  66000.00  68000.00  70000.00
- ;
+;
 
 StepList := UTL: StepList :: CREA 'ListAutop' <<nauto>> =
     30.00     50.00     75.00    150.00    250.00
@@ -159,7 +160,7 @@ StepList := UTL: StepList :: CREA 'ListAutop' <<nauto>> =
  42000.00  44000.00  46000.00  48000.00  50000.00
  52000.00  54000.00  56000.00  58000.00  60000.00
  62000.00  64000.00  66000.00  68000.00  70000.00
- ;
+;
 
 GREP: FLUX :: GETVAL 'K-EFFECTIVE  ' 1 1 1 >>Keff1<< ;
 ECHO "+++ Burnup=" 0.0 " Keff=" Keff1 ;
@@ -176,19 +177,19 @@ WHILE istep nstep <= DO
 
   IF istep 1 = THEN
     BURNUP LIBRARY2 := EVO: LIBRARY2 FLUX TRACK ::
-     EDIT 2
-     DEPL <<evobeg>> <<evoend>> DAY POWR <<Norm_f2>>
-     KAPS EXTR NSAT NODI
-     GLOB
-     ;
+      EDIT 2
+      DEPL <<evobeg>> <<evoend>> DAY POWR <<Norm_f2>>
+      KAPS EXTR NSAT NODI
+      GLOB
+    ;
 
   ELSE
     BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 FLUX TRACK ::
-     EDIT 2
-     DEPL <<evobeg>> <<evoend>> DAY POWR <<Norm_f2>>
-     KAPS EXTR NSAT NODI
-     GLOB
-     ;
+      EDIT 2
+      DEPL <<evobeg>> <<evoend>> DAY POWR <<Norm_f2>>
+      KAPS EXTR NSAT NODI
+      GLOB
+    ;
 
   ENDIF ;
 
@@ -202,7 +203,7 @@ WHILE istep nstep <= DO
     ECHO "Self-shielding calculation" istep "at" evoend "DAY:" ;
 
     LIBRARY2 := USS: LIBRARY LIBRARY2 TRACK_SS ::
-     EDIT 1 TRAN PASS 3 GRMIN 52 ;
+      EDIT 1 TRAN PASS 3 GRMIN 52 ;
 
   ENDIF ;
 
@@ -220,20 +221,20 @@ WHILE istep nstep <= DO
   EDIOBJ := EDI: EDIOBJ FLUX LIBRARY2 TRACK ::
     EDIT 5
     MICR 11 U235 U238 Pu238 Pu239
-     Pu240 Pu241 Pu242 Am241 Am243
-     Cm242 Cm244
+      Pu240 Pu241 Pu242 Am241 Am243
+      Cm242 Cm244
     TAKE MIX 1 0 0 0 1 1 1
     COND
     SAVE ON FUEL
   ;
 
   GREP: FLUX :: GETVAL 'K-INFINITY  ' 1 1 1 >>Kinf1<<
-      GETVAL 'K-EFFECTIVE ' 1 1 1 >>Keff1<< ;
+    GETVAL 'K-EFFECTIVE ' 1 1 1 >>Keff1<< ;
 
   ECHO "+++ Burnup=" step2 " Keff=" Keff1 ;
 
   BURNUP LIBRARY2 := EVO: BURNUP LIBRARY2 FLUX TRACK :: EDIT 2
-       SAVE <<evoend>> DAY POWR <<Norm_f2>> ;
+    SAVE <<evoend>> DAY POWR <<Norm_f2>> ;
 
   EVALUATE istep := istep 1 + ;
 
