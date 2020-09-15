@@ -168,16 +168,17 @@ def plot_serp_drag_burnup_vs_keff(
     assert xd == xs
 
     fig = plt.figure()
-    plt.gca().set_title(title, fontsize=12)
+    # plt.gca().set_title(title, fontsize=12)
     plt.grid()
     plt.plot(xd, yd, 'or', label='dragon')
     plt.plot(xs, ys, '+b', label='serpent')
-    #plt.suptitle(title, fontsize=12, y=1.02)
-    plt.xlabel(r'$Burnup \ \frac{MWd}{tU}$', fontsize=12)
-    plt.ylabel(r'$Multiplication \ factor \ k_{eff}$', fontsize=12)
+    # plt.suptitle(title, fontsize=12, y=1.02)
+    plt.xlabel(r'$Burnup \ MWd/t$', fontsize=12)
+    plt.ylabel(r'$k_{eff}$', fontsize=12)
     plt.legend(loc="upper right")
     plt.tight_layout()
-    plt.savefig(filename, dpi=300, bbox_inches="tight")
+    plt.savefig(filename, dpi=300)
+    plt.savefig(filename.replace('.png', '.eps'))
     plt.show()
     plt.close(fig)
 
@@ -225,19 +226,13 @@ def plot_serp_drag_burnup_vs_keff_error(
 
     fig = plt.figure()
 
-    ratio = 0.7
-    ax = plt.gca()
-    xleft, xright = ax.get_xlim()
-    ybottom, ytop = ax.get_ylim()
-    ax.set_aspect(abs((xright - xleft) / (ybottom - ytop)) * ratio)
-
     plt.subplot(2, 1, 1)
-    plt.gca().set_title(title, fontsize=12)
+    # plt.gca().set_title(title, fontsize=12)
     plt.grid()
-    plt.plot(xd, yd, '.r', label='Dragon 5')
-    plt.plot(xs, ys, '+b', label='Serpent 2')
+    plt.plot(xd, yd, '.r', label='DRAGON5')
+    plt.plot(xs, ys, '+b', label='SERPENT2')
 
-    plt.ylabel(r'$k_{eff}$', fontsize=12)
+    plt.ylabel(r'$k_{eff}$', fontsize=12, labelpad=15)
     plt.legend(loc="upper right")
 
     plt.subplot(2, 1, 2)
@@ -248,13 +243,14 @@ def plot_serp_drag_burnup_vs_keff_error(
 
     diff = [rho_s[i] - rho_d[i] for i in range(len(ys))]
 
-    plt.plot(xd, diff, '-', label=r'$\rho_{Serpent}-\rho_{Dragon}$')
-    plt.xlabel(r'$Burnup \ \frac{MWd}{tU}$', fontsize=12)
+    plt.plot(xd, diff, '.')
+    plt.xlabel(r'$Burnup \ MWd/t$', fontsize=12)
     plt.ylabel(r'$Discrepancy, \ pcm$', fontsize=10)
 
-    plt.legend()  # plt.legend(loc=(1.04, 0), fontsize=12)
+    # plt.legend()  # plt.legend(loc=(1.04, 0), fontsize=12)
     plt.tight_layout()
-    plt.savefig(filename, dpi=300, bbox_inches="tight")
+    plt.savefig(filename, dpi=300)
+    plt.savefig(filename.replace('.png', '.eps'))
     plt.show()
     plt.close(fig)
 
