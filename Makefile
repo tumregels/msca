@@ -15,8 +15,8 @@ copy_tmuxlog: ## cp tmuxlog files to remote
 export_conda_requirements: ## export/update conda requirements
 	conda env export > requirements.yml
 
-convert_m_files: ## convert serpent output files to mat files
-	octave-cli --persist scripts/create_mat_files.m || true
+convert_m2mat: ## convert serpent output files to mat files
+	cd scripts && octave-cli convert_m2mat.m || true
 
 # Serpent
 push-serpent: ## push serpent inputs

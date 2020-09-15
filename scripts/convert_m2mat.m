@@ -1,14 +1,15 @@
-function create_mat_files()
+function convert_m2mat()
+%convert_m2mat Convert serpent generated *.m files to *.mat files
 
 filedir = fileparts(mfilename('fullpath'));
 root = fullfile(filedir, '..', 'Serpent');
-convert2mat(root, '*_res.m');
-convert2mat(root, '*_dep.m');
+convert(root, '*_res.m');
+convert(root, '*_dep.m');
 disp('All mat files generated')
 
 end
 
-function convert2mat(root, filetype)
+function convert(root, filetype)
 
 keepvars = {'i','ix', 'mfiles', 'keepvars', 'varlist', 'filetype'};
 
