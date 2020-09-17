@@ -243,6 +243,13 @@ def plot_serp_drag_burnup_vs_keff_error(
 
     diff = [rho_s[i] - rho_d[i] for i in range(len(ys))]
 
+    # print data for 0, max discrepancy and max burnup
+    mi, mv = max(enumerate(diff), key=(lambda x: abs(x[1])))
+    print(f"\n{'Burnup':>6s} {'keff S2':>10s} {'keff D5':>10s} {'Discr (pcm)':>11s}")
+    print(f"{xd[0]:6} {ys[0]:10.5f} {yd[0]:10.5f} {diff[0]:11.0f}")
+    print(f"{xd[mi]:6} {ys[mi]:10.5f} {yd[mi]:10.5f} {diff[mi]:11.0f}")
+    print(f"{xd[-1]:6} {ys[-1]:10.5f} {yd[-1]:10.5f} {diff[-1]:11.0f}")
+
     plt.plot(xd, diff, '.')
     plt.xlabel(r'$Burnup \ MWd/t$', fontsize=12)
     plt.ylabel(r'$Discrepancy, \ pcm$', fontsize=10)
@@ -336,14 +343,14 @@ if __name__ == '__main__':
             data_serp=burnup_vs_keff_serp,
             data_drag=burnup_vs_keff_drag,
             title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
-            filename=f'all_plots/keff_vs_burnup_{key}.png'
+            filename=f'data/plots/keff_vs_burnup_{key}.png'
         )
 
         plot_serp_drag_burnup_vs_keff_error(
             data_serp=burnup_vs_keff_serp,
             data_drag=burnup_vs_keff_drag,
             title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
-            filename=f'all_plots/keff_vs_burnup_error_{key}.png'
+            filename=f'data/plots/keff_vs_burnup_error_{key}.png'
         )
 
         if 'ASSBLY' in key:
