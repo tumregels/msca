@@ -241,7 +241,7 @@ def plot_serp_drag_burnup_vs_keff_error(
     rho_s = [(ys[i] - 1) * 10 ** 5 / ys[i] for i in range(len(ys))]
     rho_d = [(yd[i] - 1) * 10 ** 5 / yd[i] for i in range(len(yd))]
 
-    diff = [rho_s[i] - rho_d[i] for i in range(len(ys))]
+    diff = [rho_d[i] - rho_s[i] for i in range(len(ys))]
 
     # print data for 0, max discrepancy and max burnup
     mi, mv = max(enumerate(diff), key=(lambda x: abs(x[1])))
