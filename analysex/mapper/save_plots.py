@@ -8,7 +8,7 @@ from mapper.plot_map import plot_geo_map
 
 def main():
     for assbly in ['ASSBLY_A', 'ASSBLY_B', 'ASSBLY_C', 'ASSBLY_D']:
-        filenames = list(pathlib.Path(f'Dragon/{assbly}').glob('Geo_N?.c2m'))
+        filenames = list(pathlib.Path(f'Dragon/2L/{assbly}').glob('Geo_N?.c2m'))
         matrix = create_two_level_matrix(*filenames)
         plot_geo_map(
             matrix,

@@ -62,10 +62,10 @@ def plot_geo_map(matrix, filename='table.eps', label='', title=''):
 
         if not label:
             label = '''\
-                Level 1 cell name
-                Level 1 cell mixtures
-                Level 2 cell name
-                Level 2 cell mixtures'''
+                L1 cell name
+                L1 cell mixtures
+                L2 cell name
+                L2 cell mixtures'''
 
         if rc == (0, 0):
             cell.set_visible(True)
@@ -91,6 +91,7 @@ def plot_geo_map(matrix, filename='table.eps', label='', title=''):
 
     p.savefig(filename, bbox_inches='tight')
     p.savefig(filename.replace('.png', '.pdf'), bbox_inches='tight')
+    p.savefig(filename.replace('.png', '.eps'), bbox_inches='tight')
 
 
 def main():
