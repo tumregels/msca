@@ -4,8 +4,8 @@
 __pycache__
 output/*
 output_short/
+octave-workspace
 fact.c2m
-plotly.ipynb
 xfact.c2m
 burnup_rowland_analyses.txt
 burnup_step_text.txt
