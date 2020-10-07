@@ -299,6 +299,13 @@ def plot_serp_drag_1l_2l_burnup_vs_keff_error(
     diff = [rho_d[i] - rho_s[i] for i in range(len(ys))]
     diff1 = [rho_d1[i] - rho_s[i] for i in range(len(ys))]
 
+    # print data for 0, max discrepancy and max burnup
+    mi, mv = max(enumerate(diff), key=(lambda x: abs(x[1])))
+    print(f"\n{'Burnup':>6s} {'keff S2':>10s} {'keff D5 2L':>10s} {'Disc 2L(pcm)':>12s} {'keff D5 1L':>10s} {'Disc 1L(pcm)':>12s}")
+    print(f"{xd[0]:6} {ys[0]:10.5f} {yd[0]:10.5f} {diff[0]:12.0f} {yd1[0]:10.5f} {diff1[0]:12.0f}")
+    print(f"{xd[mi]:6} {ys[mi]:10.5f} {yd[mi]:10.5f} {diff[mi]:12.0f} {yd1[mi]:10.5f} {diff1[mi]:12.0f}")
+    print(f"{xd[-1]:6} {ys[-1]:10.5f} {yd[-1]:10.5f} {diff[-1]:12.0f} {yd1[-1]:10.5f} {diff1[-1]:12.0f}")
+
     plt.plot(xd, diff, '-r', label=r'$\rho_{S2}-\rho_{D5 \ 2L}$')
     plt.plot(xd, diff1, '-g', label=r'$\rho_{S2}-\rho_{D5 \ 1L}$')
     plt.xlabel(r'$Burnup \ MWd/tU$', fontsize=12)
@@ -339,21 +346,23 @@ if __name__ == '__main__':
         )
 
         print(f'plotting {serp_file_name}', end=' ')
-        plot_serp_drag_burnup_vs_keff(
-            data_serp=burnup_vs_keff_serp,
-            data_drag=burnup_vs_keff_drag,
-            title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
-            filename=f'data/plots/keff_vs_burnup_{key}.png'
-        )
 
-        plot_serp_drag_burnup_vs_keff_error(
-            data_serp=burnup_vs_keff_serp,
-            data_drag=burnup_vs_keff_drag,
-            title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
-            filename=f'data/plots/keff_vs_burnup_error_{key}.png'
-        )
+        if 'PIN' in key:
+            plot_serp_drag_burnup_vs_keff(
+                data_serp=burnup_vs_keff_serp,
+                data_drag=burnup_vs_keff_drag,
+                title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
+                filename=f'data/plots/keff_vs_burnup_{key}.png'
+            )
 
-        if 'ASSBLY' in key:
+            plot_serp_drag_burnup_vs_keff_error(
+                data_serp=burnup_vs_keff_serp,
+                data_drag=burnup_vs_keff_drag,
+                title=f'$k_{{eff}} \ vs \ Burnup$\n {serp_file_name}\n {drag_file_name}\n',
+                filename=f'data/plots/keff_vs_burnup_error_{key}.png'
+            )
+
+        elif 'ASSBLY' in key:
             drag_file_name_1l = d[key]['drag_res_1level']
             dragon_result_str_1l = pathlib.Path(drag_file_name_1l).read_text()
             burnup_vs_keff_drag_1l = parse_drag_burnup_vs_keff(dragon_result_str_1l)
