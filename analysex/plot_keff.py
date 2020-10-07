@@ -296,8 +296,8 @@ def plot_serp_drag_1l_2l_burnup_vs_keff_error(
     rho_d = [(yd[i] - 1) * 10 ** 5 / yd[i] for i in range(len(yd))]
     rho_d1 = [(yd1[i] - 1) * 10 ** 5 / yd1[i] for i in range(len(yd1))]
 
-    diff = [rho_s[i] - rho_d[i] for i in range(len(ys))]
-    diff1 = [rho_s[i] - rho_d1[i] for i in range(len(ys))]
+    diff = [rho_d[i] - rho_s[i] for i in range(len(ys))]
+    diff1 = [rho_d1[i] - rho_s[i] for i in range(len(ys))]
 
     plt.plot(xd, diff, '-r', label=r'$\rho_{S2}-\rho_{D5 \ 2L}$')
     plt.plot(xd, diff1, '-g', label=r'$\rho_{S2}-\rho_{D5 \ 1L}$')
