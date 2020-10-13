@@ -74,7 +74,7 @@ def parse_error(filename):
     return data
 
 
-def extract_errors():
+def extract_errors(output_path):
     d = file_map
     for level in ['2L', '1L']:
         error_data = defaultdict(dict)
@@ -104,9 +104,12 @@ def extract_errors():
             for type in [('fission', 'f'), ('capture', 'c')]:
                 df = pd.DataFrame(error_data[location][type[1]])
                 print(df.to_string())
-                df.to_csv(f'comp_error_{location}_{type[0]}_{level}.csv')
+                df.to_csv(str(output_path / f'comp_error_{location}_{type[0]}_{level}.csv'))
 
 
 if __name__ == '__main__':
-    os.chdir(pathlib.Path(__file__).resolve().parent.parent.parent)
-    extract_errors()
+    p = pathlib.Path(__file__).resolve().parent.parent.parent
+    os.chdir(p)
+    data_path = p / 'data'
+    data_path.mkdir(parents=True, exist_ok=True)
+    extract_errors(data_path)
