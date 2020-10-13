@@ -15,7 +15,7 @@ from analysex.mapper.plot_map import plot_geo_map
 def plot_heatmap(
         assembly_map: List[List[Any]],
         data: Dict[str, float],
-        filename: str = 'heatmap.png'
+        filename: str = 'heatmap'
 ) -> None:
     matrix = copy.deepcopy(assembly_map)
     for i, row in enumerate(matrix):
@@ -53,7 +53,8 @@ def plot_heatmap(
             pad=20
         )
         ax.invert_yaxis()
-        plt.savefig(filename, dpi=500, bbox_inches="tight")
+        plt.savefig(filename + '.pdf', bbox_inches="tight")
+        plt.savefig(filename + '.eps', bbox_inches="tight")
         plt.show()
 
 
@@ -61,7 +62,7 @@ def plot_heatmap_label(
         assembly_map: List[List[Any]],
         data: Dict[str, float],
         title: str = '',
-        filename: str = 'heatmap_label.png'
+        filename: str = 'heatmap_label'
 ) -> None:
     matrix = copy.deepcopy(assembly_map)
     dmatrix = np.zeros_like(matrix, dtype=np.float)
@@ -117,7 +118,8 @@ def plot_heatmap_label(
         )
         ax.invert_yaxis()
 
-        plt.savefig(filename, dpi=300, bbox_inches="tight")
+        plt.savefig(filename + '.pdf', bbox_inches="tight")
+        plt.savefig(filename + '.eps', bbox_inches="tight")
         plt.show()
 
 
@@ -126,7 +128,7 @@ def plot_heatmap_label_2l_1l(
         data: Dict[str, float],
         data_1l: Dict[str, float],
         title: str = '',
-        filename: str = 'heatmap_label.png',
+        filename: str = 'heatmap_label',
         ax: Any = None
 ) -> None:
     matrix = copy.deepcopy(assembly_map)
@@ -187,9 +189,9 @@ def plot_heatmap_label_2l_1l(
         ax.invert_yaxis()
 
         if fig:
-            fig.savefig(filename, dpi=300, bbox_inches="tight")
             fig.set_size_inches(11.69, 8.27)
-            fig.savefig(filename.replace('.png', '.pdf'), bbox_inches="tight")
+            fig.savefig(filename + '.pdf', bbox_inches="tight")
+            fig.savefig(filename + '.eps', bbox_inches="tight")
             fig.show()
 
 
@@ -217,7 +219,7 @@ def plot_table_2l_1l(
         assembly_map: List[List[Any]],
         data_2l: Dict[str, float],
         data_1l: Dict[str, float],
-        filename: str = 'table.png',
+        filename: str = 'table',
         label: str = '',
         title: str = ''
 ) -> None:
@@ -237,7 +239,7 @@ def plot_table_2l_1l(
 def plot_hist_2l_1l(
         data_2l: Dict[str, float],
         data_1l: Dict[str, float],
-        filename: str = 'hist_2l_1l.png',
+        filename: str = 'hist_2l_1l',
         title: str = '',
         ax: Any = None
 ):
@@ -267,7 +269,8 @@ def plot_hist_2l_1l(
 
     if fig:
         fig.tight_layout()
-        fig.savefig(filename, dpi=300)
+        fig.savefig(filename + '.pdf')
+        fig.savefig(filename + '.eps')
         fig.show()
         plt.close(fig)
 
@@ -277,7 +280,7 @@ def plot_hist_hmap_2l_1l(
         data_2l: Dict[str, float],
         data_1l: Dict[str, float],
         title: str = '',
-        filename: str = 'heatmap_label.png',
+        filename: str = 'heatmap_label',
 
 ):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
@@ -293,13 +296,17 @@ def plot_hist_hmap_2l_1l(
     )
 
     fig.tight_layout()
-    fig.savefig(filename, dpi=300)
-    fig.savefig(filename.replace('.png', '.pdf'))
+    fig.savefig(filename + '.pdf')
+    fig.savefig(filename + '.eps')
     fig.show()
 
 
 if __name__ == '__main__':
-    os.chdir(pathlib.Path(__file__).resolve().parent.parent.parent)
+    p = pathlib.Path(__file__).resolve().parent.parent.parent
+    os.chdir(p)
+    data_path = p / 'data'
+    plot_path = p / 'data' / 'fmaps'
+    plot_path.mkdir(parents=True, exist_ok=True)
 
     assembly_map = """
     TI C0201 C0301     TG  C0501  C0601     TG   C0801 C0901
@@ -317,40 +324,41 @@ if __name__ == '__main__':
     map = convert_to_matrix(assembly_map, debug=True)
     for location in [('first', 'Zero'), ('peak', 'Peak'), ('last', 'Max')]:
         for type in [('fission', 'f'), ('capture', 'c')]:
-            with open(f'comp_error_{location[0]}_{type[0]}_2L.csv') as file:
+            with open(str(data_path / f'comp_error_{location[0]}_{type[0]}_2L.csv')) as file:
                 df = pd.read_csv(file, index_col=0)
                 datas_2l = df.to_dict()
-            with open(f'comp_error_{location[0]}_{type[0]}_1L.csv') as file:
+            with open(str(data_path / f'comp_error_{location[0]}_{type[0]}_1L.csv')) as file:
                 df = pd.read_csv(file, index_col=0)
                 datas_1l = df.to_dict()
-                for key in datas_2l.keys():
-                    data_2l = datas_2l[key]
-                    data_1l = datas_1l[key]
-                    plot_table_2l_1l(map, data_2l, data_1l,
-                                     filename=f'table_{key.lower()}_{location[0]}_{type[0]}.png',
-                                     title=f'Assembly {key.upper()}\n {location[1]} Burnup\n {type[0].capitalize()} Reaction Map',
-                                     label='''\
-                            Cell Name
-                            2L Relative Error
-                            1L Relative Error''')
-                    plot_heatmap_label(
-                        map, data_2l,
-                        filename=f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l.png',
-                        title=f'$Assembly \ {key.upper()} \ {location[0].capitalize()} \ {type[0].capitalize()}$'
-                    )
-                    plot_heatmap_label_2l_1l(
-                        map, data_2l, data_1l,
-                        filename=f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l.png',
-                        title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
-                    )
-                    plot_hist_2l_1l(
-                        data_2l, data_1l,
-                        title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$',
-                        filename=f'hist_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l.png'
-                    )
+            for key in datas_2l.keys():
+                data_2l = datas_2l[key]
+                data_1l = datas_1l[key]
+                plot_table_2l_1l(
+                    map, data_2l, data_1l,
+                    filename=str(plot_path / f'table_{key.lower()}_{location[0]}_{type[0]}'),
+                    title=f'Assembly {key.upper()}\n {location[1]} Burnup\n {type[0].capitalize()} Reaction Map',
+                    label='''\
+                        Cell Name
+                        2L Relative Error
+                        1L Relative Error''')
+                plot_heatmap_label(
+                    map, data_2l,
+                    filename=str(plot_path / f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l'),
+                    title=f'$Assembly \ {key.upper()} \ {location[0].capitalize()} \ {type[0].capitalize()}$'
+                )
+                plot_heatmap_label_2l_1l(
+                    map, data_2l, data_1l,
+                    filename=str(plot_path / f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),
+                    title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
+                )
+                plot_hist_2l_1l(
+                    data_2l, data_1l,
+                    filename=str(plot_path / f'hist_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),
+                    title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$',
+                )
 
-                    plot_hist_hmap_2l_1l(
-                        map, data_2l, data_1l,
-                        filename=f'hist_hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l.png',
-                        title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
-                    )
+                plot_hist_hmap_2l_1l(
+                    map, data_2l, data_1l,
+                    filename=str(plot_path / f'hist_hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),
+                    title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
+                )

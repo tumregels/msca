@@ -19,7 +19,7 @@ def parse_tuple(string):
         return
 
 
-def plot_geo_map(matrix, filename='table.eps', label='', title=''):
+def plot_geo_map(matrix, filename='table', label='', title=''):
     matrix = matrix[::-1]  # rotate along x axes
 
     data = np.asarray(matrix)
@@ -89,9 +89,8 @@ def plot_geo_map(matrix, filename='table.eps', label='', title=''):
     #            bbox_to_anchor=(-0.4, 3.7),
     #            ncol=2)
 
-    p.savefig(filename, bbox_inches='tight')
-    p.savefig(filename.replace('.png', '.pdf'), bbox_inches='tight')
-    p.savefig(filename.replace('.png', '.eps'), bbox_inches='tight')
+    p.savefig(filename + '.pdf', bbox_inches='tight')
+    p.savefig(filename + '.eps', bbox_inches='tight')
 
 
 def main():
