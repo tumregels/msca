@@ -129,7 +129,8 @@ def plot_heatmap_label_2l_1l(
         data_1l: Dict[str, float],
         title: str = '',
         filename: str = 'heatmap_label',
-        ax: Any = None
+        ax: Any = None,
+        show_title: bool = True
 ) -> None:
     matrix = copy.deepcopy(assembly_map)
     dmatrix = np.zeros_like(matrix, dtype=np.float)
@@ -179,13 +180,14 @@ def plot_heatmap_label_2l_1l(
             xticklabels=False,
             yticklabels=False,
         )
-        ax.set_title(
-            '\n'.join([
-                title,
-                r'$Relative \ error \ 100\%\cdot\frac{Dragon5_{NFTOT}-Serpent2_{NFTOT}}{Serpent2_{NFTOT}}$'
-            ]).strip(),
-            pad=20
-        )
+        if show_title:
+            ax.set_title(
+                '\n'.join([
+                    title,
+                    r'$Relative \ error \ 100\%\cdot\frac{Dragon5_{NFTOT}-Serpent2_{NFTOT}}{Serpent2_{NFTOT}}$'
+                ]).strip(),
+                pad=20
+            )
         ax.invert_yaxis()
 
         if fig:
@@ -349,7 +351,8 @@ if __name__ == '__main__':
                 plot_heatmap_label_2l_1l(
                     map, data_2l, data_1l,
                     filename=str(plot_path / f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),
-                    title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
+                    title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$',
+                    show_title=False
                 )
                 plot_hist_2l_1l(
                     data_2l, data_1l,
