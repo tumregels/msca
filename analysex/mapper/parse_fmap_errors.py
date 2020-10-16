@@ -106,21 +106,20 @@ def preview(data):
     types = ['f', 'c']  # fission or capture
     locations = ['first', 'peak', 'last']  # zero, peak and max burnup
 
-    print('\nPreview max/ave errors\n')
-    for case in cases:
-        for location in locations:
+    print('\nPreview max/ave relative absolute errors\n')
+    for ptype in types:
+        for case in cases:
             for level in levels:
-                if location == 'peak' and case == 'a':
-                    continue
                 print(
-                    case, level, location, 'f =>',
-                    data[case][level][location]['f']['maxerr'],
-                    data[case][level][location]['f']['avgerr'],
-                    'c =>',
-                    data[case][level][location]['c']['maxerr'],
-                    data[case][level][location]['c']['avgerr'],
+                    case, level, f'{ptype} =>',
+                    f"{float(data[case][level]['first'][ptype]['maxerr']):.2f}",
+                    f"{float(data[case][level]['first'][ptype]['avgerr']):.2f}",
+                    f"{float(data[case][level]['peak'][ptype]['maxerr']):.2f}" if case != 'a' else "   -",
+                    f"{float(data[case][level]['peak'][ptype]['avgerr']):.2f}" if case != 'a' else "   -",
+                    f"{float(data[case][level]['last'][ptype]['maxerr']):.2f}",
+                    f"{float(data[case][level]['last'][ptype]['avgerr']):.2f}",
                 )
-            print()
+        print()
 
 
 def extract_errors(output_path):
