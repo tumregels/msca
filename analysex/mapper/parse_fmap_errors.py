@@ -1,10 +1,10 @@
-from collections import defaultdict
-
 import os
-import pandas as pd
 import pathlib
 import re
+from collections import defaultdict
+from pprint import pprint
 
+import pandas as pd
 from analysex.file_map import file_map
 
 
@@ -85,6 +85,23 @@ def parse_error(filename):
     return data
 
 
+def parse_xs_table(filename):
+    data = nested_dict()
+
+    lines = pathlib.Path(filename).read_text().splitlines()
+    for line in lines:
+        if ':' in line:
+            row_data = line.split(':')[-1].split()
+            desc = '_'.join(line.split(':')[0].strip().split()).lower()
+            desc = desc.replace('_(pcm)', '').replace('_(%)', '')
+            # print(desc, row_data)
+            data[desc][row_data[0]] = dict(zip(
+                ['U235', 'U238', 'Pu239', 'Pu241'],
+                [float(i) for i in row_data[1:]]))
+    data = default_to_regular(data)
+    return data
+
+
 def parse_abs_max_ave(filename):
     s = pathlib.Path(filename).read_text()
 
@@ -124,6 +141,7 @@ def preview(data):
 
 def extract_errors(output_path):
     max_ave = nested_dict()
+    xs = nested_dict()
 
     d = file_map
     for level in ['2L', '1L']:
@@ -151,14 +169,20 @@ def extract_errors(output_path):
                         max_ave_data = parse_abs_max_ave(file)
                         max_ave[case][level][location][type] = max_ave_data
 
+                        xs_data = parse_xs_table(file)
+                        xs[case][level][location][type] = xs_data
+
         for location in ['first', 'peak', 'last']:
             for type in [('fission', 'f'), ('capture', 'c')]:
                 df = pd.DataFrame(error_data[location][type[1]])
-                print(df.to_string())
+                # print(df.to_string())
                 df.to_csv(str(output_path / f'comp_error_{location}_{type[0]}_{level}.csv'))
 
     max_ave = default_to_regular(max_ave)
     preview(max_ave)
+
+    xs = default_to_regular(xs)
+    pprint(xs)
 
 
 if __name__ == '__main__':
