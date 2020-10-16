@@ -8,6 +8,17 @@ import re
 from analysex.file_map import file_map
 
 
+def default_to_regular(d):
+    """Convert nested defaultdict to nested dict"""
+    if isinstance(d, defaultdict):
+        d = {k: default_to_regular(v) for k, v in d.items()}
+    return d
+
+
+def nested_dict():
+    return defaultdict(nested_dict)
+
+
 def number2detname():
     map = """
      1 0201
@@ -74,7 +85,47 @@ def parse_error(filename):
     return data
 
 
+def parse_abs_max_ave(filename):
+    s = pathlib.Path(filename).read_text()
+
+    pattern = re.compile(
+        r"""maxerr=\s*(?P<maxerr>\d+\.\d+)\s+avgerr=\s*(?P<avgerr>\d+\.\d+)\s*""",
+        flags=re.MULTILINE | re.DOTALL | re.X
+    )
+
+    match = pattern.search(s)
+    if match:
+        return match.groupdict()
+    else:
+        raise Exception('maxerr/avgerr Error not found')
+
+
+def preview(data):
+    levels = ['1L', '2L']  # dragon calculation schemes
+    cases = ['a', 'b', 'c', 'd']  # assbly letters
+    types = ['f', 'c']  # fission or capture
+    locations = ['first', 'peak', 'last']  # zero, peak and max burnup
+
+    print('\nPreview max/ave errors\n')
+    for case in cases:
+        for location in locations:
+            for level in levels:
+                if location == 'peak' and case == 'a':
+                    continue
+                print(
+                    case, level, location, 'f =>',
+                    data[case][level][location]['f']['maxerr'],
+                    data[case][level][location]['f']['avgerr'],
+                    'c =>',
+                    data[case][level][location]['c']['maxerr'],
+                    data[case][level][location]['c']['avgerr'],
+                )
+            print()
+
+
 def extract_errors(output_path):
+    max_ave = nested_dict()
+
     d = file_map
     for level in ['2L', '1L']:
         error_data = defaultdict(dict)
@@ -100,11 +151,17 @@ def extract_errors(output_path):
                             error_data[location][type] = {}
                         error_data[location][type][case] = data
 
+                        max_ave_data = parse_abs_max_ave(file)
+                        max_ave[case][level][location][type] = max_ave_data
+
         for location in ['first', 'peak', 'last']:
             for type in [('fission', 'f'), ('capture', 'c')]:
                 df = pd.DataFrame(error_data[location][type[1]])
                 print(df.to_string())
                 df.to_csv(str(output_path / f'comp_error_{location}_{type[0]}_{level}.csv'))
+
+    max_ave = default_to_regular(max_ave)
+    preview(max_ave)
 
 
 if __name__ == '__main__':
