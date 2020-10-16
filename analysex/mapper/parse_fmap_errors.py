@@ -127,7 +127,7 @@ def extract_errors(output_path):
 
     d = file_map
     for level in ['2L', '1L']:
-        error_data = defaultdict(dict)
+        error_data = nested_dict()
         for key in d.keys():
             if 'ASSBLY' in key:
                 drag_path = pathlib.Path(d[key]['drag_res']).resolve().parent if level == '2L' else \
@@ -146,8 +146,6 @@ def extract_errors(output_path):
                         location = file.stem.split('_')[-1]
                         case = file.stem.split('_')[1][0]
                         type = file.stem.split('_')[1][1]
-                        if type not in error_data[location]:
-                            error_data[location][type] = {}
                         error_data[location][type][case] = data
 
                         max_ave_data = parse_abs_max_ave(file)
