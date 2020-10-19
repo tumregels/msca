@@ -93,7 +93,7 @@ def parse_xs_table(filename):
         if ':' in line:
             row_data = line.split(':')[-1].split()
             desc = '_'.join(line.split(':')[0].strip().split()).lower()
-            desc = desc.replace('_(pcm)', '').replace('_(%)', '')
+            desc = desc.replace('_(pcm)', '').replace('_(%)', '').replace('fission_', '').replace('capture_', '')
             # print(desc, row_data)
             data[desc][row_data[0]] = dict(zip(
                 ['U235', 'U238', 'Pu239', 'Pu241'],
@@ -136,6 +136,33 @@ def preview(data):
                     f"{float(data[case][level]['last'][ptype]['maxerr']):.2f}",
                     f"{float(data[case][level]['last'][ptype]['avgerr']):.2f}",
                 )
+        print()
+
+
+def preview_xs(data):
+    levels = ['1L', '2L']  # dragon calculation schemes
+    cases = ['a', 'b', 'c', 'd']  # assbly letters
+    types = ['f', 'c']  # fission or capture
+    locations = ['first', 'peak', 'last']  # zero, peak and max burnup
+
+    print('\nPreview xs relative absolute errors\n')
+    for ptype in types:
+        for case in cases:
+            for iso in ['U235', 'U238', 'Pu239', 'Pu241']:
+                for group in ['1', '2']:
+                    for level in levels:
+                        print(
+                            case, f'{ptype}', f'{iso:5s}', f'${level}~G{group}$',
+                            f"& {float(data[case][level]['first'][ptype]['dragon5'][group][iso]):.4e}",
+                            f"& {float(data[case][level]['first'][ptype]['serpent2'][group][iso]):.4e}",
+                            f"& {float(data[case][level]['first'][ptype]['relative_error'][group][iso]):5.2f} &",
+                            f"& {float(data[case][level]['peak'][ptype]['dragon5'][group][iso]):.4e}" if case != 'a' else f"& {'-':10s}",
+                            f"& {float(data[case][level]['peak'][ptype]['serpent2'][group][iso]):.4e}" if case != 'a' else f"& {'-':10s}",
+                            f"& {float(data[case][level]['peak'][ptype]['relative_error'][group][iso]):5.2f} &" if case != 'a' else f"& {'-':5s} &",
+                            f"& {float(data[case][level]['last'][ptype]['dragon5'][group][iso]):.4e}",
+                            f"& {float(data[case][level]['last'][ptype]['serpent2'][group][iso]):.4e}",
+                            f"& {float(data[case][level]['last'][ptype]['relative_error'][group][iso]):5.2f} \\\\",
+                        )
         print()
 
 
@@ -182,7 +209,7 @@ def extract_errors(output_path):
     preview(max_ave)
 
     xs = default_to_regular(xs)
-    pprint(xs)
+    preview_xs(xs)
 
 
 if __name__ == '__main__':
