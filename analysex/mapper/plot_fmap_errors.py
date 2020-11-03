@@ -1,12 +1,12 @@
 import copy
-import os
-import pathlib
-from typing import Any, Dict, List
 
-import numpy as np  # type: ignore
 import matplotlib.pyplot as plt  # type: ignore
+import numpy as np  # type: ignore
+import os
 import pandas as pd  # type: ignore
+import pathlib
 import seaborn as sns  # type: ignore
+from typing import Any, Dict, List
 
 from analysex.mapper.convert_to_matrix import convert_to_matrix
 from analysex.mapper.plot_map import plot_geo_map
@@ -277,6 +277,62 @@ def plot_hist_2l_1l(
         plt.close(fig)
 
 
+def plot_step_2l_1l(
+        data_2l: Dict[str, float],
+        data_1l: Dict[str, float],
+        filename: str = 'step_2l_1l',
+        title: str = '',
+        ax: Any = None
+):
+    x_2l, y_2l = zip(*data_2l.items())
+    x_1l, y_1l = zip(*data_1l.items())
+
+    assert x_2l == x_1l
+
+    fig = None
+
+    if not ax:
+        fig, ax = plt.subplots()
+
+    x = np.arange(len(x_2l) + 1)
+    y2 = [abs(v) for v in y_2l]
+    y2.append(y_2l[-1])
+    y1 = [abs(v) for v in y_1l]
+    y1.append(y_1l[-1])
+
+    y2_slice = y2[:-1]
+    y1_slice = y1[:-1]
+
+    X = np.c_[x[:-1], x[1:], x[1:]]
+    Y1 = np.c_[y1_slice, y1_slice, y1_slice]
+    Y2 = np.c_[y2_slice, y2_slice, y2_slice]
+
+    ax.plot(X.flatten(), Y1.flatten(), label='1L')
+    ax.plot(X.flatten(), Y2.flatten(), label='2L', color='red')
+
+    ax.set_ylabel('Absolute Relative Error')
+    # ax.set_title(title)
+    ax.legend(loc='best')
+
+    ax.set_xticks(x + 1 / 2)
+    ax.set_xticks(x, minor=True)
+    ax.set_xticklabels(x_2l, rotation='vertical', fontsize=6)
+    ax.tick_params(axis='x', which='major', length=0)
+    ax.tick_params(axis='x', which='minor', length=0)
+
+    ax.grid(which='both')
+    ax.grid(axis='x', which='major', alpha=0.0)
+    ax.grid(axis='y', which='major', alpha=0.5, linestyle='--')
+    ax.grid(axis='x', which='minor', alpha=0.5, linestyle='--')
+
+    if fig:
+        fig.tight_layout()
+        fig.savefig(filename + '.pdf')
+        fig.savefig(filename + '.eps')
+        fig.show()
+        plt.close(fig)
+
+
 def plot_hist_hmap_2l_1l(
         assembly_map: List[List[Any]],
         data_2l: Dict[str, float],
@@ -343,25 +399,13 @@ if __name__ == '__main__':
                         Cell Name
                         2L Relative Error
                         1L Relative Error''')
-                plot_heatmap_label(
-                    map, data_2l,
-                    filename=str(plot_path / f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l'),
-                    title=f'$Assembly \ {key.upper()} \ {location[0].capitalize()} \ {type[0].capitalize()}$'
-                )
                 plot_heatmap_label_2l_1l(
                     map, data_2l, data_1l,
                     filename=str(plot_path / f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),
                     title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$',
                     show_title=False
                 )
-                plot_hist_2l_1l(
+                plot_step_2l_1l(
                     data_2l, data_1l,
-                    filename=str(plot_path / f'hist_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),
-                    title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$',
-                )
-
-                plot_hist_hmap_2l_1l(
-                    map, data_2l, data_1l,
-                    filename=str(plot_path / f'hist_hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),
-                    title=f'$Assembly \ {key.upper()} \ ({location[1].capitalize()} \ Burnup) \ {type[0].capitalize()} \ Reaction \ Map$'
+                    filename=str(plot_path / f'step_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l')
                 )
