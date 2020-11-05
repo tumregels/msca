@@ -282,6 +282,7 @@ def plot_step_2l_1l(
         data_1l: Dict[str, float],
         filename: str = 'step_2l_1l',
         title: str = '',
+        assbly_letter: str = '',
         ax: Any = None
 ):
     x_2l, y_2l = zip(*data_2l.items())
@@ -324,6 +325,12 @@ def plot_step_2l_1l(
     ax.grid(axis='x', which='major', alpha=0.0)
     ax.grid(axis='y', which='major', alpha=0.5, linestyle='--')
     ax.grid(axis='x', which='minor', alpha=0.5, linestyle='--')
+
+    for xtick in ax.get_xticklabels():
+        if assbly_letter == 'b' and xtick.get_text() in ['C0603'] or \
+           assbly_letter == 'c' and xtick.get_text() in ['C0603', 'C0707'] or \
+           assbly_letter == 'd' and xtick.get_text() in ['C0301', 'C0505', 'C0601', 'C0707', 'C0804']:
+            xtick.set_color('r')
 
     if fig:
         fig.tight_layout()
@@ -407,5 +414,6 @@ if __name__ == '__main__':
                 )
                 plot_step_2l_1l(
                     data_2l, data_1l,
-                    filename=str(plot_path / f'step_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l')
+                    filename=str(plot_path / f'step_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),
+                    assbly_letter=key.lower()
                 )
