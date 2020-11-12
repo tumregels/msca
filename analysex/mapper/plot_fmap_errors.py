@@ -139,7 +139,7 @@ def plot_heatmap_label_2l_1l(
     for i, row in enumerate(matrix):
         for j, column in enumerate(row):
             if matrix[i][j] in data:
-                lmatrix[i][j] = f'{matrix[i][j]}\n{data[matrix[i][j]]:.2f}\n{data_1l[matrix[i][j]]:.2f}'
+                lmatrix[i][j] = f'{matrix[i][j]}\n{data[matrix[i][j]]:5.2f}\n{data_1l[matrix[i][j]]:5.2f}'
             else:
                 lmatrix[i][j] = matrix[i][j]
     lmatrix[7][1] = 'CELL\n2L RE\n1L RE'  # for legend
@@ -174,7 +174,8 @@ def plot_heatmap_label_2l_1l(
             mask=mask,
             cmap=sns.diverging_palette(220, 10, as_cmap=True),
             annot=lmatrix,
-            annot_kws={"fontsize": 8},
+            annot_kws={"fontsize": 12},
+            cbar_kws={'format': '%4.1f'},
             fmt='',
             linewidths=.5,
             xticklabels=False,
@@ -189,6 +190,9 @@ def plot_heatmap_label_2l_1l(
                 pad=20
             )
         ax.invert_yaxis()
+
+        cbar = ax.collections[0].colorbar
+        cbar.ax.tick_params(labelsize=12)
 
         if fig:
             fig.set_size_inches(11.69, 8.27)
