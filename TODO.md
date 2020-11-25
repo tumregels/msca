@@ -27,14 +27,13 @@
 - [x] prepare initial inputs
 - [x] check serp input materials
 - [x] fix pin burnup steps
-- [ ] plot atomic dens vs burnup for serpent
-- [ ] sync burnup steps with Dragon
+- [x] plot atomic dens vs burnup for serpent
 
 # Data Analyses
 
 - [x] generate plots for pin dragon/serpent calculations
 - [x] create analysex package for data analyses scripts
-- [ ] fix MWd/tU to GWd/t
+- [x] fix MWd/tU to GWd/t
 
 ## Questions
 
