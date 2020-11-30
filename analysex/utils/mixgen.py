@@ -454,7 +454,7 @@ def assbly_d():
 
 
 if __name__ == '__main__':
-    p = pathlib.Path(__file__).resolve().parent.parent
+    p = pathlib.Path(__file__).resolve().parent.parent.parent
     assbly_a()
     assbly_b()
     assbly_c()

@@ -137,5 +137,5 @@ def main():
 
 
 if __name__ == '__main__':
-    os.chdir(pathlib.Path(__file__).resolve().parent.parent)
+    os.chdir(pathlib.Path(__file__).resolve().parent.parent.parent)
     main()
