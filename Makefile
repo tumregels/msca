@@ -43,7 +43,7 @@ plot-iso-assbly-rings: ## plot relative errors of iso density in all rings of as
 	matlab -nodisplay -nodesktop -r "run('plot_isotopes_assbly_bench_rings_all_pins.m');exit;"
 
 .PHONY: process-fc-rates
-process-fc-rates: ## process fission/capture rates
+process-fc-rates: ## process fission/capture rates (50min)
 	cd src/fc_rate && \
 	matlab -nodisplay -nodesktop -r "run('process_a_1l.m');exit;" && \
 	matlab -nodisplay -nodesktop -r "run('process_a_2l.m');exit;" && \
@@ -157,5 +157,4 @@ convert-pdf-to-png:
 .PHONY: clean
 clean:  ## clean up project
 	find . -type d -name __pycache__ -exec rm -r {} \+
-	find . -type d -name .ipynb_checkpoints -exec rm -r {} \+
 	find . -type d -name .mypy_cache -exec rm -r {} \+
