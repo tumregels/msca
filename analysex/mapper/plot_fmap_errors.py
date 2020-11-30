@@ -402,14 +402,6 @@ if __name__ == '__main__':
             for key in datas_2l.keys():
                 data_2l = datas_2l[key]
                 data_1l = datas_1l[key]
-                plot_table_2l_1l(
-                    map, data_2l, data_1l,
-                    filename=str(plot_path / f'table_{key.lower()}_{location[0]}_{type[0]}'),
-                    title=f'Assembly {key.upper()}\n {location[1]} Burnup\n {type[0].capitalize()} Reaction Map',
-                    label='''\
-                        Cell Name
-                        2L Relative Error
-                        1L Relative Error''')
                 plot_heatmap_label_2l_1l(
                     map, data_2l, data_1l,
                     filename=str(plot_path / f'hmap_assbly_{key.lower()}_{location[0]}_{type[0]}_2l_1l'),

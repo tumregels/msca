@@ -53,6 +53,7 @@ process-fc-rates: ## process fission/capture rates (50min)
 .PHONY: plot-fc-data
 plot-fc-data: ## plot heatmaps of fission and capture reaction rates
 	PYTHONPATH=. python3 analysex/mapper/parse_fmap_errors.py && \
+	PYTHONPATH=. python3 analysex/mapper/plot_assbly_maps.py && \
 	PYTHONPATH=. python3 analysex/mapper/plot_fmap_errors.py
 
 # helper targets
