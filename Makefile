@@ -155,6 +155,13 @@ convert-pdf-to-png:
 		echo "$$f"; \
 	done;
 
+.PHONY: archive
+archive: ## create archive for distribution
+	rm -f msca.zip
+	git archive -o msca.zip HEAD
+	zip -ur msca.zip Serpent
+	zip -ur msca.zip Dragon -x "*.o2m" -x "*.l2m" -x "**/run" -x "**/_*" -x "*.pid"
+
 .PHONY: clean
 clean:  ## clean up project
 	find . -type d -name __pycache__ -exec rm -r {} \+
