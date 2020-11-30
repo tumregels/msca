@@ -13,10 +13,6 @@ help: ## this help
 create-environment: ## create conda environment
 	conda env create --name msca --file requirements.yml
 
-.PHONY: keff
-keff: ## extract keff data from *.result files using ripgrep
-	rg -u -o -I '\|\+.*?(\d+\.\d+e.\d+)\s+Keff=\s+(\d+\.\d+e.\d+).*?$' -r '$1 $2' | cat > keff.txt
-
 .PHONY: process-iso-dens
 process-iso-dens: # process isotopic densities
 	cd src/iso_parser && matlab -nodisplay -nodesktop -r "run('process_iso_dens.m');exit;"
@@ -55,7 +51,8 @@ process-fc-rates: ## process fission/capture rates (50min)
 	matlab -nodisplay -nodesktop -r "run('process_d_2l.m');exit;"
 
 .PHONY: plot-fc-data
-plot-fc-data:
+plot-fc-data: ## plot heatmaps of fission and capture reaction rates
+	PYTHONPATH=. python3 analysex/mapper/parse_fmap_errors.py && \
 	PYTHONPATH=. python3 analysex/mapper/plot_fmap_errors.py
 
 # helper targets
@@ -139,6 +136,10 @@ pull-2L: ## pull 2L data
 .PHONY: pull-2L-dry
 pull-2L-dry: ## pull dry 1L_LONG data
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/2L ./Dragon
+
+.PHONY: keff
+keff: ## extract keff data from *.result files using ripgrep
+	rg -u -o -I '\|\+.*?(\d+\.\d+e.\d+)\s+Keff=\s+(\d+\.\d+e.\d+).*?$' -r '$1 $2' | cat > keff.txt
 
 .PHONY: convert-eps-to-png
 convert-eps-to-png:
