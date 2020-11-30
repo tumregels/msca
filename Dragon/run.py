@@ -1,4 +1,3 @@
-#!/home/legha/bin/miniconda3/envs/jupyter/bin/python3
 import glob
 import json
 import os
