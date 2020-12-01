@@ -197,7 +197,7 @@ def plot_heatmap_label_2l_1l(
         if fig:
             fig.set_size_inches(11.69, 8.27)
             fig.savefig(filename + '.pdf', bbox_inches="tight")
-            fig.savefig(filename + '.eps', bbox_inches="tight")
+            # fig.savefig(filename + '.eps', bbox_inches="tight")
             fig.show()
 
 
@@ -339,7 +339,7 @@ def plot_step_2l_1l(
     if fig:
         fig.tight_layout()
         fig.savefig(filename + '.pdf')
-        fig.savefig(filename + '.eps')
+        # fig.savefig(filename + '.eps')
         fig.show()
         plt.close(fig)
 

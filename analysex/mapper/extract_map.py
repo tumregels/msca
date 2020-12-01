@@ -5,8 +5,8 @@ import re
 
 from pandas import DataFrame
 
-from mapper.convert_to_matrix import convert_to_matrix, join_matrixes
-from mapper.parse_mixtures import get_name_mix_dict
+from analysex.mapper.convert_to_matrix import convert_to_matrix, join_matrixes
+from analysex.mapper.parse_mixtures import get_name_mix_dict
 
 
 def extract_geo_map(filename):

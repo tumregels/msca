@@ -2,8 +2,8 @@ import os
 import pathlib
 import re
 
-from mapper.extract_map import create_two_level_matrix
-from mapper.plot_map import plot_geo_map
+from analysex.mapper.extract_map import create_two_level_matrix
+from analysex.mapper.plot_map import plot_geo_map
 
 
 def main():

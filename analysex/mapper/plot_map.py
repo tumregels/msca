@@ -90,7 +90,7 @@ def plot_geo_map(matrix, filename='table', label='', title=''):
     #            ncol=2)
 
     p.savefig(filename + '.pdf', bbox_inches='tight')
-    p.savefig(filename + '.eps', bbox_inches='tight')
+    # p.savefig(filename + '.eps', bbox_inches='tight')
 
 
 def main():
