@@ -60,6 +60,18 @@ plot-fc-data: ## plot heatmaps of fission and capture reaction rates
 run_pin_a: ## run PIN_A simulation with DRAGON
 	cd Dragon/PIN_A && python3 ../../scripts/run.py
 
+.PHONY: process-fc-rates-octave
+process-fc-rates-octave: ## process fission/capture rates with octave (50min)
+	cd src/fc_rate && \
+	octave-cli process_a_1l.m && octave-cli process_a_2l.m && \
+	octave-cli process_b_1l.m && octave-cli process_b_2l.m && \
+	octave-cli process_c_1l.m && octave-cli process_c_2l.m && \
+	octave-cli process_d_1l.m && octave-cli process_d_2l.m
+
+.PHONY: process-iso-dens-octave
+process-iso-dens-octave: ## process isotopic densities with octave
+	cd src/iso_parser && octave-cli process_iso_dens.m
+
 # helper targets
 
 .PHONY: copy-tmuxlog
@@ -110,19 +122,19 @@ pull-dragon-dry: ## pull all dragon inputs dry
 
 # 1L
 .PHONY: push-1L
-push-1L: ## push 1L_SHORT inputs
+push-1L: ## push 1L inputs
 	rsync -avzP ./Dragon/1L $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 .PHONY: push-1L-dry
-push-1L-dry: ## push 1L_SHORT inputs dry
+push-1L-dry: ## push 1L inputs dry
 	rsync -anv ./Dragon/1L $(REMOTE_SERV):$(SYNC_DIR) --exclude 'output_*' --delete
 
 .PHONY: pull-1L
-pull-1L: ## pull 1L_SHORT data
+pull-1L: ## pull 1L data
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/1L ./Dragon
 
 .PHONY: pull-1L-dry
-pull-1L-dry: ## pull dry 1L_SHORT data
+pull-1L-dry: ## pull dry 1L data
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/1L ./Dragon
 
 # 2L
@@ -139,7 +151,7 @@ pull-2L: ## pull 2L data
 	rsync -avzP $(REMOTE_SERV):$(SYNC_DIR)/2L ./Dragon
 
 .PHONY: pull-2L-dry
-pull-2L-dry: ## pull dry 1L_LONG data
+pull-2L-dry: ## pull dry 2L data
 	rsync -anv $(REMOTE_SERV):$(SYNC_DIR)/2L ./Dragon
 
 .PHONY: keff

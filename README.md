@@ -1,5 +1,8 @@
 # MScA project
 
+Download the source code and simulation results from [here](https://github.com/tumregels/msca/releases/tag/v1.0)
+and follow the instructions to unzip the data.
+
 ## Requirements
 
 Major requirement is to install [miniconda for python3](https://docs.conda.io/en/latest/miniconda.html)
@@ -10,15 +13,26 @@ Now create conda virtual environment which will setup octave and specific python
     $ source activate msca
     (msca) $
 
+Matlab source code was written using Matlab Version: 8.4 (R2014b) on Ubuntu 18.04 and
+formatted with [MBeautifier](https://github.com/davidvarga/MBeautifier)
+
 ## Processing isotopic densities
-   
-To process isotopic densities MATLAB was used.
-The matlab source code is written using MATLAB Version: 8.4 (R2014b).
-The instructions below are provided for MATLAB.
 
-To process isotopic densities
+Isotopic density and fission/capture rate parsers have been validated with both Octave and Matlab.
 
-    $ make process_iso_dens
+To run fission/capture rate parser with Octave use
+
+    (msca) $ make process-fc-rates-octave
+    
+To run isotopic density parser with Octave use
+
+    (msca) $ make process-iso-dens-octave
+
+The instructions below require Matlab (R2014b) or higher.
+
+To process isotopic densities (faster than in Octave)
+
+    $ make process-iso-dens
     
 To generate keff plots
 
@@ -32,10 +46,8 @@ To plot pin and assembly data use
 To plot ring errors in assembly calculations
 
     $ make plot-iso-assbly-rings
-    
-## Processing fission and capture rates
 
-To process fission and capture reaction rates
+To process fission and capture reaction rates (faster than in Octave)
 
     $ make process-fc-rates
 
