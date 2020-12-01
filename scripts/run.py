@@ -163,4 +163,4 @@ class Config(object):
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
 
 
-execute(config=Config, background=True)  # .wait()
+execute(config=Config, background=False)  # .wait()
