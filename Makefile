@@ -56,9 +56,13 @@ plot-fc-data: ## plot heatmaps of fission and capture reaction rates
 	PYTHONPATH=. python3 analysex/mapper/plot_assbly_maps.py && \
 	PYTHONPATH=. python3 analysex/mapper/plot_fmap_errors.py
 
-.PHONY: run_pin_a
-run_pin_a: ## run PIN_A simulation with DRAGON
-	cd Dragon/PIN_A && python3 ../../scripts/run_dragon.py
+.PHONY: run_dragon_pin_a
+run_dragon_pin_a: ## run PIN_A simulation with DRAGON5
+	cd Dragon/PIN_A && DEBUG=1 python3 ../../scripts/run_dragon.py
+
+.PHONY: run_serpent_pin_a
+run_serpent_pin_a: ## run PIN_A simulation with SERPENT2
+	cd Serpent/PIN_A && DEBUG=1 python3 ../../scripts/run_serpent.py
 
 .PHONY: process-fc-rates-octave
 process-fc-rates-octave: ## process fission/capture rates with octave (50min)

@@ -1,6 +1,8 @@
 function h=subtightplot(m,n,p,gap,marg_h,marg_w,varargin)
 %function h=subtightplot(m,n,p,gap,marg_h,marg_w,varargin)
 %
+% Felipe G. Nievinski (2020). subtightplot (https://www.mathworks.com/matlabcentral/fileexchange/39664-subtightplot), MATLAB Central File Exchange. Retrieved December 2, 2020. 
+%
 % Functional purpose: A wrapper function for Matlab function subplot. Adds the ability to define the gap between
 % neighbouring subplots. Unfotrtunately Matlab subplot function lacks this functionality, and the gap between
 % subplots can reach 40% of figure area, which is pretty lavish.  

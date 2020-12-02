@@ -62,7 +62,7 @@ def execute(config, background=True):
 
     To run the script
 
-        $ cd /path/to/serpent/input && python3 /path/to/run.py
+        $ cd /path/to/serpent/input && python3 /path/to/run_serpent.py
 
     which will run the simulation in background
     (default behavior set by `background=True`)
@@ -77,7 +77,7 @@ def execute(config, background=True):
 
     To run in debug mode
 
-        $ DEBUG=1 cd /path/to/serpent/input && python3 /path/to/run.py
+        $ DEBUG=1 cd /path/to/serpent/input && python3 /path/to/run_serpent.py
 
     which will write the output of the simulation
     both to terminal and *.result file.

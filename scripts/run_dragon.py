@@ -94,7 +94,7 @@ def execute(config, background=True):
     
     To run the script
     
-        $ python3 run.py
+        $ python3 run_dragon.py
     
     which will run the simulation in background 
     (default behavior set by `background=True`)
@@ -109,7 +109,7 @@ def execute(config, background=True):
 
     To run in debug mode
 
-        $ DEBUG=1 python3 run.py
+        $ DEBUG=1 python3 run_dragon.py
 
     which will write the output of the simulation
     both to terminal and *.result file.
@@ -163,4 +163,4 @@ class Config(object):
     DRAGON_OUTPUT_FILE = op.join(OUTPUT_DIR, INPUT + ".result")
 
 
-execute(config=Config, background=False)  # .wait()
+execute(config=Config, background=True)  # .wait()
