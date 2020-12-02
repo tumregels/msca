@@ -16,7 +16,7 @@ Now create conda virtual environment which will setup octave and specific python
 Matlab source code was written using Matlab Version: 8.4 (R2014b) on Ubuntu 18.04 and
 formatted with [MBeautifier](https://github.com/davidvarga/MBeautifier)
 
-## Processing isotopic densities
+## Process and plot simulation results
 
 Isotopic density and fission/capture rate parsers have been validated with both Octave and Matlab.
 
@@ -54,3 +54,16 @@ To process fission and capture reaction rates (faster than in Octave)
 To plot fission/capture rates
 
     (msca) $ make plot-fc-data
+
+## Rerun simulations
+
+To rerun PIN_A calculation with DRAGON5
+adjust `LIB_DIR`, `LIB_FILE` and `DRAGON_EXE` parameters inside `scripts/run_dragon.py` and call
+
+    (msca) $ make run_dragon_pin_a
+    
+To rerun PIN_A calculations with SERPENT2
+adjust `XS_LIB_DIR`, `XS_ACELIB_FILE`, `XS_DECLIB_FILE`, `XS_NFYLIB_FILE` and `SERPENT_EXE` parameters inside
+`scripts/run_serpent.py` and call
+
+    (msca) $ make run_serpent_pin_a
