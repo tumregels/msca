@@ -58,7 +58,7 @@ plot-fc-data: ## plot heatmaps of fission and capture reaction rates
 
 .PHONY: run_pin_a
 run_pin_a: ## run PIN_A simulation with DRAGON
-	cd Dragon/PIN_A && python3 ../../scripts/run.py
+	cd Dragon/PIN_A && python3 ../../scripts/run_dragon.py
 
 .PHONY: process-fc-rates-octave
 process-fc-rates-octave: ## process fission/capture rates with octave (50min)
@@ -74,8 +74,8 @@ process-iso-dens-octave: ## process isotopic densities with octave
 
 # helper targets
 
-.PHONY: copy-tmuxlog
-copy-tmuxlog: ## cp tmuxlog files to remote
+.PHONY: copy-scripts
+copy-scripts: ## cp scripts to remote
 	rsync -avzP ./scripts $(REMOTE_SERV):~/bin/
 
 .PHONY: export-conda-requirements
