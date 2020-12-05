@@ -67,3 +67,23 @@ adjust `XS_LIB_DIR`, `XS_ACELIB_FILE`, `XS_DECLIB_FILE`, `XS_NFYLIB_FILE` and `S
 `scripts/run_serpent.py` and call
 
     (msca) $ make run_serpent_pin_a
+    
+For the other cases use one of the following commands
+
+    (msca) $ make run-dragon-pin-b          # run PIN_B simulation with DRAGON5
+    (msca) $ make run-serpent-pin-b         # run PIN_B simulation with SERPENT2
+    (msca) $ make run-dragon-pin-c          # run PIN_C simulation with DRAGON5
+    (msca) $ make run-serpent-pin-c         # run PIN_C simulation with SERPENT2
+    (msca) $ make run-dragon-assbly-a-1l    # run ASSBLY_A 1L simulation with DRAGON5
+    (msca) $ make run-dragon-assbly-a-2l    # run ASSBLY_A 2L simulation with DRAGON5
+    (msca) $ make run-serpent-assbly-a      # run ASSBLY_A simulation with SERPENT2
+    (msca) $ make run-dragon-assbly-b-1l    # run ASSBLY_B 1L simulation with DRAGON5
+    (msca) $ make run-dragon-assbly-b-2l    # run ASSBLY_B 2L simulation with DRAGON5
+    (msca) $ make run-serpent-assbly-b      # run ASSBLY_B simulation with SERPENT2
+    (msca) $ make run-dragon-assbly-c-1l    # run ASSBLY_C 1L simulation with DRAGON5
+    (msca) $ make run-dragon-assbly-c-2l    # run ASSBLY_C 2L simulation with DRAGON5
+    (msca) $ make run-serpent-assbly-c      # run ASSBLY_C simulation with SERPENT2
+    (msca) $ make run-dragon-assbly-d-1l    # run ASSBLY_D 1L simulation with DRAGON5
+    (msca) $ make run-dragon-assbly-d-2l    # run ASSBLY_D 2L simulation with DRAGON5
+    (msca) $ make run-serpent-assbly-d      # run ASSBLY_D simulation with SERPENT2
+

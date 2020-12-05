@@ -68,13 +68,77 @@ process-fc-rates-octave: ## process fission/capture rates with octave (50min)
 process-iso-dens-octave: ## process isotopic densities with octave
 	cd src/iso_parser && octave-cli process_iso_dens.m
 
-.PHONY: run_dragon_pin_a
-run_dragon_pin_a: ## run PIN_A simulation with DRAGON5
+.PHONY: run-dragon-pin-a
+run-dragon-pin-a: ## run PIN_A simulation with DRAGON5
 	cd Dragon/PIN_A && DEBUG=1 python3 ../../scripts/run_dragon.py
 
-.PHONY: run_serpent_pin_a
-run_serpent_pin_a: ## run PIN_A simulation with SERPENT2
+.PHONY: run-serpent-pin-a
+run-serpent-pin-a: ## run PIN_A simulation with SERPENT2
 	cd Serpent/PIN_A && DEBUG=1 python3 ../../scripts/run_serpent.py
+
+.PHONY: run-dragon-pin-b
+run-dragon-pin-b: ## run PIN_B simulation with DRAGON5
+	cd Dragon/PIN_B && DEBUG=1 python3 ../../scripts/run_dragon.py
+
+.PHONY: run-serpent-pin-b
+run-serpent-pin-b: ## run PIN_B simulation with SERPENT2
+	cd Serpent/PIN_B && DEBUG=1 python3 ../../scripts/run_serpent.py
+
+.PHONY: run-dragon-pin-c
+run-dragon-pin-c: ## run PIN_C simulation with DRAGON5
+	cd Dragon/PIN_C && DEBUG=1 python3 ../../scripts/run_dragon.py
+
+.PHONY: run-serpent-pin-c
+run-serpent-pin-c: ## run PIN_C simulation with SERPENT2
+	cd Serpent/PIN_C && DEBUG=1 python3 ../../scripts/run_serpent.py
+
+.PHONY: run-dragon-assbly-a-1l
+run-dragon-assbly-a-1l: ## run ASSBLY_A 1L simulation with DRAGON5
+	cd Dragon/1L/ASSBLY_A && DEBUG=1 python3 ../../../scripts/run_dragon.py
+
+.PHONY: run-dragon-assbly-a-2l
+run-dragon-assbly-a-2l: ## run ASSBLY_A 2L simulation with DRAGON5
+	cd Dragon/2L/ASSBLY_A && DEBUG=1 python3 ../../../scripts/run_dragon.py
+
+.PHONY: run-serpent-assbly-a
+run-serpent-assbly-a: ## run ASSBLY_A simulation with SERPENT2
+	cd Serpent/ASSBLY_A && DEBUG=1 python3 ../../scripts/run_serpent.py
+
+.PHONY: run-dragon-assbly-b-1l
+run-dragon-assbly-b-1l: ## run ASSBLY_B 1L simulation with DRAGON5
+	cd Dragon/1L/ASSBLY_B && DEBUG=1 python3 ../../../scripts/run_dragon.py
+
+.PHONY: run-dragon-assbly-b-2l
+run-dragon-assbly-b-2l: ## run ASSBLY_B 2L simulation with DRAGON5
+	cd Dragon/2L/ASSBLY_B && DEBUG=1 python3 ../../../scripts/run_dragon.py
+
+.PHONY: run-serpent-assbly-b
+run-serpent-assbly-b: ## run ASSBLY_B simulation with SERPENT2
+	cd Serpent/ASSBLY_B && DEBUG=1 python3 ../../scripts/run_serpent.py
+
+.PHONY: run-dragon-assbly-c-1l
+run-dragon-assbly-c-1l: ## run ASSBLY_C 1L simulation with DRAGON5
+	cd Dragon/1L/ASSBLY_C && DEBUG=1 python3 ../../../scripts/run_dragon.py
+
+.PHONY: run-dragon-assbly-c-2l
+run-dragon-assbly-c-2l: ## run ASSBLY_C 2L simulation with DRAGON5
+	cd Dragon/2L/ASSBLY_C && DEBUG=1 python3 ../../../scripts/run_dragon.py
+
+.PHONY: run-serpent-assbly-c
+run-serpent-assbly-c: ## run ASSBLY_C simulation with SERPENT2
+	cd Serpent/ASSBLY_C && DEBUG=1 python3 ../../scripts/run_serpent.py
+
+.PHONY: run-dragon-assbly-d-1l
+run-dragon-assbly-d-1l: ## run ASSBLY_D 1L simulation with DRAGON5
+	cd Dragon/1L/ASSBLY_D && DEBUG=1 python3 ../../../scripts/run_dragon.py
+
+.PHONY: run-dragon-assbly-d-2l
+run-dragon-assbly-d-2l: ## run ASSBLY_D 2L simulation with DRAGON5
+	cd Dragon/2L/ASSBLY_D && DEBUG=1 python3 ../../../scripts/run_dragon.py
+
+.PHONY: run-serpent-assbly-d
+run-serpent-assbly-d: ## run ASSBLY_D simulation with SERPENT2
+	cd Serpent/ASSBLY_D && DEBUG=1 python3 ../../scripts/run_serpent.py
 
 # helper targets
 
