@@ -1,6 +1,6 @@
 # MScA project
 
-Download the source code and simulation results from [here](https://github.com/tumregels/msca/releases/tag/v1.0)
+Download the source code and simulation results from [here](https://github.com/tumregels/msca/releases/latest)
 and follow the instructions to unzip the data.
 
 ## Requirements
