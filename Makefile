@@ -246,6 +246,7 @@ archive: ## create archive for distribution
 	git archive -o msca.zip HEAD
 	zip -ur msca.zip Serpent
 	zip -ur msca.zip Dragon -x "*.o2m" -x "*.l2m" -x "**/run" -x "**/_*" -x "*.pid"
+	zip msca.zip --out msca_split.zip -s 1g
 
 .PHONY: clean
 clean:  ## clean up project
