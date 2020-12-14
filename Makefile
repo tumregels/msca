@@ -3,11 +3,10 @@ SHELL := /bin/bash
 
 SYNC_DIR = /tmp/
 REMOTE_SERV = doppler
-# REMOTE_SERV = boltzmann
 
 .PHONY: help
 help: ## this help
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-0-9]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_0-9-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .PHONY: create-environment
 create-environment: ## create conda environment
