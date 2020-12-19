@@ -18,7 +18,7 @@ d(2).name = 'fission_products';
 for i = 1:numel(s)
     plotdir = fileparts(s(i).drag_burn_mat_filename);
     for j = 1:numel(d)
-        [data] = get_pin_data(s, det_map, d(j).isotopes);
+        [data] = get_pin_data(s(i), det_map, d(j).isotopes);
         plot_norm(data(1, :), fullfile(plotdir, ['pin_', s(i).pin_name, '_', d(j).name]))
     end
 end
@@ -33,7 +33,7 @@ subplot = @(m, n, p) subtightplot(m, n, p, [0.05, 0.05], [0.1, 0.05], [0.13, 0.0
 if ~make_it_tight, clear subplot;
 end
 
-figure1 = figure('Name', 'Norm');
+figure1 = figure('Name', plot_filename);
 set(figure1, 'PaperPositionMode', 'auto');
 set(figure1, 'PaperPositionMode', 'auto');
 set(figure1, 'Position', [680, 550, 640, 420]);
@@ -79,6 +79,7 @@ pause(1)
 h2 = subplot(2, 1, 2);
 
 hold(h2, 'on');
+grid(h2, 'on');
 
 ymin = 0;
 ymax = 0;
@@ -121,7 +122,6 @@ lh2.Position(3) = lh1.Position(3);
 
 pause(1);
 
-grid(h2, 'on');
 set(figure1, 'Units', 'Inches');
 pos = get(figure1, 'Position');
 set(figure1, 'PaperPositionMode', 'Auto', 'PaperUnits', 'Inches', 'PaperSize', [pos(3), pos(4)])
