@@ -111,8 +111,8 @@ grid(h2, 'on');
 hold(h2, 'on');
 
 xlabel('$Burnup \ GWd/t$', 'Interpreter', 'latex');
-ylabel({'$Relative \ error$'; '$100 \times \frac{S2 - D5}{S2} \%$'}, 'Interpreter', 'latex');
-
+ylabel({'$~~~~~Relative \ error$'; '$100 \times (S2 - D5)/S2 \ \%$'}, ...
+    'Interpreter', 'latex');
 ymin = 0;
 ymax = 0;
 
